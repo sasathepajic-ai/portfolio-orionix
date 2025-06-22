@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import './variables';
+
+.services {
+  background-color: $bg-primary;
+  color: $text-primary;
+  padding: $spacing-xxxl 0;
+  text-align: center;
+  position: relative;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xxl $spacing-md;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: $spacing-xl $spacing-sm;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.8rem;
+    color: $text-primary;
+    margin-bottom: $spacing-xxxl;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-family: 'Quantico', sans-serif;
+    animation: fadeInUp 0.8s ease-out;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 2.4rem;
+      margin-bottom: $spacing-xxl;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 2rem;
+      margin-bottom: $spacing-xl;
+    }
+
+    @media (max-width: $breakpoint-xs) {
+      font-size: 1.8rem;
+    }
+  }
+
+  h3 {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: $text-primary;
+  }
+
+  .carousel {
+    margin: 0 auto;
+    padding: $spacing-xl 0;
+    display: grid;
+    gap: $spacing-xl;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    
+    // 1 card - single column centered
+    &:has(:nth-child(1):last-child) {
+      grid-template-columns: 1fr;
+    }
+    
+    // 2 cards - 2 in one row
+    &:has(:nth-child(2):last-child) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    // 3 cards - 3 in one row
+    &:has(:nth-child(3):last-child) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    // 4 cards - 2 rows of 2
+    &:has(:nth-child(4):last-child) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    // 5 cards - first row 3, second row 2 centered
+    &:has(:nth-child(5):last-child) {
+      grid-template-columns: repeat(6, 1fr);
+      
+      .card:nth-child(1) { grid-column: 1 / 3; }
+      .card:nth-child(2) { grid-column: 3 / 5; }
+      .card:nth-child(3) { grid-column: 5 / 7; }
+      .card:nth-child(4) { grid-column: 2 / 4; grid-row: 2; }
+      .card:nth-child(5) { grid-column: 4 / 6; grid-row: 2; }
+    }
+    
+    // 6 cards - 2 rows of 3
+    &:has(:nth-child(6):last-child) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    // 7 cards - 3 rows: 2, 2, 2, then 1 centered
+    &:has(:nth-child(7):last-child) {
+      grid-template-columns: repeat(2, 1fr);
+      
+      .card:nth-child(7) {
+        grid-column: 1 / -1;
+      }
+    }
+    
+    // 8 cards - 4 rows of 2
+    &:has(:nth-child(8):last-child) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $breakpoint-lg) {
+      gap: $spacing-lg;
+      padding: $spacing-xl $spacing-md;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: $spacing-lg;
+      padding: $spacing-lg $spacing-md;
+      
+      .card {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        justify-self: auto !important;
+      }
+      
+      .card:nth-child(odd):last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+      }
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr !important;
+      gap: $spacing-lg;
+      padding: $spacing-lg $spacing-sm;
+      
+      .card {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        justify-self: auto !important;
+      }
+    }
+
+    @media (max-width: $breakpoint-xs) {
+      padding: $spacing-md $spacing-sm;
+      gap: $spacing-md;
+    }
+  }
+
+  .card {
+    /* Unified glass effect variables */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-backdrop-blur: 8px;
+    --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    min-height: 320px;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--glass-border);
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: $spacing-lg;
+    background: transparent;
+    position: relative;
+    isolation: isolate;
+    
+    // Animation for entrance
+    animation: fadeInScale 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+
+    // Staggered animation delay for each card
+    &:nth-child(1) { animation-delay: 0.1s; }
+    &:nth-child(2) { animation-delay: 0.2s; }
+    &:nth-child(3) { animation-delay: 0.3s; }
+    &:nth-child(4) { animation-delay: 0.4s; }
+    &:nth-child(5) { animation-delay: 0.5s; }
+    &:nth-child(6) { animation-delay: 0.6s; }
+    &:nth-child(7) { animation-delay: 0.7s; }
+    &:nth-child(8) { animation-delay: 0.8s; }
+
+    @media (max-width: $breakpoint-md) {
+      max-width: 350px;
+      min-height: 280px;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      max-width: 100%;
+      min-height: 260px;
+    }
+
+    @media (max-width: $breakpoint-xs) {
+      padding: $spacing-lg;
+      min-height: 240px;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border-radius: $radius-xl;
+      box-shadow: $glass-shadow-inner;
+      background: linear-gradient(135deg, 
+        var(--glass-bg), 
+        rgba(255, 255, 255, 0.01)
+      );
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: $radius-xl;
+      backdrop-filter: blur(var(--glass-backdrop-blur)) saturate(1.1);
+      -webkit-backdrop-filter: blur(var(--glass-backdrop-blur)) saturate(1.1);
+      background: var(--glass-bg);
+      isolation: isolate;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      cursor: pointer;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-backdrop-blur: 12px;
+      transform: translateY(-2px) scale(1.02);
+      border-color: var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .card__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-primary;
+      margin-bottom: $spacing-sm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-sm;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s ease;
+      position: relative;
+      z-index: 1;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.3rem;
+        margin-bottom: $spacing-sm;
+        gap: $spacing-sm;
+      }
+
+      @media (max-width: $breakpoint-xs) {
+        font-size: 1.2rem;
+      }
+
+      .icon {
+        color: $primary-color;
+        font-size: 1.5rem;
+        transition: all 0.2s ease;
+
+        @media (max-width: $breakpoint-sm) {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .card__description {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: $text-primary;
+      transition: color 0.2s ease;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: $breakpoint-xs) {
+        font-size: 0.9rem;
+      }
+    }
+
+    &:hover .card__title {
+      color: $text-primary;
+    }
+
+    &:hover .card__title .icon {
+      color: $primary-light;
+      transform: scale(1.05);
+    }
+
+    &:hover .card__description {
+      color: $text-primary;
+    }
+
+    /* Ensure all content is above the glass effects */
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  @keyframes fadeInScale {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

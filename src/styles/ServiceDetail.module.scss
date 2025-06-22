@@ -1,0 +1,940 @@
+@import './variables';
+@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.container {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: $spacing-xl;
+  min-height: 100vh;
+  padding-top: 6rem;
+  background: transparent;
+  color: $text-primary;
+  animation: fadeIn 0.8s ease-out;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-lg;
+    padding-top: 5rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-md;
+    padding-top: 4rem;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: $spacing-sm;
+    padding-top: 4rem;
+  }
+}
+
+.backButton {
+  display: flex;
+  display: none !important;
+  align-items: center;
+  gap: $spacing-sm;
+  background-color: $primary-color;
+  color: $text-light;
+  border: 2px solid transparent;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-liquid;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: $spacing-xxl;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-sm $spacing-lg;
+    font-size: 0.95rem;
+  }
+
+  &:hover {
+    background-color: $primary-light;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-sm;
+  }
+
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+.serviceHeader {
+  text-align: center;
+  margin-bottom: $spacing-xxxl;
+  animation: fadeInUp 0.8s ease-out;
+
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: $spacing-xxl;
+  }
+
+  .iconWrapper {
+    font-size: 4rem;
+    color: $primary-color;
+    margin-bottom: $spacing-lg;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 3.5rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 3rem;
+    }
+  }
+
+  h1 {
+    font-family: 'Quantico', sans-serif;
+    font-size: 3rem;
+    margin-bottom: $spacing-lg;
+    color: $text-primary;
+    font-weight: 700;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 2.5rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 2rem;
+      margin-bottom: $spacing-md;
+    }
+
+    @media (max-width: $breakpoint-xs) {
+      font-size: 1.8rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+    color: $text-primary;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: $breakpoint-xs) {
+      font-size: 1rem;
+    }
+  }
+}
+
+.content {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  display: grid;
+  gap: $spacing-xxxl;
+
+  @media (max-width: $breakpoint-sm) {
+    gap: $spacing-xxl;
+  }
+
+  section {
+    background-color: transparent;
+    border-radius: $radius-lg;
+    padding: $spacing-xxl 0;
+    transition: none;
+    animation: fadeIn 0.8s ease-out;
+
+    @media (max-width: $breakpoint-md) {
+      padding: $spacing-xl 0;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-lg 0;
+    }
+
+    h2 {
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+      color: $text-primary;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: $spacing-lg;
+      border-bottom: 1px solid $medium-gray;
+      padding-bottom: $spacing-sm;
+      transition: none;
+
+      @media (max-width: $breakpoint-md) {
+        font-size: 1.8rem;
+      }
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.6rem;
+      }
+
+      @media (max-width: $breakpoint-xs) {
+        font-size: 1.4rem;
+      }
+    }
+
+    p, li {
+      line-height: 1.7;
+      color: $text-primary;
+      font-size: 1.1rem;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1rem;
+      }
+
+      @media (max-width: $breakpoint-xs) {
+        font-size: 0.95rem;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: $spacing-sm;
+
+        &::before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          color: $primary-color;
+          font-weight: bold;
+          width: 20px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.features {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 0.75rem 0;
+      padding-left: 2.5rem;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      color: $text-primary;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+
+      &:before {
+        content: "✓";
+        position: relative;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $primary-color;
+        font-weight: bold;
+        width: 20px;
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.cta {
+  text-align: center;
+  background: $primary-color !important;
+  color: $text-light !important;
+  border-radius: $radius-xl !important;
+  padding: $spacing-xxl !important;
+
+  h2 {
+    color: $text-light !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.2rem;
+    margin-bottom: $spacing-xxl;
+    line-height: 1.6;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.1rem;
+      margin-bottom: $spacing-xl;
+    }
+  }
+
+  .contactButton {
+    background-color: $text-light;
+    color: $primary-color;
+    border: none;
+    padding: $spacing-md $spacing-xl;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: $radius-liquid;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-sm $spacing-lg;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      opacity: 0.9;
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      transform: none;
+    }
+
+    &:focus {
+      outline: 2px solid $text-light;
+      outline-offset: 2px;
+    }
+  }
+}
+
+.benefits {
+  .benefitGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-lg;
+    margin-top: $spacing-lg;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
+  }
+
+  .benefitCard {
+    background: transparent;
+    color: $text-primary;
+    padding: $spacing-lg;
+    text-align: left;
+    font-weight: 600;
+    transition: none;
+    border-left: 3px solid $primary-color;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-md;
+    }
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.useCases {
+  .caseList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+   
+    margin-top: $spacing-lg;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
+  }
+
+  .caseItem {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-md;
+    padding: $spacing-lg;
+    background-color: transparent;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-md;
+      flex-direction: column;
+      text-align: center;
+      gap: $spacing-sm;
+    }
+
+    .caseNumber {
+      background-color: $primary-color;
+      color: $text-light;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    p {
+      margin: 0;
+      flex: 1;
+      color: $text-primary;
+    }
+  }
+}
+
+.technologies {
+  .techGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+
+    @media (max-width: $breakpoint-sm) {
+      justify-content: center;
+    }
+  }
+
+  .techBadge {
+    background-color: transparent;
+    color: $text-primary;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-sm;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid $medium-gray;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $primary-color;
+      color: $primary-color;
+      transform: none;
+    }
+
+    &:focus {
+      outline: 0px solid $primary-color;
+      outline-offset: 0px;
+    }
+  }
+}
+
+.pricing {
+  .pricingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-xl;
+    margin-top: $spacing-lg;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: $spacing-lg;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
+  }
+
+  .pricingCard {
+    background: transparent;
+    border: 1px solid $medium-gray;
+    border-radius: $radius-lg;
+    padding: $spacing-xl;
+    text-align: center;
+    position: relative;
+    transition: none;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-lg;
+    }
+
+    &:hover {
+      border-color: $primary-color;
+      transform: none;
+      box-shadow: none;
+    }
+
+    h3 {
+      font-family: 'Quantico', sans-serif;
+      color: $primary-color;
+      font-size: 1.5rem;
+      margin-bottom: $spacing-md;
+      font-weight: 700;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.3rem;
+      }
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: $text-primary;
+      margin-bottom: $spacing-sm;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 2rem;
+      }
+    }
+
+    .duration {
+      color: $text-secondary;
+      margin-bottom: $spacing-lg;
+      font-style: italic;
+    }
+
+    h4 {
+      color: $text-primary;
+      margin-bottom: $spacing-md;
+      font-weight: 600;
+    }
+
+    ul {
+      text-align: left;
+      margin-top: $spacing-md;
+
+      li {
+        padding: $spacing-xs 0;
+        padding-left: 25px;
+        font-size: 0.95rem;
+
+        &::before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          top: $spacing-xs;
+          color: $primary-color;
+          font-weight: bold;
+          width: 20px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.testimonials {
+  .testimonialGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $spacing-xl;
+    margin-top: $spacing-lg;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: $spacing-lg;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
+  }
+
+  .testimonialCard {
+    background-color: transparent;
+    border: none;
+    padding: $spacing-xl;
+    position: relative;
+    transition: none;
+    border-left: 3px solid $primary-color;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-lg;
+    }
+
+    &:hover {
+      border-color: $primary-color;
+      transform: none;
+      box-shadow: none;
+    }
+
+    &::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-size: 4rem;
+      color: $primary-color;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    blockquote {
+      font-style: italic;
+      margin: $spacing-lg 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: $text-primary;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1rem;
+        margin: $spacing-md 0;
+      }
+    }
+
+    .testimonialAuthor {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+      margin-top: $spacing-lg;
+      border-top: 1px solid $medium-gray;
+      padding-top: $spacing-md;
+
+      strong {
+        color: $primary-color;
+        font-size: 1.1rem;
+      }
+
+      span {
+        color: $text-secondary;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+.timeline {
+  .timelineList {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    margin-top: $spacing-lg;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: $primary-color;
+
+      @media (max-width: $breakpoint-sm) {
+        left: 15px;
+      }
+    }
+  }
+
+  .timelineItem {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    position: relative;
+
+    @media (max-width: $breakpoint-sm) {
+      gap: $spacing-md;
+    }
+  }
+
+  .timelineNumber {
+    background-color: $primary-color;
+    color: $text-light;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    z-index: 1;
+
+    @media (max-width: $breakpoint-sm) {
+      width: 30px;
+      height: 30px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .timelineContent {
+    background-color: transparent;
+    border-radius: $radius-md;
+    padding: $spacing-lg;
+    flex: 1;
+    transition: none;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-md;
+    }
+
+    &:hover {
+      border-color: transparent;
+      transform: none;
+    }
+
+    h4 {
+      color: $text-primary;
+      margin-bottom: $spacing-sm;
+      font-weight: 600;
+    }
+
+    span {
+      color: $primary-color;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// Compact layout for bottom sections
+.compactSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-xl;
+  margin-top: $spacing-lg;
+  padding: $spacing-lg 0;
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+
+  .sectionBlock {
+    background: transparent;
+    border-left: 3px solid $primary-color;
+    padding-left: $spacing-lg;
+
+    @media (max-width: $breakpoint-sm) {
+      padding-left: $spacing-md;
+    }
+
+    h3 {
+      color: $text-primary;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: $spacing-md;
+      border-bottom: 1px solid $medium-gray;
+      padding-bottom: $spacing-sm;
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.industryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+
+  @media (max-width: $breakpoint-sm) {
+    gap: $spacing-xs;
+  }
+}
+
+.industryBadge {
+  background: transparent;
+  color: $text-primary;
+  padding: $spacing-xs $spacing-sm;
+  border: 1px solid $medium-gray;
+  border-radius: $radius-sm;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.85rem;
+  }
+
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+}
+
+.prerequisitesList {
+  list-style: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: $spacing-sm !important;
+  margin-top: $spacing-md !important;
+
+  li {
+    background: transparent !important;
+    padding: $spacing-sm !important;
+    padding-left: $spacing-lg !important;
+    border-radius: 2px !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+    color: $text-primary !important;
+    margin-bottom: 0 !important;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-xs !important;
+      padding-left: $spacing-md !important;
+      font-size: 0.9rem !important;
+    }
+
+    &:hover {
+      border-left-color: $primary-color !important;
+    }
+
+    &::before {
+      content: "•" !important;
+      position: absolute !important;
+      left: $spacing-sm !important;
+      top: $spacing-sm !important;
+      font-weight: bold !important;
+      font-size: 1rem !important;
+      width: auto !important;
+      display: inline-block !important;
+      transform: none !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+
+      @media (max-width: $breakpoint-sm) {
+        left: $spacing-xs !important;
+        top: $spacing-xs !important;
+        font-size: 0.9rem !important;
+      }
+    }
+  }
+}
+
+.metricsGrid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: $spacing-sm !important;
+  margin-top: $spacing-md !important;
+
+  @media (max-width: $breakpoint-sm) {
+    gap: $spacing-xs !important;
+  }
+}
+
+.metricCard {
+  background: transparent !important;
+  border: none !important;
+  border-radius: $radius-sm !important;
+  padding: $spacing-sm !important;
+  padding-left: $spacing-lg !important;
+  text-align: left !important;
+  font-weight: 400 !important;
+  font-size: 0.95rem !important;
+  color: $text-primary !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.4 !important;
+  position: relative !important;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xs !important;
+    padding-left: $spacing-md !important;
+    font-size: 0.9rem !important;
+  }
+
+  &:hover {
+    border-left-color: $primary-color !important;
+    background: transparent !important;
+    transform: none !important;
+  }
+
+  &::before {
+    content: "•" !important;
+    position: absolute !important;
+    left: $spacing-sm !important;
+    top: $spacing-sm !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    margin-right: 0 !important;
+    color: $primary-color !important;
+
+    @media (max-width: $breakpoint-sm) {
+      left: $spacing-xs !important;
+      top: $spacing-xs !important;
+      font-size: 0.9rem !important;
+    }
+  }
+}
+
+.relatedServices {
+  .relatedGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-sm;
+    }
+  }
+
+  .relatedButton {
+    background-color: transparent;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-sm $spacing-md;
+      font-size: 0.95rem;
+    }
+
+    &:hover {
+      background-color: $primary-color;
+      color: $text-light;
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      transform: none;
+    }
+
+    &:focus {
+      outline: 1px solid $primary-color;
+      outline-offset: 1px;
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

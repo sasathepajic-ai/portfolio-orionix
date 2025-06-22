@@ -1,0 +1,136 @@
+{
+  "summary": "We are a small AI development team that builds software solutions to help businesses work more efficiently. We focus on creating tools that can understand and process text, automate repetitive tasks, and provide intelligent responses to user questions.\n\nOur main expertise is in building chatbots, document processing systems, and knowledge management tools. We work with modern AI technologies to create applications that can read documents, answer questions about your business data, and help streamline workflows.\n\nWe believe in creating practical solutions that solve real business problems. Whether you need to automate customer support, process large amounts of documents, or build a system that can answer questions about your company knowledge, we focus on delivering tools that actually work and provide value.",
+  "members": [
+    {
+      "id": "antonio",
+      "name": "Antonio",
+      "role": "AI Team Lead",
+      "bio": "Meet Antonio, an AI Team Lead who transforms complex technical challenges into breakthrough solutions. With a unique blend of academic rigor and industry expertise, he bridges the gap between cutting-edge AI research and practical business applications. His journey from computer science professor to AI leader has equipped him with exceptional communication skills and a talent for mentoring teams to achieve extraordinary results.",
+      "education": "Bachelor's degree in Computer Science",
+      "expertise": [
+        "AI strategy and team leadership with proven track record",
+        "Advanced machine learning with TensorFlow, PyTorch, and scikit-learn",
+        "NLP mastery using NLTK, spaCy, and Hugging Face ecosystem",
+        "RAG architecture design with LlamaIndex and LangChain",
+        "Full-stack development from Python backends to React frontends",
+        "Cloud deployment expertise on AWS and Azure platforms",
+        "Data science and visualization with Pandas, NumPy, and Matplotlib"
+      ],
+      "skills": [
+        "Team Leadership",
+        "Generative AI",
+        "Retrieval-Augmented Generation (RAG)",
+        "LlamaIndex",
+        "LangChain",
+        "Large Language Models (LLM)",
+        "Streamlit",
+        "Prompt Engineering",
+        "Vector Databases",
+        "Python",
+        "OpenAI API",
+        "Anthropic Claude",
+        "GPT-4",
+        "TensorFlow",
+        "PyTorch",
+        "React",
+        "AWS",
+        "Azure"
+      ],
+      "highlights": [
+        "Former computer science professor with strong mentoring abilities",
+        "Specializes in translating business needs into AI solutions",
+        "Expert in building and leading high-performing AI teams",
+        "Passionate about making AI accessible and practical for businesses"
+      ],
+      "specialties": [
+        "Strategic AI planning and implementation",
+        "Team leadership and mentoring",
+        "Complex problem-solving and solution architecture",
+        "Academic research translation to practical applications"
+      ],
+      "projects": [
+        {
+          "name": "Enterprise AI Strategy Implementation",
+          "description": "Led comprehensive AI transformation initiatives for multiple organizations, designing strategic roadmaps and mentoring development teams to achieve measurable business outcomes.",
+          "technologies": ["Python", "TensorFlow", "PyTorch", "LangChain", "AWS", "Azure"]
+        },
+        {
+          "name": "RAG System Architecture",
+          "description": "Designed and implemented advanced Retrieval-Augmented Generation systems using LlamaIndex and LangChain for enterprise knowledge management and intelligent document processing.",
+          "technologies": ["Python", "LlamaIndex", "LangChain", "Vector Databases", "OpenAI API"]
+        },
+        {
+          "name": "ML Platform Development",
+          "description": "Built scalable machine learning platforms combining traditional ML with modern LLM capabilities, enabling rapid deployment and monitoring of AI models in production environments.",
+          "technologies": ["Python", "TensorFlow", "PyTorch", "React", "AWS", "Docker"]
+        }
+      ]
+    },
+    {
+      "id": "sasa",
+      "name": "Saša",
+      "role": "Junior AI Engineer",
+      "bio": "Saša is a dynamic Junior AI Engineer who brings fresh energy and innovative thinking to every project. Specializing in NLP and intelligent automation, he has a talent for creating AI solutions that genuinely improve how people work. His diverse skill set spans from advanced AI frameworks to creative design, making him uniquely capable of building both powerful and user-friendly applications.",
+      "education": "Self-taught with extensive hands-on project experience",
+      "expertise": [
+        "Advanced NLP and document processing automation",
+        "Interactive AI application development with Streamlit",
+        "Modern Python development with Poetry and best practices",
+        "Full-stack web development from Angular frontends to Python APIs",
+        "Creative design and user experience optimization",
+        "Vector database implementation for semantic search"
+      ],
+      "skills": [
+        "Natural Language Processing",
+        "Large Language Models (LLM)",
+        "Retrieval-Augmented Generation (RAG)",
+        "Prompt Engineering",
+        "LangChain",
+        "LlamaIndex",
+        "GPT-4",
+        "Python",
+        "OpenAI API",
+        "Streamlit",
+        "Python Poetry",
+        "JavaScript",
+        "TypeScript",
+        "Angular",
+        "HTML/CSS",
+        "Figma",
+        "Adobe Photoshop",
+        "FAISS Vector Databases",
+        "Web Scraping",
+        "Document Processing"
+      ],
+      "highlights": [
+        "Rapid learner with strong self-directed development skills",
+        "Combines technical expertise with creative design sensibilities",
+        "Specializes in user-friendly AI application development",
+        "Proven track record in document processing and automation"
+      ],
+      "specialties": [
+        "Building intelligent document processing systems",
+        "Creating conversational AI interfaces",
+        "Developing data extraction and automation tools",
+        "Designing user-friendly AI applications"
+      ],
+      "projects": [
+        {
+          "name": "Resume Extractor Application",
+          "description": "Developing a resume extractor application that leverages advanced NLP and AI technologies to streamline recruitment. Uses LangChain framework to analyze and extract key information from resumes in various formats (PDF, DOCX), providing structured JSON output.",
+          "technologies": ["Python", "LangChain", "OpenAI API", "Python Poetry", "NLP"]
+        },
+        {
+          "name": "Overwatch 2 Character Chatbot",
+          "description": "Developed a chatbot providing in-depth, fact-based insights on Overwatch 2 characters. Integrates Streamlit, LlamaIndex, and OpenAI's GPT models with web scraping, embeddings, and semantic chunking for accurate responses.",
+          "technologies": ["Python", "Streamlit", "LlamaIndex", "OpenAI API", "Web Scraping", "Embeddings"]
+        },
+        {
+          "name": "Gaming Strategy Chatbot",
+          "description": "Built a LangChain-powered chatbot using FAISS vector databases and YouTube video transcripts for real-time insights from Overwatch 2 coaching videos, focusing on gameplay strategies.",
+          "technologies": ["Python", "LangChain", "FAISS", "Streamlit", "Vector Databases"]
+        }
+      ]
+    }
+  ]
+}
