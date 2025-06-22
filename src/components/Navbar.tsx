@@ -58,28 +58,13 @@ const Navbar: React.FC = () => {
       window.removeEventListener('resize', updateNavbarCenter);
     };
   }, [isServiceDetailPage]);
-
   const handleNavigation = (sectionId: string) => {
     const scrollToSection = () => {
       const element = document.getElementById(sectionId);
       
       if (element) {
-        // Calculate the shrunken navbar height using actual SCSS values
-        // $spacing-sm = 0.5rem = 8px, so shrunken padding = 8px top + 8px bottom = 16px
-        const shrunkPadding = 8; // 8px top + 8px bottom when fully scrolled
-        const shrunkFontSize = 1.1 * 0.68; // 0.748rem when fully scrolled
-        const shrunkIconSize = 32; // 32px when fully scrolled
-        const lineHeight = 1.2; // More accurate line height
-        
-        // Calculate actual shrunken height (convert rem to px with 16px base)
-        const textHeight = shrunkFontSize * 16 * lineHeight;
-        const estimatedShrunkHeight = Math.max(textHeight, shrunkIconSize) + (shrunkPadding * 2);
-        
-        const elementPosition = element.offsetTop;
-        const offsetPosition = elementPosition - estimatedShrunkHeight - 10; // Reduced extra padding
-        
         window.scrollTo({
-          top: Math.max(0, offsetPosition),
+          top: element.offsetTop,
           behavior: 'smooth'
         });
       }
