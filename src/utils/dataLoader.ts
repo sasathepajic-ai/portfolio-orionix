@@ -1,6 +1,5 @@
-import { ServiceData, TeamData } from '../types';
-import servicesData from '../../data/services.json';
-import teamData from '../../data/team.json';
+import { ServiceData } from "../types";
+import servicesData from "../../data/services.json";
 
 export const getServicesData = (): ServiceData => {
   return servicesData as ServiceData;
@@ -17,10 +16,6 @@ export const getServicesForDisplay = () => {
     id,
     title: service.title,
     description: service.description,
-    icon: service.icon
+    icon: service.icon,
   }));
-};
-
-export const getTeamData = (): TeamData => {
-  return teamData as unknown as TeamData;
 };

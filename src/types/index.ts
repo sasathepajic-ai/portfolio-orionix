@@ -1,17 +1,3 @@
-export interface PricingTier {
-  name: string;
-  price: string;
-  duration: string;
-  deliverables: string[];
-}
-
-export interface Testimonial {
-  quote: string;
-  author: string;
-  position: string;
-  company: string;
-}
-
 export interface Service {
   title: string;
   icon: string;
@@ -19,22 +5,7 @@ export interface Service {
   fullDescription: string;
   features: string[];
   benefits: string[];
-  useCases: string[];
-  technologies: string[];
-  technologyLinks?: {
-    [key: string]: string;
-  };
-  pricingTiers?: {
-    [key: string]: PricingTier;
-  };
-  testimonials?: Testimonial[];
-  timeline?: {
-    [key: string]: string;
-  };
-  industries?: string[];
-  prerequisites?: string[];
-  successMetrics?: string[];
-  relatedServices?: string[];
+  useCases?: string[];
 }
 
 export interface ServiceData {

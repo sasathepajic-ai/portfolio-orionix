@@ -1,25 +1,25 @@
 import React from "react";
 import { FaBrain, FaRobot, FaCloud, FaCogs, FaLanguage, FaDatabase } from "react-icons/fa";
+import { Container, Title, SimpleGrid } from '@mantine/core';
 import ServiceCard from "./services/ServiceCard";
 import { getServicesForDisplay } from "../utils/dataLoader";
-import styles from "../styles/Services.module.scss";
 
 const Services: React.FC = () => {
   const services = getServicesForDisplay();
   
   const iconMap: { [key: string]: React.ReactNode } = {
-    FaBrain: <FaBrain className={styles.icon} />,
-    FaRobot: <FaRobot className={styles.icon} />,
-    FaCogs: <FaCogs className={styles.icon} />,
-    FaCloud: <FaCloud className={styles.icon} />,
-    FaLanguage: <FaLanguage className={styles.icon} />,
-    FaDatabase: <FaDatabase className={styles.icon} />,
+    FaBrain: <FaBrain />,
+    FaRobot: <FaRobot />,
+    FaCogs: <FaCogs />,
+    FaCloud: <FaCloud />,
+    FaLanguage: <FaLanguage />,
+    FaDatabase: <FaDatabase />,
   };
 
   return (
-    <section id="services" className={styles.services}>
-      <h2>Next-Gen Capabilities for a Smarter Future</h2>
-      <div className={styles.carousel}>
+    <Container size="lg" py={80}>
+      <Title order={2} ta="center" mb={50}>Next-Gen Capabilities for a Smarter Future</Title>
+      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="xl">
         {services.map((service) => (
           <ServiceCard
             key={service.id}
@@ -27,8 +27,8 @@ const Services: React.FC = () => {
             icon={iconMap[service.icon]}
           />
         ))}
-      </div>
-    </section>
+      </SimpleGrid>
+    </Container>
   );
 };
 

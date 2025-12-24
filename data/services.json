@@ -1,490 +1,116 @@
 {
-  "ai-consulting": {
-    "title": "AI Consulting & Implementation",
-    "icon": "FaBrain",
-    "description": "Strategic AI guidance from practitioners who've built real NLP and document processing systems.",
-    "fullDescription": "We provide AI consulting backed by hands-on experience building production systems with LangChain, LlamaIndex, and modern language models. Our team has developed everything from resume extraction applications to intelligent chatbots that answer complex domain-specific questions. We help you identify practical AI opportunities, design system architectures using proven frameworks, and implement solutions that deliver immediate value. Our approach is rooted in real development experience—we understand what works in production and can guide you through the technical and business challenges of AI adoption. Whether you need to evaluate AI tools, design RAG systems, or train your team on modern AI frameworks, we provide guidance based on actual implementation experience.",
-    "features": [
-      "Strategic AI roadmapping and implementation planning",
-      "Technology assessment and architecture design",
-      "ROI analysis and business case development",
-      "AI governance and ethics framework setup",
-      "Team training and capability building",
-      "Proof of concept development and validation",
-      "RAG system design and implementation strategy",
-      "LLM integration and optimization planning"
-    ],
-    "benefits": [
-      "Reduce operational costs by 30-50%",
-      "Accelerate decision-making processes",
-      "Minimize risks through expert guidance",
-      "Future-proof your business operations"
-    ],
-    "useCases": [
-      "Fortune 500 company automated customer service reducing response time by 80%",
-      "Manufacturing firm optimized supply chain with AI, saving $2M annually",
-      "Healthcare provider improved diagnosis accuracy by 25% with AI-assisted tools"
-    ],
-    "technologies": ["Python", "TensorFlow", "PyTorch", "LangChain", "LlamaIndex", "OpenAI API", "Anthropic Claude", "GPT-4", "Streamlit", "Vector Databases", "Azure ML", "AWS SageMaker"],
-    "technologyLinks": {
-      "Python": "https://www.python.org/",
-      "TensorFlow": "https://www.tensorflow.org/",
-      "PyTorch": "https://pytorch.org/",
-      "LangChain": "https://python.langchain.com/",
-      "LlamaIndex": "https://www.llamaindex.ai/",
-      "OpenAI API": "https://platform.openai.com/",
-      "Anthropic Claude": "https://www.anthropic.com/",
-      "GPT-4": "https://openai.com/gpt-4",
-      "Streamlit": "https://streamlit.io/",
-      "Vector Databases": "https://www.pinecone.io/",
-      "Azure ML": "https://azure.microsoft.com/en-us/products/machine-learning/",
-      "AWS SageMaker": "https://aws.amazon.com/sagemaker/"
-    },
-    "pricingTiers": {
-      "starter": {
-        "name": "AI Assessment",
-        "price": "$15,000",
-        "duration": "2-4 weeks",
-        "deliverables": ["AI readiness assessment", "Technology recommendations", "Basic roadmap"]
-      },
-      "professional": {
-        "name": "Strategic AI Plan",
-        "price": "$45,000",
-        "duration": "6-8 weeks",
-        "deliverables": ["Comprehensive AI strategy", "Implementation roadmap", "ROI projections", "Team training plan"]
-      },
-      "enterprise": {
-        "name": "Full AI Transformation",
-        "price": "$150,000+",
-        "duration": "3-6 months",
-        "deliverables": ["End-to-end AI strategy", "Governance framework", "Pilot project implementation", "Change management"]
-      }
-    },
-    "testimonials": [
-      {
-        "quote": "Their AI strategy transformed our operations. We saw 40% cost reduction within 6 months.",
-        "author": "Sarah Chen",
-        "position": "CTO, TechCorp Industries",
-        "company": "TechCorp Industries"
-      },
-      {
-        "quote": "The roadmap they provided was crystal clear and actionable. Our AI adoption went smoother than expected.",
-        "author": "Michael Rodriguez",
-        "position": "VP of Operations",
-        "company": "Global Logistics Inc."
-      }
-    ],
-    "timeline": {
-      "discovery": "1-2 weeks",
-      "analysis": "2-3 weeks",
-      "strategy": "2-4 weeks",
-      "implementation": "4-12 weeks"
-    },
-    "industries": ["Manufacturing", "Healthcare", "Financial Services", "Retail", "Logistics", "Technology"],
-    "prerequisites": [
-      "Basic data infrastructure in place",
-      "Executive stakeholder buy-in",
-      "Access to relevant business data",
-      "Dedicated project team"
-    ],
-    "successMetrics": [
-      "ROI achievement within 12 months",
-      "Process efficiency improvement",
-      "Cost reduction targets",
-      "Implementation timeline adherence"
-    ],
-    "relatedServices": ["document-processing", "conversational-ai", "nlp-text-processing"]
-  },
   "document-processing": {
     "title": "Intelligent Document Processing",
-    "icon": "FaCogs",
-    "description": "AI-powered document extraction and analysis systems that understand context and structure.",
-    "fullDescription": "Transform your document workflows with intelligent processing systems we've proven in real-world applications. Our expertise includes building resume extraction applications that process PDF and DOCX files with remarkable accuracy, extracting structured data that integrates seamlessly with your existing systems. We leverage LangChain for document processing pipelines, OpenAI APIs for intelligent analysis, and custom parsing logic to handle complex document formats. Our solutions go beyond simple OCR—they understand context, extract meaningful entities, and adapt to different document structures. We build user-friendly interfaces with Streamlit for easy deployment and provide structured JSON outputs. Each solution includes proper dependency management through Python Poetry and comprehensive error handling for production reliability.",
+    "icon": "FaFileAlt",
+    "description": "Streamline your operations by automating the extraction of critical data from invoices, contracts, and forms.",
+    "fullDescription": "Transform your document workflows with our intelligent processing solutions. We build systems that automatically extract, validate, and structure data from any document type. By reducing manual data entry errors and processing time, your team can focus on high-value strategic tasks. Our solutions integrate seamlessly into your existing workflows, ensuring data is processed securely and accurately at scale.",
     "features": [
-      "Resume and CV automated parsing and analysis",
-      "Multi-format document handling (PDF, DOCX, TXT)",
-      "Intelligent information extraction with context understanding",
-      "Custom entity recognition and classification",
-      "Structured JSON output for seamless integration",
-      "Batch processing capabilities for large document volumes",
-      "Quality validation and confidence scoring",
-      "User-friendly Streamlit interfaces",
-      "API development for system integration",
-      "Real-time document processing pipelines"
+      "Automated data extraction from any document type",
+      "99% accuracy with human-in-the-loop validation",
+      "Seamless integration with your existing software",
+      "Scalable processing for high volumes",
+      "Secure and compliant data handling"
     ],
     "benefits": [
-      "Process hundreds of documents in minutes",
-      "Achieve 95%+ accuracy in information extraction",
+      "Reduce processing costs by up to 70%",
       "Eliminate manual data entry errors",
-      "Integrate seamlessly with existing HR and business systems"
-    ],
-    "useCases": [
-      "Recruitment agencies automate resume screening with 95% accuracy, reducing processing time from hours to minutes",
-      "HR departments streamline candidate evaluation, improving hiring efficiency by 80%",
-      "Legal firms extract key information from contracts and agreements automatically",
-      "Insurance companies process claims documents with minimal human intervention",
-      "Educational institutions automate transcript and application processing"
-    ],
-    "technologies": ["Python", "LangChain", "OpenAI API", "Streamlit", "Python Poetry", "PyPDF2", "python-docx", "Pandas", "JSON"],
-    "technologyLinks": {
-      "Python": "https://www.python.org/",
-      "LangChain": "https://python.langchain.com/",
-      "OpenAI API": "https://platform.openai.com/",
-      "Streamlit": "https://streamlit.io/",
-      "Python Poetry": "https://python-poetry.org/",
-      "PyPDF2": "https://pypdf2.readthedocs.io/",
-      "python-docx": "https://python-docx.readthedocs.io/",
-      "Pandas": "https://pandas.pydata.org/",
-      "JSON": "https://www.json.org/"
-    },
-    "pricingTiers": {
-      "starter": {
-        "name": "Document Processing Setup",
-        "price": "$10,000",
-        "duration": "2-4 weeks",
-        "deliverables": ["Document workflow analysis", "Basic parsing model", "Integration plan", "User training"]
-      },
-      "professional": {
-        "name": "Advanced Document Processing",
-        "price": "$35,000",
-        "duration": "6-8 weeks",
-        "deliverables": ["Custom document processing system", "API integration", "Streamlit dashboard", "Maintenance plan"]
-      },
-      "enterprise": {
-        "name": "Enterprise Document Intelligence",
-        "price": "$100,000+",
-        "duration": "3-4 months",
-        "deliverables": ["Organization-wide document processing solution", "Custom AI models", "Advanced analytics dashboard", "24/7 support"]
-      }
-    },
-    "testimonials": [
-      {
-        "quote": "Automation transformed our operations. We now process 10x more applications with the same team.",
-        "author": "Jennifer Liu",
-        "position": "Operations Director",
-        "company": "FastLoan Financial"
-      },
-      {
-        "quote": "The RPA bots they built work flawlessly. Our error rate dropped to near zero.",
-        "author": "Robert Thompson",
-        "position": "Process Manager",
-        "company": "Efficient Corp"
-      }
-    ],
-    "timeline": {
-      "processMapping": "1 week",
-      "automation": "2-4 weeks",
-      "testing": "1 week",
-      "deployment": "1-2 weeks"
-    },
-    "industries": ["Insurance", "Banking", "Healthcare", "Manufacturing", "Government", "Legal"],
-    "prerequisites": [
-      "Well-defined processes",
-      "System access credentials",
-      "Change management approval",
-      "User training commitment"
-    ],
-    "successMetrics": [
-      "Time savings percentage",
-      "Error reduction rate",
-      "Cost per transaction",
-      "Employee satisfaction improvement"
-    ],
-    "relatedServices": ["ai-consulting", "nlp-text-processing", "ai-infrastructure"]
+      "Speed up approval workflows from days to minutes",
+      "Free up staff for strategic initiatives"
+    ]
   },
   "conversational-ai": {
     "title": "Conversational AI & Chatbots",
     "icon": "FaRobot",
-    "description": "Intelligent chatbots that provide accurate, context-aware responses using RAG and modern LLMs.",
-    "fullDescription": "Build sophisticated conversational AI systems using the same technologies we've used to create production chatbots for specialized domains. Our expertise includes developing chatbots that answer complex questions by combining large language models with retrieval-augmented generation (RAG). We've built systems that understand game characters, coaching strategies, and business processes, demonstrating our ability to work with specialized knowledge domains. Our solutions leverage LangChain for workflow orchestration, LlamaIndex for efficient data retrieval, and FAISS vector databases for semantic search. We implement web scraping for data collection, embeddings for semantic understanding, and custom retrievers for precise information extraction. Every chatbot includes proper prompt engineering, response validation, and continuous learning capabilities.",
+    "description": "Enhance customer experience with intelligent assistants that provide instant, accurate support 24/7.",
+    "fullDescription": "Deliver exceptional customer service around the clock with our advanced conversational AI. Unlike simple script-based bots, our assistants understand context and nuance, providing accurate answers derived from your specific business knowledge. Whether for customer support, internal employee assistance, or specialized advisory roles, our solutions ensure your stakeholders get the right information instantly.",
     "features": [
-      "Domain-specific chatbot development with specialized knowledge",
-      "Retrieval-Augmented Generation (RAG) implementation",
-      "Multi-source knowledge base integration",
-      "Real-time conversation handling with context awareness",
-      "Custom prompt engineering and response optimization",
-      "Web scraping for dynamic knowledge updates",
-      "Semantic search with vector databases",
-      "Interactive Streamlit interfaces for easy deployment",
-      "Conversation history and analytics",
-      "Integration with existing chat platforms"
+      "24/7 instant customer support",
+      "Context-aware responses based on your knowledge base",
+      "Seamless handoff to human agents when needed",
+      "Multi-channel deployment",
+      "Continuous learning and improvement"
     ],
     "benefits": [
-      "Provide 24/7 customer support with specialized knowledge",
-      "Reduce response time by 80% while maintaining accuracy",
-      "Handle complex queries that require domain expertise",
-      "Scale customer interactions without increasing support staff"
-    ],
-    "useCases": [
-      "Gaming company deploys chatbot providing detailed character insights and strategy guidance",
-      "Educational platform creates AI tutor that answers course-specific questions",
-      "Customer service teams implement intelligent chatbots reducing support tickets by 70%",
-      "Technical support creates AI assistant that troubleshoots complex product issues",
-      "Healthcare providers deploy patient information chatbots for common inquiries"
-    ],
-    "technologies": ["Python", "LangChain", "LlamaIndex", "OpenAI API", "FAISS", "Streamlit", "Vector Databases", "Hugging Face Transformers", "Web Scraping"],
-    "technologyLinks": {
-      "Python": "https://www.python.org/",
-      "LangChain": "https://python.langchain.com/",
-      "LlamaIndex": "https://www.llamaindex.ai/",
-      "OpenAI API": "https://platform.openai.com/",
-      "FAISS": "https://faiss.ai/",
-      "Streamlit": "https://streamlit.io/",
-      "Vector Databases": "https://www.pinecone.io/",
-      "Hugging Face Transformers": "https://huggingface.co/transformers/",
-      "Web Scraping": "https://scrapy.org/"
-    },
-    "pricingTiers": {
-      "starter": {
-        "name": "Chatbot Development",
-        "price": "$20,000",
-        "duration": "4-6 weeks",
-        "deliverables": ["Chatbot design document", "Basic chatbot implementation", "Integration plan", "User training"]
-      },
-      "professional": {
-        "name": "Intelligent Chatbot System",
-        "price": "$50,000",
-        "duration": "8-10 weeks",
-        "deliverables": ["Custom chatbot with RAG", "Multi-source integration", "Analytics dashboard", "Maintenance plan"]
-      },
-      "enterprise": {
-        "name": "Enterprise Conversational AI",
-        "price": "$150,000+",
-        "duration": "3-5 months",
-        "deliverables": ["Organization-wide chatbot deployment", "Custom AI models", "Advanced analytics and reporting", "24/7 support"]
-      }
-    },
-    "testimonials": [
-      {
-        "quote": "Their chatbot solution transformed our customer support. We're now able to handle inquiries 24/7 with consistent quality.",
-        "author": "Alice Johnson",
-        "position": "Customer Support Director",
-        "company": "HelpDesk Pro"
-      },
-      {
-        "quote": "The level of detail and accuracy in the chatbot's responses is impressive. It understands our products as well as we do.",
-        "author": "Mark Spencer",
-        "position": "Product Manager",
-        "company": "Tech Innovations LLC"
-      }
-    ],
-    "timeline": {
-      "requirements": "1-2 weeks",
-      "design": "2-3 weeks",
-      "development": "4-6 weeks",
-      "testing": "2-3 weeks",
-      "deployment": "1-2 weeks"
-    },
-    "industries": ["Gaming", "Education", "Customer Service", "Healthcare", "Technology", "Finance"],
-    "prerequisites": [
-      "Defined chatbot use cases",
-      "Access to knowledge bases",
-      "Integration requirements",
-      "User acceptance criteria"
-    ],
-    "successMetrics": [
-      "Response accuracy",
-      "User satisfaction scores",
-      "Reduction in support ticket volume",
-      "Engagement metrics"
-    ],
-    "relatedServices": ["ai-consulting", "nlp-text-processing", "ai-infrastructure"]
+      "Increase customer satisfaction scores",
+      "Reduce support ticket volume by 80%",
+      "Provide consistent, accurate information",
+      "Scale support without increasing headcount"
+    ]
   },
-  "nlp-text-processing": {
-    "title": "Advanced NLP & Text Intelligence",
-    "icon": "FaLanguage",
-    "description": "Sophisticated text processing systems that understand, analyze, and extract insights from unstructured data.",
-    "fullDescription": "Transform unstructured text into actionable business intelligence with advanced NLP systems built on proven frameworks. Our expertise includes developing text processing pipelines that handle everything from sentiment analysis to complex entity extraction. We've built systems that process resumes, analyze customer feedback, and extract structured information from various document types. Our solutions use modern transformer models, custom embeddings, and semantic search capabilities to understand context and meaning. We implement proper text preprocessing, feature extraction, and validation to ensure high-quality results. Every NLP system includes confidence scoring, bias detection, and explainability features so you can trust the insights and decisions your text intelligence systems provide.",
+  "automated-reporting": {
+    "title": "Automated Reporting",
+    "icon": "IconReportAnalytics",
+    "description": "Turn raw data into executive-ready reports automatically, saving hours of manual compilation.",
+    "fullDescription": "Stop spending hours copy-pasting data into spreadsheets. Our automated reporting solutions connect to your various data sources to generate comprehensive, insightful reports on your schedule. Whether it's daily sales summaries, weekly performance metrics, or monthly financial statements, get the insights you need delivered directly to your inbox.",
     "features": [
-      "Sentiment analysis and opinion mining",
-      "Named entity recognition and classification",
-      "Text summarization and simplification",
-      "Language translation and localization",
-      "Resume and CV parsing and analysis",
-      "Customizable text processing pipelines",
-      "Integration with business intelligence tools",
-      "Real-time text analytics and reporting",
-      "Interactive dashboards for data exploration",
-      "API access for automated workflows"
+      "Automated data aggregation from multiple sources",
+      "Customizable, brand-aligned report templates",
+      "Scheduled delivery via email or dashboard",
+      "Real-time data accuracy",
+      "Executive summaries and detailed drill-downs"
     ],
     "benefits": [
-      "Extract actionable insights from customer feedback",
-      "Automate resume screening and candidate matching",
-      "Improve customer engagement with personalized content",
-      "Enhance decision-making with data-driven insights"
-    ],
-    "useCases": [
-      "Marketing teams analyze sentiment of brand mentions across social media",
-      "Recruiters automate candidate shortlisting based on resume analysis",
-      "Product teams extract and summarize customer feedback from reviews",
-      "Sales teams receive alerts on positive or negative shifts in customer sentiment",
-      "Management dashboards display real-time analytics on key business metrics"
-    ],
-    "technologies": ["Python", "LangChain", "LlamaIndex", "OpenAI API", "Hugging Face Transformers", "spaCy", "NLTK", "Streamlit", "FAISS", "Vector Databases", "Python Poetry"],
-    "technologyLinks": {
-      "Python": "https://www.python.org/",
-      "LangChain": "https://python.langchain.com/",
-      "LlamaIndex": "https://www.llamaindex.ai/",
-      "OpenAI API": "https://platform.openai.com/",
-      "Hugging Face Transformers": "https://huggingface.co/transformers/",
-      "spaCy": "https://spacy.io/",
-      "NLTK": "https://www.nltk.org/",
-      "Streamlit": "https://streamlit.io/",
-      "FAISS": "https://faiss.ai/",
-      "Vector Databases": "https://www.pinecone.io/",
-      "Python Poetry": "https://python-poetry.org/"
-    },
-    "pricingTiers": {
-      "starter": {
-        "name": "Text Analytics",
-        "price": "$18,000",
-        "duration": "3-5 weeks",
-        "deliverables": ["Sentiment analysis", "Basic NLP pipeline", "API integration", "Performance metrics"]
-      },
-      "professional": {
-        "name": "Intelligent Text Suite",
-        "price": "$55,000",
-        "duration": "8-10 weeks",
-        "deliverables": ["Multi-feature NLP system", "Custom models", "Real-time processing", "Dashboard analytics"]
-      },
-      "enterprise": {
-        "name": "Enterprise NLP Platform",
-        "price": "$160,000+",
-        "duration": "4-5 months",
-        "deliverables": ["Comprehensive NLP platform", "Multi-language support", "Advanced AI models", "Integration ecosystem"]
-      }
-    },
-    "testimonials": [
-      {
-        "quote": "Their sentiment analysis helped us understand our customers better. Response quality improved dramatically.",
-        "author": "Anna Rodriguez",
-        "position": "Customer Experience Manager",
-        "company": "ServiceFirst"
-      },
-      {
-        "quote": "The document processing system they built revolutionized our legal workflows. We're 20x faster now.",
-        "author": "James Wilson",
-        "position": "Managing Partner",
-        "company": "Wilson & Associates Law"
-      }
-    ],
-    "timeline": {
-      "dataCollection": "1-2 weeks",
-      "modelTraining": "3-5 weeks",
-      "integration": "2-3 weeks",
-      "optimization": "1-2 weeks"
-    },
-    "industries": ["Media", "Legal", "Customer Service", "Healthcare", "Financial Services", "E-commerce"],
-    "prerequisites": [
-      "Text data samples",
-      "Clear use case definition",
-      "API access requirements",
-      "Performance benchmarks"
-    ],
-    "successMetrics": [
-      "Text processing accuracy",
-      "Response time improvement",
-      "Customer satisfaction scores",
-      "Operational efficiency gains"
-    ],
-    "relatedServices": ["document-processing", "conversational-ai", "ai-consulting"]
+      "Save 10+ hours per week on reporting tasks",
+      "Eliminate human error in data compilation",
+      "Make faster decisions with up-to-date data",
+      "Standardize reporting across departments"
+    ]
   },
-  "ai-infrastructure": {
-    "title": "AI Application Infrastructure",
-    "icon": "FaCloud",
-    "description": "Scalable deployment and infrastructure for AI applications using modern frameworks and cloud platforms.",
-    "fullDescription": "Deploy your AI applications with confidence using infrastructure patterns we've tested in production. Our experience includes deploying Streamlit applications, managing vector databases, and creating scalable API endpoints for AI models. We focus on practical deployment solutions that work reliably without unnecessary complexity. Our infrastructure approach emphasizes proper dependency management with Python Poetry, efficient vector storage with FAISS, and user-friendly interfaces that your team can actually use. We implement monitoring, logging, and version control strategies that keep your AI applications running smoothly. Whether you need to deploy a document processing system or scale a conversational AI application, we build infrastructure that's both robust and maintainable.",
+  "intelligent-analysis": {
+    "title": "Intelligent Analysis",
+    "icon": "IconDeviceAnalytics",
+    "description": "Unlock hidden opportunities in your data with AI-powered analytics that answer your business questions.",
+    "fullDescription": "Move beyond static dashboards. Our intelligent analysis tools allow you to interact with your data using natural language. Ask questions like \"Why did sales drop in Q3?\" or \"Which marketing channel has the highest ROI?\" and get immediate, data-backed answers. We help you uncover trends, predict outcomes, and make confident, data-driven decisions.",
     "features": [
-      "Streamlit application deployment and hosting",
-      "Vector database setup and management (FAISS, Pinecone)",
-      "API development for AI model serving",
-      "Dependency management with Python Poetry",
-      "Cloud deployment on AWS and Azure",
-      "Monitoring and logging for AI applications",
-      "Version control and CI/CD for AI projects",
-      "Database integration for persistent storage",
-      "Load balancing for high-traffic applications",
-      "Security and access control implementation"
+      "Natural language data querying",
+      "Predictive analytics and trend forecasting",
+      "Automated anomaly detection",
+      "Interactive, easy-to-understand visualizations",
+      "Actionable insights and recommendations"
     ],
     "benefits": [
-      "Deploy AI applications quickly and reliably",
-      "Scale from prototype to production seamlessly",
-      "Ensure consistent performance under load",
-      "Maintain applications with minimal downtime"
+      "Democratize data access for non-technical teams",
+      "Identify revenue opportunities faster",
+      "Proactively address business risks",
+      "Base strategy on hard data, not guesswork"
+    ]
+  },
+  "marketing-content": {
+    "title": "Marketing Content Creation",
+    "icon": "IconWriting",
+    "description": "Scale your content production while maintaining a consistent, high-quality brand voice.",
+    "fullDescription": "Accelerate your marketing efforts with AI-assisted content creation. Our solutions help you generate high-quality blog posts, social media updates, email campaigns, and ad copy that perfectly align with your brand's voice and tone. Overcome writer's block and produce months' worth of content in days, ensuring your brand stays top-of-mind for your audience.",
+    "features": [
+      "Brand voice customization",
+      "Multi-format content generation (Blogs, Social, Email)",
+      "SEO optimization suggestions",
+      "Rapid ideation and drafting",
+      "Consistent messaging across channels"
     ],
-    "useCases": [
-      "Startup deploys resume processing application handling thousands of documents daily",
-      "Enterprise scales chatbot infrastructure to serve multiple departments",
-      "SaaS company integrates AI features into existing product with minimal disruption",
-      "Research team creates collaborative AI tools accessible to global team members",
-      "Consulting firm deploys client-specific AI applications with proper security"
+    "benefits": [
+      "Increase content output by 5x",
+      "Maintain consistent brand messaging",
+      "Reduce content production costs",
+      "Launch campaigns faster"
+    ]
+  },
+  "document-summarization": {
+    "title": "Document Summarization",
+    "icon": "IconFileText",
+    "description": "Digest complex information instantly. Get concise, accurate summaries of long reports, meetings, and research.",
+    "fullDescription": "In today's information-heavy world, speed is a competitive advantage. Our document summarization tools allow you to quickly grasp the key points of lengthy contracts, research papers, meeting transcripts, and industry reports. Make informed decisions faster without getting bogged down in hundreds of pages of text.",
+    "features": [
+      "Instant summaries of long documents",
+      "Key point extraction and highlighting",
+      "Multi-document synthesis",
+      "Customizable summary length and detail",
+      "Support for various file formats"
     ],
-    "technologies": ["Python", "Streamlit", "FAISS", "AWS", "Azure", "Docker", "FastAPI", "PostgreSQL", "Redis", "Python Poetry"],
-    "technologyLinks": {
-      "Python": "https://www.python.org/",
-      "Streamlit": "https://streamlit.io/",
-      "FAISS": "https://faiss.ai/",
-      "AWS": "https://aws.amazon.com/",
-      "Azure": "https://azure.microsoft.com/",
-      "Docker": "https://www.docker.com/",
-      "FastAPI": "https://fastapi.tiangolo.com/",
-      "PostgreSQL": "https://www.postgresql.org/",
-      "Redis": "https://redis.io/",
-      "Python Poetry": "https://python-poetry.org/"
-    },
-    "pricingTiers": {
-      "starter": {
-        "name": "Infrastructure Setup",
-        "price": "$15,000",
-        "duration": "3-5 weeks",
-        "deliverables": ["Basic infrastructure setup", "Streamlit app deployment", "FAISS configuration", "Documentation"]
-      },
-      "professional": {
-        "name": "Scalable AI Infrastructure",
-        "price": "$50,000",
-        "duration": "8-10 weeks",
-        "deliverables": ["Complete AI infrastructure", "CI/CD pipeline setup", "Monitoring and logging", "Load testing"]
-      },
-      "enterprise": {
-        "name": "Enterprise AI Deployment",
-        "price": "$150,000+",
-        "duration": "4-6 months",
-        "deliverables": ["Global AI deployment strategy", "Advanced security and compliance", "Disaster recovery planning", "24/7 support"]
-      }
-    },
-    "testimonials": [
-      {
-        "quote": "Our cloud migration was seamless. We're now saving 60% on infrastructure costs.",
-        "author": "Mark Stevens",
-        "position": "IT Director",
-        "company": "GrowthTech"
-      },
-      {
-        "quote": "The scalability they built into our platform is incredible. We handle traffic spikes effortlessly.",
-        "author": "Lisa Park",
-        "position": "Engineering Manager",
-        "company": "ScaleUp Inc"
-      }
-    ],
-    "timeline": {
-      "assessment": "1-2 weeks",
-      "design": "2-3 weeks",
-      "migration": "4-8 weeks",
-      "optimization": "2-4 weeks"
-    },
-    "industries": ["SaaS", "E-commerce", "Fintech", "Healthcare", "Gaming", "Media"],
-    "prerequisites": [
-      "Current infrastructure audit",
-      "Cloud provider selection",
-      "Security requirements definition",
-      "Migration budget approval"
-    ],
-    "successMetrics": [
-      "Cost reduction percentage",
-      "Performance improvement",
-      "Uptime achievement",
-      "Scalability metrics"
-    ],
-    "relatedServices": ["conversational-ai", "document-processing", "nlp-text-processing"]
+    "benefits": [
+      "Cut reading time by 90%",
+      "Accelerate decision-making processes",
+      "Ensure key information isn't missed",
+      "Easily share insights with your team"
+    ]
   }
 }

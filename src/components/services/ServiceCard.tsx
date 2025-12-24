@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/Services.module.scss";
+import { Card, Text, Group, ThemeIcon, rem } from '@mantine/core';
 
 interface ServiceCardProps {
   service: {
@@ -19,24 +19,35 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, icon }) => {
   };
 
   return (
-    <div 
-      className={`${styles.card} ${styles.clickable}`}
+    <Card 
+      shadow="sm" 
+      padding="lg" 
+      radius="md" 
+      withBorder 
       onClick={handleCardClick}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleCardClick();
-        }
-      }}
-      tabIndex={0}
-      role="button"
-      aria-label={`View details for ${service.title}`}
+      style={{ cursor: 'pointer', height: '100%' }}
     >
-      <div className={styles.card__title}>
-        {icon}
-        <span>{service.title}</span>
-      </div>
-      <p className={styles.card__description}>{service.description}</p>
-    </div>
+      <Card.Section>
+        {/* Optional image */}
+      </Card.Section>
+
+      <Group justify="space-between" mt="md" mb="xs">
+        <ThemeIcon size={40} radius="md" variant="light" color="blue">
+          {/* We need to clone the icon to add styles if needed, or just wrap it */}
+          <div style={{ width: rem(20), height: rem(20), display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {icon}
+          </div>
+        </ThemeIcon>
+      </Group>
+
+      <Text fw={500} size="lg" mt="md">
+        {service.title}
+      </Text>
+
+      <Text size="sm" c="dimmed" mt="sm">
+        {service.description}
+      </Text>
+    </Card>
   );
 };
 
