@@ -19,6 +19,8 @@ const links = [
       { link: '/services/document-summarization', label: 'Document Summarization' },
     ]
   },
+  { link: '/#projects', label: 'Projects', sectionId: 'projects' },
+  { link: '/#testimonials', label: 'Testimonials', sectionId: 'testimonials' },
   { link: '/#about', label: 'About', sectionId: 'about' },
   { link: '/#contact', label: 'Contact', sectionId: 'contact' },
 ];
@@ -56,7 +58,7 @@ export function Header() {
 
   const handleNavClick = (link: string, sectionId: string) => {
     close();
-    if (location.pathname === '/' && !link.includes('#')) {
+    if (location.pathname === '/' && link === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }

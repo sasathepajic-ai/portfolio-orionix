@@ -3,7 +3,7 @@ import { IconBrain, IconRobot, IconSettings, IconCloud, IconLanguage, IconDataba
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getServicesForDisplay } from '../../utils/dataLoader';
-import { textGradient} from '../../theme';
+import { textGradient } from '../../theme';
 
 const services = getServicesForDisplay();
 

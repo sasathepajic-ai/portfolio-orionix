@@ -58,6 +58,8 @@ export function Footer() {
               <Text size="lg" fw={700} c="white">Company</Text>
               <Anchor component={Link} to="/#about" c="dimmed" size="sm" underline="never">About Us</Anchor>
               <Anchor component={Link} to="/#contact" c="dimmed" size="sm" underline="never">Contact</Anchor>
+              <Anchor component={Link} to="/privacy-policy" c="dimmed" size="sm" underline="never">Privacy Policy</Anchor>
+              <Anchor component={Link} to="/terms-of-service" c="dimmed" size="sm" underline="never">Terms of Service</Anchor>
             </Stack>
           </Group>
         </Group>
