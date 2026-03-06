@@ -1,0 +1,61 @@
+/* Pragmatic Labs AI — Design Tokens v2 */
+
+:root {
+  /* Primary — Deep Dark */
+  --color-navy: #0a0c10;
+  --color-navy-mid: #14181f;
+  --color-navy-light: #1e242e;
+
+  /* Supporting */
+  --color-slate: #2c3e55;
+  --color-slate-muted: #496070;
+
+  /* Blue */
+  --color-blue-muted: #5c8cb8;
+  --color-blue-soft: #80aed0;
+
+  /* Accent — warm amber/orange */
+  --color-accent: #cc493c;
+  --color-accent-hover: #b53f33;
+
+  /* Coral Pink */
+  --color-teal: #ff9080;
+  --color-teal-hover: #ff7a68;
+
+  /* Neutral backgrounds — warm off-white */
+  --color-bg: #f9f8f5;
+  --color-bg-alt: #f1efe9;
+  --color-bg-card: #ffffff;
+  --color-border: #dedad2;
+  --color-border-light: #e8e5de;
+
+  /* Text */
+  --color-text-primary: #0a0c10;
+  --color-text-secondary: #476278;
+  --color-text-muted: #7a9ab5;
+  --color-text-inverse: #f9f8f5;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* Shadows — refined */
+  --shadow-sm:
+    0 1px 3px rgba(10, 12, 16, 0.06), 0 1px 2px rgba(10, 12, 16, 0.04);
+  --shadow-md:
+    0 4px 16px rgba(10, 12, 16, 0.08), 0 2px 6px rgba(10, 12, 16, 0.04);
+  --shadow-lg:
+    0 10px 32px rgba(10, 12, 16, 0.1), 0 4px 12px rgba(10, 12, 16, 0.06);
+  --shadow-xl:
+    0 20px 60px rgba(10, 12, 16, 0.14), 0 8px 24px rgba(10, 12, 16, 0.08);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-premium: cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}

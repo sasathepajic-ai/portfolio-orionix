@@ -1,26 +1,102 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/design-tokens.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Color tokens */
+  --color-navy: var(--color-navy);
+  --color-navy-mid: var(--color-navy-mid);
+  --color-navy-light: var(--color-navy-light);
+  --color-slate: var(--color-slate);
+  --color-slate-muted: var(--color-slate-muted);
+  --color-blue-muted: var(--color-blue-muted);
+  --color-blue-soft: var(--color-blue-soft);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-teal: var(--color-teal);
+  --color-teal-hover: var(--color-teal-hover);
+  --color-bg: var(--color-bg);
+  --color-bg-alt: var(--color-bg-alt);
+  --color-bg-card: var(--color-bg-card);
+  --color-border: var(--color-border);
+  --color-border-light: var(--color-border-light);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+
+  /* Font families */
+  --font-heading: var(--font-plus-jakarta);
+  --font-body: var(--font-inter);
+
+  /* Shadows */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  text-wrap: balance;
+}
+
+h1 {
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+}
+h2 {
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.016em;
+}
+h4,
+h5,
+h6 {
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-navy);
+  color: var(--color-text-inverse);
 }

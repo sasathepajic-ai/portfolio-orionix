@@ -1,0 +1,93 @@
+"use client";
+
+import { Container } from "@/components/ui/Container";
+import { SectionHeading, FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/SectionHeading";
+import { Check, Minus } from "lucide-react";
+
+const comparisons = [
+  {
+    legacy: "Discovery phases that push timelines to months",
+    pragmatic: "First results delivered in weeks, not quarters",
+  },
+  {
+    legacy: "Powerful platforms with steep learning curves",
+    pragmatic: "Intuitive tools your whole team actually uses",
+  },
+  {
+    legacy: "Broad AI investments with uncertain returns",
+    pragmatic: "Every solution tied to a measurable outcome",
+  },
+  {
+    legacy: "Deep vendor ecosystems that create dependencies",
+    pragmatic: "Clear guidance, no lock-in, no jargon",
+  },
+  {
+    legacy: "Roadmaps that shift as requirements evolve",
+    pragmatic: "Measurable progress from day one",
+  },
+];
+
+export function WhyUsSection() {
+  return (
+    <section className="py-24 md:py-32">
+      <Container>
+        <SectionHeading
+            label="Why Pragmatic Labs AI"
+            title="We do things differently"
+            description="In a market flooded with AI promises, we take a refreshingly practical approach."
+          />
+
+        <div className="overflow-hidden rounded-2xl">
+          <StaggerContainer className="flex flex-col gap-4 md:gap-0 md:flex-row md:items-stretch">
+            {/* Left — legacy */}
+            <StaggerItem className="md:w-[60%] md:shrink-0">
+              <div className="h-full border border-border-light bg-bg-alt/50 p-8 md:p-10 rounded-2xl md:rounded-l-2xl md:rounded-r-none">
+                <h3 className="text-[11px] font-bold uppercase tracking-widest text-text-muted mb-7">
+                  The usual approach
+                </h3>
+                <div className="space-y-5">
+                  {comparisons.map((c, i) => (
+                    <FadeIn key={c.legacy} delay={0.3 + i * 0.07} direction="none">
+                      <div className="flex items-start gap-3">
+                        <Minus className="w-3.5 h-3.5 shrink-0 mt-1" style={{ color: "var(--color-accent)", opacity: 0.6 }} />
+                        <p className="text-sm text-text-secondary leading-[1.65]">{c.legacy}</p>
+                      </div>
+                    </FadeIn>
+                  ))}
+                </div>
+              </div>
+            </StaggerItem>
+
+            {/* Right — Pragmatic Labs AI */}
+            <StaggerItem className="md:w-[60%] md:shrink-0 md:-ml-[20%] relative z-10">
+              <div
+                className="h-full p-8 md:pt-10 md:pb-10 md:pl-[27%] md:pr-10 rounded-2xl md:rounded-none md:[clip-path:polygon(22%_0,100%_0,100%_100%,11%_100%)]"
+                style={{ background: "var(--color-accent)" }}
+              >
+                <h3
+                  className="text-[11px] font-bold uppercase tracking-widest mb-7"
+                  style={{ color: "#ffffff" }}
+                >
+                  Pragmatic Labs AI
+                </h3>
+                <div className="space-y-5">
+                  {comparisons.map((c, i) => (
+                    <FadeIn key={c.pragmatic} delay={0.4 + i * 0.07} direction="none">
+                      <div className="flex items-start gap-3">
+                        <Check className="w-3.5 h-3.5 shrink-0 mt-1" style={{ color: "#ffffff" }} />
+                        <p className="text-sm leading-[1.65]" style={{ color: "#ffffff" }}>
+                          {c.pragmatic}
+                        </p>
+                      </div>
+                    </FadeIn>
+                  ))}
+                </div>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
