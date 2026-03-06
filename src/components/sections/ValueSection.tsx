@@ -6,30 +6,30 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/SectionHe
 const values = [
   {
     number: "01",
+    title: "People First",
+    description:
+      "AI should be a partner, not a barrier. We design every tool around the humans who will use it — because technology only works when people actually adopt it.",
+  },
+  {
+    number: "02",
     title: "Real-World Focus",
     description:
       "We cut through AI hype and focus on measurable outcomes. Every solution we build solves a specific business problem — nothing more, nothing less.",
   },
   {
-    number: "02",
+    number: "03",
     title: "Radical Simplicity",
     description:
       "Advanced AI doesn\u2019t have to be complicated. We translate sophisticated capabilities into tools so intuitive that anyone on your team can use them.",
-  },
-  {
-    number: "03",
-    title: "People First",
-    description:
-      "AI should be a partner, not a barrier. We design every tool around the humans who will use it — because technology only works when people actually adopt it.",
   },
 ];
 
 export function ValueSection() {
   return (
     <section className="py-24 md:py-32">
-      <Container>
+      <Container className="flex flex-col items-center">
         <FadeIn>
-          <div className="max-w-2xl mb-16 md:mb-20">
+          <div className="max-w-2xl mb-16 md:mb-20 text-center">
             <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-accent mb-4">
               Our Philosophy
             </span>
@@ -37,14 +37,12 @@ export function ValueSection() {
               className="font-bold text-text-primary tracking-tight"
               style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.75rem)", lineHeight: 1.12, letterSpacing: "-0.025em" }}
             >
-              Cut through AI hype.
-              <br />
               Deliver real results.
             </h2>
           </div>
         </FadeIn>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full justify-items-center">
           {values.map((value, i) => {
             const accentColors = ["var(--color-accent)", "var(--color-teal)", "var(--color-navy)"];
             return (
