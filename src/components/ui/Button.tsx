@@ -11,9 +11,9 @@ const buttonVariants = cva(
         primary:
           "bg-accent text-white hover:bg-accent-hover focus-visible:ring-accent shadow-sm hover:shadow-md hover:-translate-y-px",
         secondary:
-          "bg-navy text-text-inverse hover:bg-navy-light focus-visible:ring-navy shadow-sm hover:shadow-md hover:-translate-y-px",
+          "bg-navy text-text-inverse hover:bg-navy-light focus-visible:ring-navy shadow-sm hover:shadow-md hover:-translate-y-px dark:bg-text-primary dark:text-bg dark:hover:bg-text-primary/90 dark:focus-visible:ring-text-primary",
         outline:
-          "border-2 border-navy/20 text-text-primary hover:border-navy hover:bg-navy hover:text-text-inverse focus-visible:ring-navy",
+          "border-2 border-border-light text-text-primary hover:border-navy hover:bg-navy hover:text-text-inverse focus-visible:ring-navy dark:hover:border-border dark:hover:bg-bg-card dark:hover:text-text-primary",
         ghost:
           "text-text-secondary hover:text-text-primary hover:bg-bg-alt focus-visible:ring-navy",
         teal:

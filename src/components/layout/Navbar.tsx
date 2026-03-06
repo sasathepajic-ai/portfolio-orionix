@@ -8,22 +8,42 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { NAV_LINKS, SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const MotionLogoLink = motion(Link);
 
+const logoMarkVariants = {
+  initial: { scaleY: -1, rotate: 0, scale: 1 },
+  hover: {
+    scaleY: -1,
+    rotate: -12,
+    scale: 1.18,
+    transition: { type: "spring" as const, stiffness: 360, damping: 14 },
+  },
+};
+
+const logoTextVariants = {
+  initial: { x: 0, opacity: 1 },
+  hover: {
+    x: 3,
+    transition: { type: "spring" as const, stiffness: 360, damping: 22, delay: 0.03 },
+  },
+};
+
 function LogoMark() {
   return (
-    <Image
-      src="/logo.svg"
-      alt="Pragmatic Labs logo"
-      width={32}
-      height={32}
-      className="shrink-0"
-      style={{ transform: "scaleY(-1)" }}
-      aria-hidden
-    />
+    <motion.div variants={logoMarkVariants} className="shrink-0">
+      <Image
+        src="/logo.svg"
+        alt="Pragmatic Labs logo"
+        width={32}
+        height={32}
+        className="dark:invert"
+        aria-hidden
+      />
+    </motion.div>
   );
 }
 
@@ -61,13 +81,17 @@ export function Navbar() {
           <MotionLogoLink
             href="/"
             className="flex items-center gap-2.5"
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            initial="initial"
+            whileHover="hover"
+            animate="initial"
           >
             <LogoMark />
-            <span className="font-heading font-bold text-[1.05rem] text-text-primary tracking-tight">
+            <motion.span
+              variants={logoTextVariants}
+              className="font-heading font-bold text-[1.05rem] text-text-primary tracking-tight"
+            >
               {SITE_NAME}
-            </span>
+            </motion.span>
           </MotionLogoLink>
 
           {/* Desktop nav */}
@@ -99,21 +123,25 @@ export function Navbar() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <Button href="/contact" variant="primary" size="sm">
               Talk to Us
             </Button>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-alt transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-          >
+          {/* Mobile controls */}
+          <div className="md:hidden flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-alt transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+            >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            </button>
+          </div>
         </motion.nav>
       </Container>
 

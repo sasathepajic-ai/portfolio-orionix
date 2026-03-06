@@ -85,7 +85,7 @@ export function SolutionsContent() {
           <div
             className="absolute inset-0 opacity-[0.033]"
             style={{
-              backgroundImage: "radial-gradient(var(--color-navy) 1.2px, transparent 1.2px)",
+              backgroundImage: "radial-gradient(var(--color-dot-grid) 1.2px, transparent 1.2px)",
               backgroundSize: "26px 26px",
             }}
           />
@@ -104,7 +104,7 @@ export function SolutionsContent() {
             >
               AI that solves problems,
               <br className="hidden sm:block" />
-              <span style={{ color: "rgba(14,28,42,0.45)" }}> not creates them</span>
+              <span style={{ color: "var(--color-text-faded)" }}> not creates them</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>

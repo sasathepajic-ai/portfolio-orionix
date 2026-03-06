@@ -12,8 +12,8 @@ function FooterLogo() {
           alt="Pragmatic Labs logo"
           width={32}
           height={32}
-          className="shrink-0"
-          style={{ transform: "scaleY(-1)", filter: "invert(1)" }}
+          className="shrink-0 dark:invert"
+          style={{ transform: "scaleY(-1)" }}
           aria-hidden
         />
     );
@@ -23,27 +23,25 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer style={{ background: "var(--color-navy)", borderTop: "1px solid rgba(255,255,255,0.08)" }} role="contentinfo">
+    <footer className="bg-bg-alt dark:bg-navy border-t border-border-light dark:border-white/8" role="contentinfo">
       <Container size="wide" className="py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
           {/* Brand */}
           <div className="md:col-span-5">
             <Link href="/" className="flex items-center gap-2.5 mb-5">
               <FooterLogo />
-              <span className="font-heading font-bold text-[1.05rem] text-white tracking-tight">
+              <span className="font-heading font-bold text-[1.05rem] text-text-primary dark:text-white tracking-tight">
                 {SITE_NAME}
               </span>
             </Link>
             <p
-              className="leading-relaxed max-w-sm text-sm mb-6"
-              style={{ color: "rgba(255,255,255,0.48)" }}
+              className="leading-relaxed max-w-sm text-sm mb-6 text-text-secondary dark:text-white/50"
             >
               Transforming complex AI capabilities into simple, practical tools that help
               businesses operate smarter.
             </p>
             <p
-              className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: "rgba(255,255,255,0.18)" }}
+              className="text-xs font-bold uppercase tracking-widest text-text-muted dark:text-white/20"
             >
               AI built for real work.
             </p>
@@ -52,8 +50,7 @@ export function Footer() {
           {/* Navigation */}
           <div className="md:col-span-3">
             <h3
-              className="text-[11px] font-bold uppercase tracking-wider mb-5"
-              style={{ color: "rgba(255,255,255,0.32)" }}
+              className="text-[11px] font-bold uppercase tracking-wider mb-5 text-text-muted dark:text-white/30"
             >
               Navigation
             </h3>
@@ -62,10 +59,10 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group relative inline-block text-sm font-medium text-white/50 hover:text-white/90 transition-colors duration-200"
+                    className="group relative inline-block text-sm font-medium text-text-secondary dark:text-white/50 hover:text-text-primary dark:hover:text-white/90 transition-colors duration-200"
                   >
                     {link.label}
-                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-white/30 transition-all duration-200 group-hover:w-full" />
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-border dark:bg-white/30 transition-all duration-200 group-hover:w-full" />
                   </Link>
                 </li>
               ))}
@@ -75,14 +72,12 @@ export function Footer() {
           {/* Contact */}
           <div className="md:col-span-4">
             <h3
-              className="text-[11px] font-bold uppercase tracking-wider mb-5"
-              style={{ color: "rgba(255,255,255,0.32)" }}
+              className="text-[11px] font-bold uppercase tracking-wider mb-5 text-text-muted dark:text-white/30"
             >
               Get in Touch
             </h3>
             <p
-              className="text-sm leading-relaxed mb-5"
-              style={{ color: "rgba(255,255,255,0.48)" }}
+              className="text-sm leading-relaxed mb-5 text-text-secondary dark:text-white/50"
             >
               Ready to explore how AI can work for your business? We&apos;d love to hear
               from you.
@@ -111,13 +106,12 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="mt-16 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t"
-          style={{ borderColor: "rgba(255,255,255,0.08)" }}
+          className="mt-16 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border-light dark:border-white/8"
         >
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p className="text-xs text-text-muted dark:text-white/30">
             &copy; {currentYear} {SITE_NAME}. All rights reserved.
           </p>
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+          <p className="text-xs text-text-muted dark:text-white/20">
             Practical AI for real business work.
           </p>
         </div>

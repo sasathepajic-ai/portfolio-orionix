@@ -31,7 +31,7 @@ export function AboutContent() {
           <div
             className="absolute inset-0 opacity-[0.033]"
             style={{
-              backgroundImage: "radial-gradient(var(--color-navy) 1.2px, transparent 1.2px)",
+              backgroundImage: "radial-gradient(var(--color-dot-grid) 1.2px, transparent 1.2px)",
               backgroundSize: "26px 26px",
             }}
           />
@@ -48,7 +48,7 @@ export function AboutContent() {
               className="font-bold text-text-primary mb-7"
               style={{ fontSize: "clamp(2.6rem, 5vw, 4rem)", lineHeight: 1.07, letterSpacing: "-0.035em" }}
             >
-              <span style={{ color: "rgba(14,28,42,0.45)" }}>Making AI work for</span>
+              <span style={{ color: "var(--color-text-faded)" }}>Making AI work for</span>
               <br />
               real businesses
             </h1>
@@ -108,7 +108,7 @@ export function AboutContent() {
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {principles.map((principle, i) => {
-              const accentColors = ["var(--color-accent)", "var(--color-teal)", "var(--color-navy)"];
+              const accentColors = ["var(--color-accent)", "var(--color-teal)", "var(--color-ui-border-strong)"];
               return (
                 <StaggerItem key={principle.title}>
                   <div className="py-8 md:py-0 pl-5 border-l-[3px]" style={{ borderColor: accentColors[i] }}>

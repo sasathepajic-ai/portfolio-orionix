@@ -44,7 +44,7 @@ export function ValueSection() {
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full justify-items-center">
           {values.map((value, i) => {
-            const accentColors = ["var(--color-accent)", "var(--color-teal)", "var(--color-navy)"];
+            const accentColors = ["var(--color-accent)", "var(--color-teal)", "var(--color-ui-border-strong)"];
             return (
             <StaggerItem key={value.number}>
               <div

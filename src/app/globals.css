@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "../styles/design-tokens.css";
 
+/* Use .dark class on <html> for Tailwind dark: variants */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   /* Color tokens */
   --color-navy: var(--color-navy);
@@ -99,4 +102,9 @@ select:focus-visible {
 ::selection {
   background-color: var(--color-navy);
   color: var(--color-text-inverse);
+}
+
+.dark ::selection {
+  background-color: var(--color-accent);
+  color: #fff;
 }

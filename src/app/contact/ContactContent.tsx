@@ -29,7 +29,7 @@ export function ContactContent() {
           <div
             className="absolute inset-0 opacity-[0.033]"
             style={{
-              backgroundImage: "radial-gradient(var(--color-navy) 1.2px, transparent 1.2px)",
+              backgroundImage: "radial-gradient(var(--color-dot-grid) 1.2px, transparent 1.2px)",
               backgroundSize: "26px 26px",
             }}
           />
@@ -196,11 +196,11 @@ export function ContactContent() {
 
                   {/* Dark callout */}
                   <div
-                    className="rounded-2xl p-7"
+                    className="rounded-2xl p-7 dark:border dark:border-border"
                     style={{ background: "var(--color-navy)" }}
                   >
-                    <h3 className="text-base font-bold text-white mb-3">Not sure where to start?</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                    <h3 className="text-base font-bold text-white dark:text-text-primary mb-3">Not sure where to start?</h3>
+                    <p className="text-sm leading-relaxed dark:text-text-secondary" style={{ color: "rgba(255,255,255,0.55)" }}>
                       That&apos;s perfectly fine. Many of our clients begin with an exploratory
                       conversation. No commitment, no pressure &mdash; just an honest discussion
                       about what AI can (and can&apos;t) do for your business.

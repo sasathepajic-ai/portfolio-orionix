@@ -30,18 +30,18 @@ const impacts = [
 
 export function ImpactSection() {
   return (
-    <section className="py-24 md:py-32" style={{ background: "var(--color-navy)" }}>
+    <section className="py-24 md:py-32 bg-bg-alt dark:bg-navy">
       <Container>
         <SectionHeading
           label="Business Impact"
           title="Real outcomes, not just promises"
           description="Our clients see measurable improvements across their operations — from day-to-day efficiency to strategic decision-making."
-          className="[&_h2]:text-white [&_p]:text-white/55 [&_span]:text-accent"
+          className="dark:[&_h2]:text-white dark:[&_p]:text-white/55"
         />
 
         <div className="relative py-16">
-          <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 35%, rgba(255,255,255,0.3) 65%, transparent 100%)" }} />
-          <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: "linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 35%, rgba(255,255,255,0.3) 65%, transparent 100%)" }} />
+          <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(to right, transparent 0%, var(--color-border) 35%, var(--color-border) 65%, transparent 100%)" }} />
+          <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: "linear-gradient(to right, transparent 0%, var(--color-border) 35%, var(--color-border) 65%, transparent 100%)" }} />
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {impacts.map((impact) => {
@@ -50,14 +50,14 @@ export function ImpactSection() {
                 <StaggerItem key={impact.word}>
                   <div className="flex items-center gap-4 mb-4">
                     <p
-                      className="font-bold text-white"
+                      className="font-bold text-text-primary dark:text-white"
                       style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", lineHeight: 1.0, letterSpacing: "-0.03em" }}
                     >
                       {impact.word}
                     </p>
                     <Icon className="w-8 h-8 shrink-0 mt-1" style={{ color: "var(--color-teal)" }} />
                   </div>
-                  <p className="text-sm leading-[1.68]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <p className="text-sm leading-[1.68] text-text-secondary dark:text-white/50">
                     {impact.description}
                   </p>
                 </StaggerItem>

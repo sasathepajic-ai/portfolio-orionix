@@ -29,21 +29,9 @@ const expectations = [
 export function CTASection() {
   return (
     <section
-      className="py-24 md:py-32 relative overflow-hidden"
-      style={{ background: "var(--color-navy)" }}
+      className="py-24 md:py-32 relative overflow-hidden bg-bg dark:bg-navy"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage:
-              "radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
 
-      </div>
 
       <Container size="wide" className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-20 items-center">
@@ -53,7 +41,7 @@ export function CTASection() {
               Let’s Work Together
             </span>
             <h2
-              className="font-bold text-white mb-6"
+              className="font-bold text-text-primary dark:text-white mb-6"
               style={{ fontSize: "clamp(2rem, 3.5vw, 3.25rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
             >
               Ready to build practical AI{" "}
@@ -61,8 +49,7 @@ export function CTASection() {
               for your business?
             </h2>
             <p
-              className="text-base leading-[1.7] mb-10 max-w-[52ch]"
-              style={{ color: "rgba(255,255,255,0.58)" }}
+              className="text-base leading-[1.7] mb-10 max-w-[52ch] text-text-secondary dark:text-white/60"
             >
               Whether you have a specific challenge or you’re just starting to explore
               what AI can do — we’d love to hear from you.
@@ -76,7 +63,7 @@ export function CTASection() {
                 href="/solutions"
                 variant="ghost"
                 size="lg"
-                className="text-white/70 hover:text-white hover:bg-white/8"
+                className="text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white dark:hover:bg-white/8"
               >
                 View Solutions
               </Button>
@@ -87,8 +74,7 @@ export function CTASection() {
           <FadeIn delay={0.2}>
             <div className="pl-5 border-l-2" style={{ borderColor: "var(--color-teal)" }}>
               <p
-                className="text-[11px] font-bold uppercase tracking-widest mb-6"
-                style={{ color: "rgba(255,255,255,0.3)" }}
+                className="text-[11px] font-bold uppercase tracking-widest mb-6 text-text-muted dark:text-white/30"
               >
                 What to expect
               </p>
@@ -98,10 +84,9 @@ export function CTASection() {
                   return (
                     <StaggerItem key={item.title}>
                       <div>
-                        <p className="text-sm font-bold text-white mb-0.5">{item.title}</p>
+                        <p className="text-sm font-bold text-text-primary dark:text-white mb-0.5">{item.title}</p>
                         <p
-                          className="text-xs leading-relaxed"
-                          style={{ color: "rgba(255,255,255,0.48)" }}
+                          className="text-xs leading-relaxed text-text-secondary dark:text-white/50"
                         >
                           {item.description}
                         </p>
@@ -111,8 +96,7 @@ export function CTASection() {
                 })}
               </StaggerContainer>
               <p
-                className="text-xs mt-8"
-                style={{ color: "rgba(255,255,255,0.28)" }}
+                className="text-xs mt-8 text-text-muted dark:text-white/30"
               >
                 No commitment required. No sales pressure.
               </p>
