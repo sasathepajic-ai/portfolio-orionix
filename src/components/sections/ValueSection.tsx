@@ -6,21 +6,21 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/SectionHe
 const values = [
   {
     number: "01",
-    title: "People First",
+    title: "Concrete over theoretical",
     description:
-      "AI should be a partner, not a barrier. We design every tool around the humans who will use it — because technology only works when people actually adopt it.",
+      "A tool that works for one real process is worth more than a roadmap for ten hypothetical ones. We earn trust by showing results early.",
   },
   {
     number: "02",
-    title: "Real-World Focus",
+    title: "Designed for the people in it",
     description:
-      "We cut through AI hype and focus on measurable outcomes. Every solution we build solves a specific business problem — nothing more, nothing less.",
+      "The best AI system is the one your team stops noticing — it's just how the work gets done. We build with that end in mind.",
   },
   {
     number: "03",
-    title: "Radical Simplicity",
+    title: "Short cycles, real feedback",
     description:
-      "Advanced AI doesn\u2019t have to be complicated. We translate sophisticated capabilities into tools so intuitive that anyone on your team can use them.",
+      "We don't wait for perfection before shipping. Honest feedback on early versions beats any big upfront plan for getting somewhere useful.",
   },
 ];
 
@@ -31,13 +31,13 @@ export function ValueSection() {
         <FadeIn>
           <div className="max-w-2xl mb-16 md:mb-20 text-center">
             <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-accent mb-4">
-              Our Philosophy
+              How we work
             </span>
             <h2
               className="font-bold text-text-primary tracking-tight"
               style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.75rem)", lineHeight: 1.12, letterSpacing: "-0.025em" }}
             >
-              Deliver real results.
+              What good looks like to us.
             </h2>
           </div>
         </FadeIn>

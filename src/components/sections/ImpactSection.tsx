@@ -10,21 +10,21 @@ const impacts = [
     icon: TrendingUp,
     stat: "3× faster",
     description:
-      "AI-powered insights delivered in real time so your team makes better decisions without waiting for data to catch up.",
+      "Decisions that used to take hours of analysis happen in minutes. Not because the bar is lower — because the right information is already there.",
   },
   {
     word: "Simpler.",
     icon: Layers,
     stat: "−60% manual work",
     description:
-      "Automated workflows that quietly handle the repetitive, freeing your people for the work that actually requires human judgment.",
+      "Repetitive tasks that eat up afternoons don't need a person to manage them. Your team stays focused on the work that actually requires one.",
   },
   {
     word: "Clearer.",
     icon: Eye,
     stat: "Full visibility",
     description:
-      "See your business with genuine clarity. AI-driven intelligence that surfaces what matters and filters out the noise.",
+      "Instead of finding out what happened last month, you know what's happening now. The signal reaches you before it becomes a problem.",
   },
 ];
 
@@ -33,9 +33,9 @@ export function ImpactSection() {
     <section className="py-24 md:py-32 bg-bg-alt dark:bg-navy">
       <Container>
         <SectionHeading
-          label="Business Impact"
-          title="Real outcomes, not just promises"
-          description="Our clients see measurable improvements across their operations — from day-to-day efficiency to strategic decision-making."
+          label="What changes"
+          title="The improvements that stick"
+          description="The kind of improvements that show up in how your team spends their day, not just in end-of-quarter slides."
           className="dark:[&_h2]:text-white dark:[&_p]:text-white/55"
         />
 

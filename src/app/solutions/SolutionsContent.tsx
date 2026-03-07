@@ -1,78 +1,33 @@
 "use client";
 
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/SectionHeading";
 import { CTASection } from "@/components/sections/CTASection";
 import { ArrowRight } from "lucide-react";
-
-const solutions = [
-  {
-    title: "AI Assistants",
-    description:
-      "Intelligent assistants trained on your business context — helping your team find answers, surface insights, and make better decisions without leaving their workflow.",
-    features: [
-      "Context-aware responses trained on your data",
-      "Seamless integration with existing tools",
-      "Natural language interface anyone can use",
-      "Continuous learning and improvement",
-    ],
-  },
-  {
-    title: "Workflow Automation",
-    description:
-      "Eliminate manual bottlenecks with AI-powered automation. We build intelligent systems for document processing, approvals, and data entry — freeing your team to focus on strategy.",
-    features: [
-      "End-to-end process automation",
-      "Intelligent document processing",
-      "Custom triggers and routing logic",
-      "Real-time monitoring and alerts",
-    ],
-  },
-  {
-    title: "Business Intelligence",
-    description:
-      "Turn raw data into clear, actionable intelligence. Our AI tools detect patterns, predict trends, and surface the insights that matter — in a format that drives real decisions.",
-    features: [
-      "Automated trend detection",
-      "Natural language data queries",
-      "Custom dashboards and reports",
-      "Predictive analytics and forecasting",
-    ],
-  },
-  {
-    title: "AI Strategy",
-    description:
-      "Not sure where to start? We help you identify the highest-impact AI opportunities, evaluate the right technologies, and build a practical roadmap that fits your business goals.",
-    features: [
-      "AI readiness assessment",
-      "Opportunity identification and prioritization",
-      "Technology evaluation and selection",
-      "Implementation roadmap and governance",
-    ],
-  },
-];
+import { SOLUTIONS } from "@/lib/constants";
 
 const processSteps = [
   {
     step: "01",
     title: "Discover",
-    description: "We listen first. A focused conversation about your business, workflow, and challenges.",
+    description: "We ask a lot of questions before writing a single line of code. What's the actual bottleneck? What breaks when volume doubles?",
   },
   {
     step: "02",
     title: "Design",
-    description: "We map the right AI approach to your specific needs — nothing generic, nothing wasted.",
+    description: "We figure out the minimum solution that creates the most impact. Nothing gets built unless it truly needs to be.",
   },
   {
     step: "03",
     title: "Build",
-    description: "We develop, test, and refine — delivering working tools in rapid iterations.",
+    description: "You see working software early. We ship in short cycles and adjust based on what your team actually does with it.",
   },
   {
     step: "04",
     title: "Scale",
-    description: "We help you expand what works, measure impact, and grow AI adoption across your team.",
+    description: "Once something works, we help you expand it — to other teams, other processes, more users.",
   },
 ];
 
@@ -109,8 +64,8 @@ export function SolutionsContent() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-xl text-text-secondary leading-[1.65] max-w-[55ch]">
-              From intelligent assistants to full workflow automation, we build practical
-              AI tools that integrate into how your business already works.
+              Each solution we offer is scoped to a specific problem. Not a platform,
+              not a suite — just the right tool for what you&apos;re actually dealing with.
             </p>
           </FadeIn>
         </Container>
@@ -120,7 +75,7 @@ export function SolutionsContent() {
       <section className="pb-24 md:pb-32">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
-            {solutions.map((solution, index) => (
+            {SOLUTIONS.map((solution, index) => (
               <FadeIn key={solution.title} delay={index * 0.05}>
                 <div className="border-t border-border-light pt-8">
                   <h2 className="text-xl font-bold text-text-primary mb-3">
@@ -129,7 +84,7 @@ export function SolutionsContent() {
                   <p className="text-sm text-text-secondary leading-relaxed mb-5 line-clamp-3">
                     {solution.description}
                   </p>
-                  <ul className="flex flex-col gap-1.5">
+                  <ul className="flex flex-col gap-1.5 mb-5">
                     {solution.features.map((feature) => (
                       <li key={feature} className="flex items-baseline gap-2.5 text-sm text-text-secondary">
                         <span className="shrink-0 text-xs" style={{ color: "var(--color-text-primary)" }}>•</span>
@@ -137,6 +92,13 @@ export function SolutionsContent() {
                       </li>
                     ))}
                   </ul>
+                  <Link
+                    href={`/solutions/${solution.slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors group/link"
+                  >
+                    Learn more
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform duration-150" />
+                  </Link>
                 </div>
               </FadeIn>
             ))}
@@ -177,7 +139,7 @@ export function SolutionsContent() {
                 From conversation to impact
               </h2>
               <p className="text-text-secondary leading-relaxed max-w-[65ch]">
-                A proven process that takes you from exploration to results — fast.
+                We don&apos;t start with a framework. We start by understanding what&apos;s actually slowing you down.
               </p>
             </div>
           </FadeIn>

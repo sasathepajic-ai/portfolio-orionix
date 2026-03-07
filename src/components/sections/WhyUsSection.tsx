@@ -6,24 +6,24 @@ import { Check, Minus } from "lucide-react";
 
 const comparisons = [
   {
-    legacy: "Discovery phases that push timelines to months",
-    pragmatic: "First results delivered in weeks, not quarters",
+    legacy: "Months of planning before anything ships",
+    pragmatic: "Working tools within weeks of kickoff",
   },
   {
-    legacy: "Powerful platforms with steep learning curves",
-    pragmatic: "Intuitive tools your whole team actually uses",
+    legacy: "Software that requires weeks of training to use",
+    pragmatic: "Interfaces your team figures out on day one",
   },
   {
-    legacy: "Broad AI investments with uncertain returns",
-    pragmatic: "Every solution tied to a measurable outcome",
+    legacy: "Large commitments before you see what you're paying for",
+    pragmatic: "Scoped work with clear, measurable results",
   },
   {
-    legacy: "Deep vendor ecosystems that create dependencies",
-    pragmatic: "Clear guidance, no lock-in, no jargon",
+    legacy: "Vendor ecosystems that expand indefinitely",
+    pragmatic: "Honest recommendations, no platform dependence",
   },
   {
-    legacy: "Roadmaps that shift as requirements evolve",
-    pragmatic: "Measurable progress from day one",
+    legacy: "Delivery plans that keep moving further out",
+    pragmatic: "Incremental progress you can see and measure",
   },
 ];
 
@@ -32,9 +32,9 @@ export function WhyUsSection() {
     <section className="py-24 md:py-32">
       <Container>
         <SectionHeading
-            label="Why Pragmatic Labs AI"
-            title="We do things differently"
-            description="In a market flooded with AI promises, we take a refreshingly practical approach."
+            label="Why us"
+            title="Built different, on purpose"
+            description="Most AI projects look good in the room where they&apos;re sold and stall in the room where they&apos;re used. We&apos;ve built enough of them to know the difference."
           />
 
         <div className="overflow-hidden rounded-2xl">

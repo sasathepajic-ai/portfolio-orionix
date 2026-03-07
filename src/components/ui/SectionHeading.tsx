@@ -38,7 +38,7 @@ export function SectionHeading({
         <motion.span
           className="inline-block text-[11px] font-bold uppercase tracking-widest text-accent mb-4"
           variants={{
-            hidden: { opacity: 0, y: 14 },
+            hidden: { opacity: 0, y: 10 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98] } },
           }}
         >
@@ -49,7 +49,7 @@ export function SectionHeading({
         className="font-bold text-text-primary mb-5 text-balance"
         style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.75rem)", lineHeight: 1.12, letterSpacing: "-0.025em" }}
         variants={{
-          hidden: { opacity: 0, y: 14 },
+          hidden: { opacity: 0, y: 10 },
           visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] } },
         }}
       >
@@ -59,7 +59,7 @@ export function SectionHeading({
         <motion.p
           className="text-base md:text-[1.05rem] text-text-secondary leading-[1.72]"
           variants={{
-            hidden: { opacity: 0, y: 10 },
+            hidden: { opacity: 0, y: 8 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98] } },
           }}
         >
@@ -81,8 +81,8 @@ export function FadeIn({
   direction?: "up" | "down" | "left" | "right" | "none";
 }) {
   const directionMap = {
-    up: { y: 24 },
-    down: { y: -24 },
+    up: { y: 16 },
+    down: { y: -16 },
     left: { x: 24 },
     right: { x: -24 },
     none: {},
@@ -141,12 +141,12 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 0, y: 14 },
         visible: {
           opacity: 1,
           y: 0,
           transition: {
-            duration: 0.5,
+            duration: 0.45,
             ease: [0.21, 0.47, 0.32, 0.98],
           },
         },

@@ -6,19 +6,19 @@ import { CTASection } from "@/components/sections/CTASection";
 
 const principles = [
   {
-    title: "Practical Over Theoretical",
+    title: "Concrete over theoretical",
     description:
-      "We don't get lost in what AI could hypothetically do. We focus on what it can do for your business today — grounded, tested, and ready to deploy.",
+      "A tool that works for one real process is worth more than a roadmap for ten hypothetical ones. We earn trust by showing results early.",
   },
   {
-    title: "People at the Center",
+    title: "Designed for the people in it",
     description:
-      "Technology fails when it forgets the human. We design every solution around the people who will actually use it, ensuring real adoption and lasting impact.",
+      "A tool nobody uses is worse than no tool at all. We test every system against the people who will actually use it — before anything else.",
   },
   {
-    title: "Speed to Value",
+    title: "Ship, learn, adjust",
     description:
-      "We believe in rapid, incremental wins. Start seeing results fast, build confidence, then scale. No multi-year roadmaps before seeing ROI.",
+      "We don't wait for perfection before shipping. Honest feedback on early versions beats any big upfront plan for getting somewhere useful.",
   },
 ];
 
@@ -55,9 +55,8 @@ export function AboutContent() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-xl text-text-secondary leading-[1.65] max-w-[55ch]">
-              Pragmatic Labs AI was founded on a simple belief: artificial intelligence
-              should be a partner, not a barrier. We bridge the gap between advanced AI
-              capabilities and everyday business operations.
+              Most AI projects are sold as transformation. We build tools. Specific ones,
+              for specific problems, with the expectation that they&apos;ll actually get used.
             </p>
           </FadeIn>
         </Container>
@@ -77,8 +76,8 @@ export function AboutContent() {
                   className="font-semibold text-text-primary leading-snug mb-6"
                   style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
                 >
-                  &ldquo;To empower businesses of all sizes by making sophisticated AI
-                  technology practical, accessible, and genuinely easy to use.&rdquo;
+                  &ldquo;Our goal is simple: make AI that teams actually adopt. Not because
+                  we force it on them, but because it genuinely makes their work easier.&rdquo;
                 </p>
                 <footer className="text-xs font-bold uppercase tracking-widest text-text-muted">
                   — Our Mission
@@ -101,7 +100,7 @@ export function AboutContent() {
                 className="font-bold text-text-primary tracking-tight"
                 style={{ fontSize: "clamp(1.9rem, 3.5vw, 2.75rem)", lineHeight: 1.15 }}
               >
-                Principles, not just promises
+                What we hold ourselves to
               </h2>
             </div>
           </FadeIn>
@@ -140,19 +139,19 @@ export function AboutContent() {
             <FadeIn delay={0.15}>
               <div className="space-y-6 text-text-secondary text-base md:text-lg leading-[1.78]">
                 <p>
-                  Pragmatic Labs AI was born from a simple observation: most businesses know
-                  they need AI, but the complexity of adoption holds them back. The gap between
-                  what AI can do and what businesses actually experience is enormous.
+                  Pragmatic Labs AI started from a specific frustration: most AI products
+                  are built for demos, not for the people who have to use them every day.
+                  Impressive in a presentation, awkward in practice.
                 </p>
                 <p>
-                  We set out to close that gap. Not by dumbing things down, but by designing
-                  smarter — translating advanced AI capabilities into tools that feel natural,
-                  intuitive, and immediately useful.
+                  We went in a different direction. The work begins with your team and their
+                  workflows — not with a technology looking for a problem to solve. The result
+                  is tools that fit naturally into how your business already runs.
                 </p>
                 <p>
-                  Today, we work with organizations across industries — from education and
-                  consulting to operations and HR — helping them unlock the value of AI without
-                  the headaches. No hype. No jargon. Just AI that works.
+                  We work with organizations in education, consulting, operations, and HR.
+                  Different industries, same pattern: a specific bottleneck, a focused
+                  solution, and measurable results before anything gets scaled.
                 </p>
               </div>
             </FadeIn>

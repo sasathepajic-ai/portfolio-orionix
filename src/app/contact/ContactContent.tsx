@@ -8,9 +8,9 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const inputClass = cn(
-  "w-full rounded border border-border bg-bg-card px-4 py-3 text-text-primary text-sm",
-  "placeholder:text-text-muted focus:outline-none focus-visible:outline-none focus:border-accent/70 transition-colors",
-  "transition-all duration-200"
+  "w-full rounded-lg border border-border bg-bg-card px-4 py-3 text-text-primary text-sm",
+  "placeholder:text-text-muted focus:outline-none focus-visible:outline-none focus:border-accent/70 focus:ring-2 focus:ring-accent/15",
+  "transition-all duration-150"
 );
 
 export function ContactContent() {
@@ -50,8 +50,8 @@ export function ContactContent() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-xl text-text-secondary leading-[1.65] max-w-[55ch]">
-              Whether you have a specific challenge or you&apos;re just starting to explore
-              what AI can do&nbsp;&mdash; we&apos;d love to hear from you.
+              No requirement to have it all figured out. Tell us what&apos;s slowing your
+              team down and we&apos;ll take it from there.
             </p>
           </FadeIn>
         </Container>

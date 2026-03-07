@@ -5,49 +5,54 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading, StaggerContainer, StaggerItem, FadeIn } from "@/components/ui/SectionHeading";
 import { SOLUTIONS } from "@/lib/constants";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const MotionLink = motion(Link);
+const springNav = { type: "spring" as const, stiffness: 440, damping: 30 };
 
 export function SolutionsSection() {
   return (
     <section className="py-24 md:py-32 bg-bg-alt/40">
       <Container>
         <SectionHeading
-            label="What We Deliver"
-            title={"Practical AI solutions for every\u00a0team"}
-            description="From intelligent assistants to full workflow automation, we build AI tools that integrate into how your business already works."
+            label="What we build"
+            title={"Four things, done well"}
+            description="We keep a tight scope deliberately. Each of these four solutions is something we've built before and know how to deliver."
           />
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 mb-12">
-          {SOLUTIONS.map((solution, i) => (
+          {SOLUTIONS.map((solution) => (
             <StaggerItem key={solution.title}>
-              <div>
+              <MotionLink
+                href={`/solutions/${solution.slug}`}
+                className="block group/item"
+                whileTap={{ scale: 0.985 }}
+                transition={springNav}
+              >
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span
-                    className="shrink-0 text-[0.8rem] font-bold tabular-nums select-none"
-                    style={{ color: "var(--color-text-muted)", opacity: 0.45 }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-[1.05rem] font-bold text-text-primary">
+                  <h3 className="text-[1.05rem] font-bold text-text-primary group-hover/item:text-accent transition-colors">
                     {solution.title}
                   </h3>
                 </div>
                 <p className="text-text-secondary text-sm leading-[1.68]">
                   {solution.description}
                 </p>
-              </div>
+              </MotionLink>
             </StaggerItem>
           ))}
         </StaggerContainer>
 
         <FadeIn>
           <div className="flex justify-center">
-            <Link
+            <MotionLink
               href="/solutions"
               className="inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-wider text-accent hover:text-accent-hover transition-colors"
+              whileTap={{ scale: 0.97 }}
+              transition={springNav}
             >
               Learn more
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </MotionLink>
           </div>
         </FadeIn>
       </Container>
