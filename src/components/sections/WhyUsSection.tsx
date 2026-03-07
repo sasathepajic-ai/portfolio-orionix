@@ -61,9 +61,14 @@ export function WhyUsSection() {
             {/* Right — Pragmatic Labs AI */}
             <StaggerItem className="md:w-[60%] md:shrink-0 md:-ml-[20%] relative z-10">
               <div
-                className="h-full p-8 md:pt-10 md:pb-10 md:pl-[27%] md:pr-10 rounded-2xl md:rounded-none md:[clip-path:polygon(22%_0,100%_0,100%_100%,11%_100%)]"
-                style={{ background: "var(--color-accent)" }}
+                className="relative overflow-hidden h-full p-8 md:pt-10 md:pb-10 md:pl-[27%] md:pr-10 rounded-2xl md:rounded-none md:[clip-path:polygon(22%_0,100%_0,100%_100%,11%_100%)]"
+                style={{ background: "#cc493c" }}
               >
+                {/* Blurred decorative circles */}
+                <span aria-hidden className="pointer-events-none absolute -top-10 -right-10 w-56 h-56 rounded-full opacity-40" style={{ background: "#e3725e", filter: "blur(48px)" }} />
+                <span aria-hidden className="pointer-events-none absolute top-1/3 right-1/4 w-36 h-36 rounded-full opacity-30" style={{ background: "#b03330", filter: "blur(36px)" }} />
+                <span aria-hidden className="pointer-events-none absolute bottom-0 left-[30%] w-48 h-48 rounded-full opacity-35" style={{ background: "#f28c6a", filter: "blur(52px)" }} />
+                <span aria-hidden className="pointer-events-none absolute bottom-4 right-4 w-24 h-24 rounded-full opacity-25" style={{ background: "#7a1e1e", filter: "blur(30px)" }} />
                 <h3
                   className="text-[11px] font-bold uppercase tracking-widest mb-7"
                   style={{ color: "#ffffff" }}

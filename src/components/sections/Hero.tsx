@@ -151,15 +151,40 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
-        <div
-          className="absolute inset-0 opacity-[0.038]"
-          style={{
-            backgroundImage:
-              "radial-gradient(var(--color-dot-grid) 1.2px, transparent 1.2px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden hidden lg:block" aria-hidden="true">
+
+        {/* Circle A — small, top-left corner */}
+        <svg viewBox="0 0 200 200" style={{
+          position: "absolute", width: "500px", height: "500px",
+          left: "-165px", top: "-300px", overflow: "visible",
+        }}>
+          <g style={{ filter: "blur(7px)" }}>
+            <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(204,73,60,0.10)" strokeWidth="10"/>
+          </g>
+          <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(230,105,72,0.38)" strokeWidth="0.7"/>
+        </svg>
+
+        {/* Circle B — large, lower-right */}
+        <svg viewBox="0 0 200 200" style={{
+          position: "absolute", width: "1250px", height: "1250px",
+          left: "calc(68vw - 600px)", top: "calc(50vh - 10vw + 500px)", overflow: "visible",
+        }}>
+          <g style={{ filter: "blur(9px)" }}>
+            <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(204,73,60,0.09)" strokeWidth="10"/>
+          </g>
+          <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(230,105,72,0.35)" strokeWidth="0.7"/>
+        </svg>
+
+        {/* Circle C — smaller, upper-right overlapping B */}
+        <svg viewBox="0 0 200 200" style={{
+          position: "absolute", width: "1500px", height: "1500px",
+          left: "calc(82vw - 200px)", top: "calc(22vh - 5vw + 100px)", overflow: "visible",
+        }}>
+          <g style={{ filter: "blur(7px)" }}>
+            <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(204,73,60,0.09)" strokeWidth="10"/>
+          </g>
+          <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(230,105,72,0.35)" strokeWidth="0.7"/>
+        </svg>
 
       </div>
 
@@ -204,8 +229,21 @@ export function Hero() {
                       fill="none"
                       strokeLinecap="round"
                       initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ pathLength: 1, opacity: 1 }}
-                      transition={{ duration: 0.7, delay: 0.55, ease: "easeInOut" }}
+                      animate={{
+                        pathLength: 1,
+                        opacity: 1,
+                        d: [
+                          "M3 10 Q60 3 110 9 Q162 15 217 7",
+                          "M3 9 Q60 14 110 8 Q162 3 217 10",
+                          "M3 11 Q60 4 110 10 Q162 14 217 8",
+                          "M3 10 Q60 3 110 9 Q162 15 217 7",
+                        ],
+                      }}
+                      transition={{
+                        pathLength: { duration: 0.7, delay: 0.55, ease: "easeInOut" },
+                        opacity: { duration: 0.4, delay: 0.55 },
+                        d: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.3, repeatType: "loop" as const },
+                      }}
                     />
                   </svg>
                 </span>
