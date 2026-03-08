@@ -35,38 +35,39 @@ export function CTASection() {
 
       <Container size="wide" className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-20 items-center">
-          {/* Left */}
           <FadeIn>
-            <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-accent mb-5">
-              Get in touch
-            </span>
-            <h2
-              className="font-bold text-text-primary dark:text-white mb-6"
-              style={{ fontSize: "clamp(2rem, 3.5vw, 3.25rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
-            >
-              Have a process{" "}
-              <br className="hidden sm:block" />
-              worth fixing?
-            </h2>
-            <p
-              className="text-base leading-[1.7] mb-10 max-w-[52ch] text-text-secondary dark:text-white/60"
-            >
-              We don't need a polished brief or a vendor evaluation. Just tell us what's
-              slowing your team down and we'll take it from there.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button href="/contact" variant="primary" size="lg">
-                Start a Conversation
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </Button>
-              <Button
-                href="/solutions"
-                variant="ghost"
-                size="lg"
-                className="text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white dark:hover:bg-white/8"
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+              <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-accent mb-5">
+                Get in touch
+              </span>
+              <h2
+                className="font-bold text-text-primary dark:text-white mb-6"
+                style={{ fontSize: "clamp(2rem, 3.5vw, 3.25rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
               >
-                View Solutions
-              </Button>
+                Have a process{" "}
+                <br className="hidden sm:block" />
+                worth fixing?
+              </h2>
+              <p
+                className="text-base leading-[1.7] mb-10 max-w-[52ch] text-text-secondary dark:text-white/60"
+              >
+                We don&apos;t need a polished brief or a vendor evaluation. Just tell us what&apos;s
+                slowing your team down and we&apos;ll take it from there.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button href="/contact" variant="primary" size="lg">
+                  Start a Conversation
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Button>
+                <Button
+                  href="/solutions"
+                  variant="ghost"
+                  size="lg"
+                  className="text-text-secondary hover:text-text-primary dark:text-white/70 dark:hover:text-white dark:hover:bg-white/8"
+                >
+                  View Solutions
+                </Button>
+              </div>
             </div>
           </FadeIn>
 
@@ -79,19 +80,16 @@ export function CTASection() {
                 What to expect
               </p>
               <StaggerContainer className="space-y-5">
-                {expectations.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <StaggerItem key={item.title}>
-                      <div>
-                        <p className="text-sm font-bold text-text-primary dark:text-white mb-0.5">{item.title}</p>
-                        <p className="text-xs leading-relaxed text-text-secondary dark:text-white/50">
-                          {item.description}
-                        </p>
-                      </div>
-                    </StaggerItem>
-                  );
-                })}
+                {expectations.map((item) => (
+                  <StaggerItem key={item.title}>
+                    <div>
+                      <p className="text-sm font-bold text-text-primary dark:text-white mb-0.5">{item.title}</p>
+                      <p className="text-xs leading-relaxed text-text-secondary dark:text-white/50">
+                        {item.description}
+                      </p>
+                    </div>
+                  </StaggerItem>
+                ))}
               </StaggerContainer>
               <p className="text-xs mt-8 text-text-muted dark:text-white/30">
                 No commitment required. No sales pressure.

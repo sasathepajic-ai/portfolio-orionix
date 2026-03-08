@@ -42,7 +42,7 @@ export function WhyUsSection() {
             {/* Left — legacy */}
             <StaggerItem className="md:w-[60%] md:shrink-0">
               <div className="h-full border border-border-light bg-bg-alt/50 p-8 md:p-10 rounded-2xl md:rounded-l-2xl md:rounded-r-none">
-                <h3 className="text-[11px] font-bold uppercase tracking-widest text-text-muted mb-7">
+                <h3 className="text-[11px] font-bold uppercase tracking-widest text-text-muted mb-7 justify-self-center md:justify-self-auto">
                   The usual approach
                 </h3>
                 <div className="space-y-5">
@@ -70,7 +70,7 @@ export function WhyUsSection() {
                 <span aria-hidden className="pointer-events-none absolute bottom-0 left-[30%] w-48 h-48 rounded-full opacity-35" style={{ background: "#f28c6a", filter: "blur(52px)" }} />
                 <span aria-hidden className="pointer-events-none absolute bottom-4 right-4 w-24 h-24 rounded-full opacity-25" style={{ background: "#7a1e1e", filter: "blur(30px)" }} />
                 <h3
-                  className="text-[11px] font-bold uppercase tracking-widest mb-7"
+                  className="text-[11px] font-bold uppercase tracking-widest mb-7 justify-self-center md:justify-self-auto"
                   style={{ color: "#ffffff" }}
                 >
                   Pragmatic Labs AI
