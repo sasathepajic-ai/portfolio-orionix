@@ -112,7 +112,7 @@ export function Hero() {
             <FadeIn delay={0.16}>
               <h1
                 className="font-bold text-text-primary tracking-tight mb-6"
-                style={{ fontSize: "clamp(2.75rem, 5vw, 4.5rem)", lineHeight: 1.06, letterSpacing: "-0.038em" }}
+                style={{ fontSize: "clamp(2.25rem, 5vw, 4.5rem)", lineHeight: 1.06, letterSpacing: "-0.038em" }}
               >
                 AI built for{" "}
                 <span className="relative inline-block">
@@ -154,7 +154,7 @@ export function Hero() {
             </FadeIn>
 
             <FadeIn delay={0.24}>
-              <p className="text-lg md:text-xl text-text-secondary leading-[1.7] mb-10 max-w-[50ch] mx-auto text-pretty">
+              <p className="text-sm md:text-xl text-text-secondary leading-[1.7] mb-10 max-w-[50ch] mx-auto text-pretty [text-align-last:center]">
                 Most AI tools ask your team to change how they work. We build tools that
                 fit the way your team already operates — using your data, inside your systems.
               </p>
