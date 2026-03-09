@@ -54,7 +54,7 @@ export function AboutContent() {
       </section>
 
       {/* Mission blockquote */}
-      <section className="py-20 md:py-28 border-y border-border-light" style={{ background: "var(--color-bg-alt)" }}>
+      <section className="py-10 md:py-12 border-y border-border-light" style={{ background: "var(--color-bg-alt)" }}>
         <Container>
           <FadeIn>
             <div className="flex gap-8 items-start max-w-3xl">
@@ -65,7 +65,7 @@ export function AboutContent() {
               <blockquote>
                 <p
                   className="font-semibold text-text-primary leading-snug mb-6"
-                  style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
+                  style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.5rem)" }}
                 >
                   &ldquo;Our goal is simple: make AI that teams actually adopt. Not because
                   we force it on them, but because it genuinely makes their work easier.&rdquo;

@@ -130,11 +130,11 @@ export function SolutionsContent() {
                 <div className="flex items-start gap-4">
                   <div className="relative shrink-0">
                     <div className="absolute rounded-full border border-dashed" style={{ inset: "-6px", borderColor: "var(--color-accent)", opacity: 0.28 }} />
-                    <div className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm select-none" style={{ background: "var(--color-bg-card)", border: "1.5px solid var(--color-border)", color: "var(--color-accent)" }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm select-none" style={{ background: "var(--color-bg-card)", border: "1.5px solid var(--color-border)", color: "var(--color-accent)" }}>
                       {phase.step}
                     </div>
                   </div>
-                  <div className="min-w-0 pt-1">
+                  <div className="min-w-0">
                     <h3 className="text-base font-bold text-text-primary mb-1">{phase.title}</h3>
                     <p className="text-sm text-text-secondary leading-relaxed">{phase.description}</p>
                   </div>
