@@ -54,7 +54,7 @@ export function AboutContent() {
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-xl text-text-secondary leading-[1.65] max-w-[55ch]">
+            <p className="text-md md:text-lg text-text-secondary leading-[1.65] max-w-[55ch]">
               Most AI projects are sold as transformation. We build tools. Specific ones,
               for specific problems, with the expectation that they&apos;ll actually get used.
             </p>

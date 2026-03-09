@@ -63,7 +63,7 @@ export function SolutionsContent() {
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-xl text-text-secondary leading-[1.65] max-w-[55ch]">
+            <p className="text-md md:text-lg text-text-secondary leading-[1.65] max-w-[55ch]">
               Each solution we offer is scoped to a specific problem. Not a platform,
               not a suite — just the right tool for what you&apos;re actually dealing with.
             </p>

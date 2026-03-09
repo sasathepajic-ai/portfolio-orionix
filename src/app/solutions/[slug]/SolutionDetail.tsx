@@ -78,8 +78,7 @@ export function SolutionDetail({ solution }: Props) {
             </h1>
 
             <p
-              className="text-text-secondary leading-relaxed max-w-[60ch]"
-              style={{ fontSize: "clamp(1rem, 1.5vw, 1.125rem)" }}
+              className="text-text-secondary leading-relaxed max-w-[60ch] text-md md:text-lg"
             >
               {solution.description}
             </p>

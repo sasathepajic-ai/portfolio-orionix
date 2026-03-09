@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/SectionHeading";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Mail, CalendarCheck, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const inputClass = cn(
@@ -49,7 +49,7 @@ export function ContactContent() {
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-xl text-text-secondary leading-[1.65] max-w-[55ch]">
+            <p className="text-md md:text-lg text-text-secondary leading-[1.65] max-w-[55ch]">
               No requirement to have it all figured out. Tell us what&apos;s slowing your
               team down and we&apos;ll take it from there.
             </p>
@@ -185,7 +185,7 @@ export function ContactContent() {
             {/* Sidebar */}
             <div className="lg:col-span-5">
               <FadeIn delay={0.2}>
-                <div className="space-y-5">
+                <div className="space-y-8">
                   {/* Response time */}
                   <div>
                     <h3 className="text-base font-bold text-text-primary mb-2">Quick response</h3>
@@ -194,35 +194,43 @@ export function ContactContent() {
                     </p>
                   </div>
 
-                  {/* Dark callout */}
-                  <div
-                    className="rounded-2xl p-7 dark:border dark:border-border"
-                    style={{ background: "var(--color-navy)" }}
-                  >
-                    <h3 className="text-base font-bold text-white dark:text-text-primary mb-3">Not sure where to start?</h3>
-                    <p className="text-sm leading-relaxed dark:text-text-secondary" style={{ color: "rgba(255,255,255,0.55)" }}>
-                      That&apos;s perfectly fine. Many of our clients begin with an exploratory
-                      conversation. No commitment, no pressure &mdash; just an honest discussion
-                      about what AI can (and can&apos;t) do for your business.
+
+                  {/* Not sure where to start */}
+                  <div>
+                    <h3 className="text-base font-bold text-text-primary mb-2">Not sure where to start?</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      That&apos;s perfectly fine. Many of our clients begin with an exploratory conversation. No commitment, no pressure &mdash; just an honest discussion about what AI can (and can&apos;t) do for your business.
                     </p>
                   </div>
 
-                  {/* What happens next */}
+
+                  {/* What happens next — timeline */}
                   <div>
-                    <h3 className="text-base font-bold text-text-primary mb-4">What happens next</h3>
-                    <div className="space-y-3">
+                    <h3 className="text-base font-bold text-text-primary mb-6">What happens next</h3>
+                    <div>
                       {[
-                        "We review your message carefully",
-                        "We reach out to schedule a short call",
-                        "We discuss your challenge and options",
-                      ].map((step, i) => (
-                        <div key={step} className="flex items-start gap-3">
-                          <span className="shrink-0 w-5 h-5 rounded-full bg-text-primary/10 flex items-center justify-center text-[10px] font-bold text-text-primary mt-0.5">
-                            {i + 1}
-                          </span>
-                          <p className="text-sm text-text-secondary leading-relaxed">{step}</p>
-                        </div>
-                      ))}
+                        { icon: Mail, label: "We review your message carefully", detail: "Usually within a few hours." },
+                        { icon: CalendarCheck, label: "We reach out to schedule a short call", detail: "30 minutes, no agenda required." },
+                        { icon: MessageCircle, label: "We discuss your challenge and options", detail: "Honest assessment, no pressure." },
+                      ].map(({ icon: Icon, label, detail }, i, arr) => {
+                        const isLast = i === arr.length - 1;
+                        return (
+                          <div key={label} className="flex gap-4">
+                            {/* Icon + line */}
+                            <div className="flex flex-col items-center">
+                              <div className="shrink-0 w-7 h-7 rounded-full border border-border bg-bg-card flex items-center justify-center z-10">
+                                <Icon className="w-3 h-3 text-accent" />
+                              </div>
+                              {!isLast && <div className="w-px flex-1 bg-border-light mt-1 mb-1 min-h-7" />}
+                            </div>
+                            {/* Text */}
+                            <div className={isLast ? "pb-0" : "pb-6"}>
+                              <p className="text-sm font-medium text-text-primary leading-snug">{label}</p>
+                              <p className="text-xs text-text-muted mt-0.5">{detail}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

@@ -51,12 +51,12 @@ export function ImpactSection() {
                   <div className="flex flex-col items-center text-center md:items-start md:text-left">
                     <div className="flex items-center gap-4 mb-4">
                       <p
-                        className="font-bold text-text-primary dark:text-white"
-                        style={{ fontSize: "clamp(2rem, 3.5vw, 2.75rem)", lineHeight: 1.0, letterSpacing: "-0.03em" }}
+                        className="font-bold text-text-primary dark:text-white text-xl md:text-2xl"
+                        style={{lineHeight: 1.0, letterSpacing: "-0.03em" }}
                       >
                         {impact.word}
                       </p>
-                      <Icon className="w-8 h-8 shrink-0 mt-1 hidden md:inline" style={{ color: "var(--color-teal)" }} />
+                      <Icon className="w-6 h-6 shrink-0 mt-1 hidden md:inline" style={{ color: "var(--color-teal)" }} />
                     </div>
                     <p className="text-sm leading-[1.68] text-text-secondary dark:text-white/50">
                       {impact.description}
