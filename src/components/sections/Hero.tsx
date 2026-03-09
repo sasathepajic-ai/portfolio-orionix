@@ -101,9 +101,15 @@ function project(
 }
 
 function AtomCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animRef   = useRef<number>(0);
-  const t0Ref     = useRef<number>(0);
+  const canvasRef   = useRef<HTMLCanvasElement>(null);
+  const animRef     = useRef<number>(0);
+  const t0Ref       = useRef<number>(0);
+  // Accumulated "virtual time" that speeds up when the user scrolls
+  const vtRef       = useRef<number>(0);
+  // Smoothed speed multiplier (1 at rest, bursts higher on scroll)
+  const speedRef    = useRef<number>(1);
+  const lastScrollY = useRef<number>(0);
+  const lastTs      = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -134,12 +140,33 @@ function AtomCanvas() {
     });
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
+    // Scroll handler — convert scroll delta into a speed impulse
+    function onScroll() {
+      const y    = window.scrollY;
+      const dy   = Math.abs(y - lastScrollY.current);
+      lastScrollY.current = y;
+      // Map pixels/event to an impulse capped at 8×, smoothly added to current speed
+      const impulse = Math.min(dy * 0.08, 7.0);
+      speedRef.current = Math.min(speedRef.current + impulse, 8.0);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     const N = 100; // segments per orbital ring
 
     function frame(ts: number) {
       if (!canvas || !ctx) return;
-      if (!t0Ref.current) t0Ref.current = ts;
-      const t    = (ts - t0Ref.current) / 1000;
+      if (!t0Ref.current) { t0Ref.current = ts; lastTs.current = ts; }
+
+      const dt   = (ts - lastTs.current) / 1000;
+      lastTs.current = ts;
+
+      // Decay speed back toward 1× with a half-life of ~0.6 s
+      speedRef.current = 1 + (speedRef.current - 1) * Math.exp(-dt * 1.15);
+
+      // Accumulate virtual time at the current speed
+      vtRef.current += dt * speedRef.current;
+      const t = vtRef.current;
+
       const W    = canvas.width  / dpr;
       const H    = canvas.height / dpr;
       const cx   = W / 2;
@@ -221,6 +248,7 @@ function AtomCanvas() {
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScroll);
       ro.disconnect();
       mo.disconnect();
     };

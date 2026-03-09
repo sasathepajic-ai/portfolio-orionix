@@ -90,7 +90,7 @@ type MotionSafeButtonProps = Omit<
 const SOLID_VARIANTS = new Set(["primary", "secondary", "teal"]);
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, href, children, ...allProps }, ref) => {
+  ({ className, variant, size, href, children, style, ...allProps }, ref) => {
     // Cast away the event handler types that conflict with Framer Motion's signatures
     const props = allProps as MotionSafeButtonProps;
     const [ripples, setRipples] = useState<RippleItem[]>([]);
@@ -123,6 +123,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <motion.a
             href={href}
             className={cls}
+            style={style}
             target="_blank"
             rel="noopener noreferrer"
             onMouseDown={addRipple}
@@ -137,6 +138,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <MotionLink
           href={href}
           className={cls}
+          style={style}
           onMouseDown={addRipple}
           {...motionProps}
         >
@@ -150,6 +152,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <motion.button
         ref={ref}
         className={cls}
+        style={style}
         onMouseDown={addRipple}
         {...motionProps}
         {...props}
