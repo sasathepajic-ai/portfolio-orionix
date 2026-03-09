@@ -151,21 +151,34 @@ function AtomCanvas() {
 
       const C = dark ? DARK : LIGHT;
 
+      // Lines fade to invisible inside innerFade, reach full opacity at outerFade
+      const innerFade = base * 0.16;
+      const outerFade = base * 0.44;
+
       for (const o of ORBITS) {
         const lon = o.lonBase + t * o.lonSpeed;
         const R   = base * o.radiusFrac;
 
-        // ── orbital ring ──────────────────────────────────
-        ctx.beginPath();
-        for (let i = 0; i <= N; i++) {
-          const theta  = (i / N) * Math.PI * 2;
-          const [px, py] = project(theta, R, o.inclination, lon, cx, cy, fov);
-          if (i === 0) { ctx.moveTo(px, py); } else { ctx.lineTo(px, py); }
+        // ── orbital ring — per-segment opacity fades toward center ────────
+        ctx.lineWidth = 0.8;
+        for (let i = 0; i < N; i++) {
+          const theta0 = (i       / N) * Math.PI * 2;
+          const theta1 = ((i + 1) / N) * Math.PI * 2;
+          const [px0, py0] = project(theta0, R, o.inclination, lon, cx, cy, fov);
+          const [px1, py1] = project(theta1, R, o.inclination, lon, cx, cy, fov);
+          const mx = (px0 + px1) * 0.5 - cx;
+          const my = (py0 + py1) * 0.5 - cy;
+          const dist = Math.sqrt(mx * mx + my * my);
+          const frac = Math.max(0, Math.min(1, (dist - innerFade) / (outerFade - innerFade)));
+          const fade = frac * frac * (3 - 2 * frac); // smoothstep
+          const segAlpha = o.lineOpacity * fade;
+          if (segAlpha < 0.003) continue;
+          ctx.beginPath();
+          ctx.moveTo(px0, py0);
+          ctx.lineTo(px1, py1);
+          ctx.strokeStyle = `rgba(${C.r},${segAlpha.toFixed(4)})`;
+          ctx.stroke();
         }
-        ctx.closePath();
-        ctx.strokeStyle = `rgba(${C.r},${o.lineOpacity})`;
-        ctx.lineWidth   = 0.8;
-        ctx.stroke();
 
         // ── electrons ─────────────────────────────────────
         for (const el of o.electrons) {
@@ -177,7 +190,11 @@ function AtomCanvas() {
           // depth scaling: electrons closer to the viewer appear larger/brighter
           const depthT = Math.max(0, Math.min(1, (pz / base + 1) * 0.5));
           const elR    = el.r * (0.65 + 0.40 * depthT);
-          const alpha  = 0.28 + 0.22 * depthT;
+          const dx = px - cx, dy = py - cy;
+          const distEl = Math.sqrt(dx * dx + dy * dy);
+          const fracEl = Math.max(0, Math.min(1, (distEl - innerFade) / (outerFade - innerFade)));
+          const fadeEl = fracEl * fracEl * (3 - 2 * fracEl);
+          const alpha  = (0.28 + 0.22 * depthT) * fadeEl;
 
           ctx.beginPath();
           ctx.arc(px, py, elR, 0, Math.PI * 2);
@@ -195,21 +212,6 @@ function AtomCanvas() {
           ctx.globalAlpha = 1;
         }
       }
-
-      // ── center fade (protects hero text readability) ───
-      const fr  = base * 0.48;
-      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, fr);
-      // Generate 32 stops along a smoothstep³ curve to eliminate banding
-      const fadeStops = 32;
-      for (let si = 0; si <= fadeStops; si++) {
-        const t  = si / fadeStops;
-        // smootherstep: 6t⁵ - 15t⁴ + 10t³
-        const s  = t * t * t * (t * (t * 6 - 15) + 10);
-        const op = (1 - s).toFixed(4);
-        grd.addColorStop(t, `rgba(${C.bg},${op})`);
-      }
-      ctx.fillStyle = grd;
-      ctx.fillRect(0, 0, W, H);
 
       animRef.current = requestAnimationFrame(frame);
     }
@@ -250,7 +252,7 @@ export function Hero() {
               <div
                 className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8"
                 style={{
-                  background: "var(--color-ui-badge-bg)",
+                  background: "var(--color-bg-alt)",
                 }}
               >
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
@@ -317,7 +319,7 @@ export function Hero() {
                   Talk to Us
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Button>
-                <Button href="/solutions" variant="outline" size="xl" className="border md:border-2">
+                <Button href="/solutions" variant="outline" size="xl" className="border md:border-2" style={{ background: "var(--color-bg)" }}>
                   Explore Solutions
                 </Button>
               </div>
