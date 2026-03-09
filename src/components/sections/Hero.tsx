@@ -21,56 +21,32 @@ interface OrbitConfig {
   lineOpacity: number;
 }
 
-const ORBITS: OrbitConfig[] = [
-  {
-    radiusFrac: 0.38, inclination: Math.PI / 5,       lonBase: 0,               lonSpeed:  0.042,
-    elSpeed: 0.38, wobbleAmp: 0.20, wobbleFreq: 2.3,
-    electrons: [{ phase: 0,                    r: 2.5, colorKey: "accent" },
-                { phase: Math.PI,              r: 2.0, colorKey: "soft"   }],
-    lineOpacity: 0.12,
-  },
-  {
-    radiusFrac: 0.32, inclination: Math.PI * 2 / 5,   lonBase: Math.PI / 4,     lonSpeed: -0.028,
-    elSpeed: 0.52, wobbleAmp: 0.15, wobbleFreq: 3.1,
-    electrons: [{ phase: 1.2,                  r: 2.5, colorKey: "blue"   }],
-    lineOpacity: 0.10,
-  },
-  {
-    radiusFrac: 0.44, inclination: Math.PI * 5 / 11,  lonBase: Math.PI * 2 / 3, lonSpeed:  0.035,
-    elSpeed: 0.36, wobbleAmp: 0.25, wobbleFreq: 1.8,
-    electrons: [{ phase: 2.4,                  r: 2.2, colorKey: "soft"   },
-                { phase: 2.4 + Math.PI * 2/3,  r: 1.8, colorKey: "blue"   }],
-    lineOpacity: 0.11,
-  },
-  {
-    radiusFrac: 0.28, inclination: Math.PI * 5 / 12,  lonBase: Math.PI,         lonSpeed: -0.055,
-    elSpeed: 0.62, wobbleAmp: 0.18, wobbleFreq: 2.7,
-    electrons: [{ phase: 0.8,                  r: 2.2, colorKey: "accent" }],
-    lineOpacity: 0.09,
-  },
-  {
-    radiusFrac: 0.36, inclination: Math.PI / 8,       lonBase: Math.PI * 5 / 4, lonSpeed:  0.022,
-    elSpeed: 0.32, wobbleAmp: 0.22, wobbleFreq: 2.0,
-    electrons: [{ phase: 3.0,                  r: 2.0, colorKey: "soft"   },
-                { phase: 3.0 + Math.PI,        r: 2.2, colorKey: "accent" }],
-    lineOpacity: 0.10,
-  },
-  {
-    radiusFrac: 0.45, inclination: 2 * Math.PI / 3,   lonBase: Math.PI / 3,     lonSpeed:  0.038,
-    elSpeed: 0.44, wobbleAmp: 0.16, wobbleFreq: 3.4,
-    electrons: [{ phase: 1.6,                  r: 2.4, colorKey: "blue"   }],
-    lineOpacity: 0.11,
-  },
-  {
-    radiusFrac: 0.25, inclination: Math.PI * 3 / 7,   lonBase: Math.PI * 3 / 2, lonSpeed: -0.048,
-    elSpeed: 0.70, wobbleAmp: 0.20, wobbleFreq: 2.5,
-    electrons: [{ phase: 0.4,                  r: 1.8, colorKey: "soft"   }],
-    lineOpacity: 0.08,
-  },
-];
+// ── Regular polygon arrangement:
+//   All rings share the same inclination and are spaced by π/N around the Y axis.
+//   Because a ring at longitude L and L+π is the same plane, π/N steps give N
+//   perfectly distinct planes with equal angular separation — like a regular polygon.
+//   All rings rotate at the same speed → the whole atom spins as a rigid body.
+const ORBIT_COUNT = 6; // change to 5 for pentagon, 6 for hexagon, etc.
+const EL_COLORS: Array<"accent" | "blue" | "soft"> = ["accent", "blue", "soft"];
+
+const ORBITS: OrbitConfig[] = Array.from({ length: ORBIT_COUNT }, (_, k) => ({
+  radiusFrac:  0.38,
+  // Every ring at the same tilt — 62° gives clear elliptical depth without collapsing to a line
+  inclination: Math.PI / 2.9,
+  // Space start-longitudes evenly by π/N across the half-circle
+  lonBase:     k * (Math.PI / ORBIT_COUNT),
+  // Identical speed + direction → rigid-body rotation
+  lonSpeed:    0.032,
+  elSpeed:     0.45,
+  wobbleAmp:   0,
+  wobbleFreq:  0,
+  // Electrons spread evenly around their ring
+  electrons:   [{ phase: k * (2 * Math.PI / ORBIT_COUNT), r: 2.2, colorKey: EL_COLORS[k % 3] }],
+  lineOpacity: 0.11,
+}));
 
 // Colour palettes — RGB components used for canvas rgba() strings
-const LIGHT = { r: "10,12,16",    accent: "#cc493c", blue: "#5c8cb8", sR: "71,98,120",   bg: "249,248,245" };
+const LIGHT = { r: "10,12,16",    accent: "#c03a2d", blue: "#4479aa", sR: "60,88,112",   bg: "249,248,245" };
 const DARK  = { r: "237,233,225", accent: "#d95f52", blue: "#80aed0", sR: "154,163,168", bg: "14,14,14"    };
 
 /**
@@ -172,22 +148,27 @@ function AtomCanvas() {
       const cx   = W / 2;
       const cy   = H / 2;
       const fov  = Math.max(W, H) * 1.8;
-      const base = Math.max(W, H) * 0.85;
+      // Portrait phones: size off width so the atom fills the screen.
+      const isPortrait = H > W * 1.1;
+      // Larger base on mobile so rings visually dominate the viewport.
+      const base = isPortrait ? W * 2.6 : Math.max(W, H) * 0.85;
 
       ctx.clearRect(0, 0, W, H);
 
       const C = dark ? DARK : LIGHT;
 
-      // Lines fade to invisible inside innerFade, reach full opacity at outerFade
-      const innerFade = base * 0.16;
-      const outerFade = base * 0.44;
+      // On mobile: tiny dead-zone + outerFade just past the ring radius so lines
+      // hit full opacity right where the rings actually are.
+      const innerFade = base * (isPortrait ? 0.04 : 0.16);
+      const outerFade = base * (isPortrait ? 0.42 : 0.44);
 
       for (const o of ORBITS) {
         const lon = o.lonBase + t * o.lonSpeed;
         const R   = base * o.radiusFrac;
 
         // ── orbital ring — per-segment opacity fades toward center ────────
-        ctx.lineWidth = 0.8;
+        const ringOpacity = isPortrait ? o.lineOpacity * 0.8 : o.lineOpacity;
+        ctx.lineWidth = isPortrait ? 1.5 : 0.8;
         for (let i = 0; i < N; i++) {
           const theta0 = (i       / N) * Math.PI * 2;
           const theta1 = ((i + 1) / N) * Math.PI * 2;
@@ -198,7 +179,7 @@ function AtomCanvas() {
           const dist = Math.sqrt(mx * mx + my * my);
           const frac = Math.max(0, Math.min(1, (dist - innerFade) / (outerFade - innerFade)));
           const fade = frac * frac * (3 - 2 * frac); // smoothstep
-          const segAlpha = o.lineOpacity * fade;
+          const segAlpha = ringOpacity * fade;
           if (segAlpha < 0.003) continue;
           ctx.beginPath();
           ctx.moveTo(px0, py0);
@@ -216,7 +197,7 @@ function AtomCanvas() {
 
           // depth scaling: electrons closer to the viewer appear larger/brighter
           const depthT = Math.max(0, Math.min(1, (pz / base + 1) * 0.5));
-          const elR    = el.r * (0.65 + 0.40 * depthT);
+          const elR    = el.r * (0.65 + 0.40 * depthT) * (isPortrait ? 1.8 : 1.0);
           const dx = px - cx, dy = py - cy;
           const distEl = Math.sqrt(dx * dx + dy * dy);
           const fracEl = Math.max(0, Math.min(1, (distEl - innerFade) / (outerFade - innerFade)));

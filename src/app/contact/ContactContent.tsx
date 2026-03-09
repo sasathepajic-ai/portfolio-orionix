@@ -25,15 +25,7 @@ export function ContactContent() {
     <>
       {/* Hero */}
       <section className="relative pt-36 md:pt-44 pb-20 md:pb-28 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div
-            className="absolute inset-0 opacity-[0.033]"
-            style={{
-              backgroundImage: "radial-gradient(var(--color-dot-grid) 1.2px, transparent 1.2px)",
-              backgroundSize: "26px 26px",
-            }}
-          />
-        </div>
+
         <Container className="relative">
           <FadeIn>
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-accent mb-6">

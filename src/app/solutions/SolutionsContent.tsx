@@ -36,16 +36,7 @@ export function SolutionsContent() {
     <>
       {/* Hero */}
       <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div
-            className="absolute inset-0 opacity-[0.033]"
-            style={{
-              backgroundImage: "radial-gradient(var(--color-dot-grid) 1.2px, transparent 1.2px)",
-              backgroundSize: "26px 26px",
-            }}
-          />
 
-        </div>
         <Container className="relative">
           <FadeIn>
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-accent mb-6">
@@ -114,18 +105,6 @@ export function SolutionsContent() {
 
       {/* Process */}
       <section className="relative py-24 md:py-32 border-y border-border-light overflow-hidden" style={{ background: "var(--color-bg-alt)" }}>
-        {/* Corner dot-grid decorations */}
-        <svg className="absolute top-6 right-6 opacity-[0.12] pointer-events-none" width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden>
-          {[0,1,2,3,4,5].map(row => [0,1,2,3,4,5].map(col => (
-            <circle key={`${row}-${col}`} cx={col * 14 + 7} cy={row * 14 + 7} r="2" fill="var(--color-accent)" />
-          )))}
-        </svg>
-        <svg className="absolute bottom-6 left-6 opacity-[0.12] pointer-events-none" width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden>
-          {[0,1,2,3,4,5].map(row => [0,1,2,3,4,5].map(col => (
-            <circle key={`${row}-${col}`} cx={col * 14 + 7} cy={row * 14 + 7} r="2" fill="var(--color-accent)" />
-          )))}
-        </svg>
-
         <Container>
           <FadeIn>
             <div className="max-w-2xl mx-auto text-center mb-16 md:mb-20">

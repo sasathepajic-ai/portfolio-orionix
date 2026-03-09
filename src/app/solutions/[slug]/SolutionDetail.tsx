@@ -32,27 +32,6 @@ export function SolutionDetail({ solution }: Props) {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
-        <svg
-          className="absolute top-20 right-8 opacity-[0.07] pointer-events-none"
-          width="160"
-          height="160"
-          viewBox="0 0 160 160"
-          fill="none"
-          aria-hidden
-        >
-          {[0, 1, 2, 3, 4, 5, 6].map((row) =>
-            [0, 1, 2, 3, 4, 5, 6].map((col) => (
-              <circle
-                key={`${row}-${col}`}
-                cx={col * 22 + 11}
-                cy={row * 22 + 11}
-                r="2"
-                fill="var(--color-accent)"
-              />
-            ))
-          )}
-        </svg>
-
         <Container>
           <FadeIn>
             <MotionLink
@@ -102,7 +81,7 @@ export function SolutionDetail({ solution }: Props) {
               {/* Overview */}
               <FadeIn>
                 <div className="mb-14">
-                  <h2 className="text-xs font-bold uppercase tracking-widest text-text-muted mb-5">
+                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
                     What it is
                   </h2>
                   {detail.overview.map((para, i) => (
@@ -119,7 +98,7 @@ export function SolutionDetail({ solution }: Props) {
               {/* How It Works */}
               <FadeIn delay={0.06}>
                 <div className="mb-14 pt-10 border-t border-border-light">
-                  <h2 className="text-xs font-bold uppercase tracking-widest text-text-muted mb-5">
+                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
                     How it works
                   </h2>
                   {detail.howItWorks.map((para, i) => (
@@ -136,7 +115,7 @@ export function SolutionDetail({ solution }: Props) {
               {/* Use Cases */}
               <FadeIn delay={0.1}>
                 <div className="mb-14 pt-10 border-t border-border-light">
-                  <h2 className="text-xs font-bold uppercase tracking-widest text-text-muted mb-5">
+                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
                     Where it fits
                   </h2>
                   <ul className="space-y-3">
@@ -158,7 +137,7 @@ export function SolutionDetail({ solution }: Props) {
               {/* Benefits */}
               <FadeIn delay={0.14}>
                 <div className="pt-10 border-t border-border-light">
-                  <h2 className="text-xs font-bold uppercase tracking-widest text-text-muted mb-5">
+                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
                     What changes
                   </h2>
                   <ul className="space-y-3">
@@ -187,12 +166,12 @@ export function SolutionDetail({ solution }: Props) {
       <section className="py-20 md:py-24">
         <Container>
           <FadeIn>
-            <h2 className="text-xs font-bold text-text-muted uppercase tracking-widest mb-6">
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-6 justify-self-center md:justify-self-start">
               Explore more solutions
             </h2>
           </FadeIn>
           <FadeIn delay={0.05}>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col items-center md:items-start md:flex-row md:flex-wrap gap-3">
               {otherSolutions.map((sol) => (
                 <MotionLink
                   key={sol.slug}
