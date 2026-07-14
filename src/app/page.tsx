@@ -1,20 +1,34 @@
 import { Hero } from "@/components/sections/Hero";
-import { TrustSection } from "@/components/sections/TrustSection";
-import { ValueSection } from "@/components/sections/ValueSection";
-import { SolutionsSection } from "@/components/sections/SolutionsSection";
-import { WhyUsSection } from "@/components/sections/WhyUsSection";
-import { ImpactSection } from "@/components/sections/ImpactSection";
+import { RefusalColumn } from "@/components/sections/RefusalColumn";
+import { SectionsTeasers } from "@/components/sections/SectionsTeasers";
+import { TheRecord } from "@/components/sections/TheRecord";
+import { WeekByWeek } from "@/components/sections/WeekByWeek";
+import { ProofNote } from "@/components/sections/ProofNote";
+import { FAQSection } from "@/components/sections/FAQSection";
+import { CorrectionsBox } from "@/components/sections/CorrectionsBox";
+import { Testimonial } from "@/components/sections/Testimonial";
 import { CTASection } from "@/components/sections/CTASection";
+import { generateFaqJsonLd } from "@/lib/seo";
+import { FAQS } from "@/lib/faqs";
 
 export default function Home() {
+  const faqJsonLd = generateFaqJsonLd(FAQS);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Hero />
-      <TrustSection />
-      <ValueSection />
-      <SolutionsSection />
-      <WhyUsSection />
-      <ImpactSection />
+      <RefusalColumn />
+      <SectionsTeasers />
+      <TheRecord />
+      <WeekByWeek />
+      <ProofNote />
+      <FAQSection />
+      <CorrectionsBox />
+      <Testimonial />
       <CTASection />
     </>
   );

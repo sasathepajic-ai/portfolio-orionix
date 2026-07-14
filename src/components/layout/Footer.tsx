@@ -1,118 +1,74 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { NAV_LINKS, SITE_NAME } from "@/lib/constants";
+import { Folio } from "@/components/ui/print";
+import { NAV_LINKS, SITE_NAME, SOLUTIONS } from "@/lib/constants";
 
-function FooterLogo() {
-  return (
-        <Image
-          src="/logo.svg"
-          alt="Pragmatic Labs logo"
-          width={32}
-          height={32}
-          className="shrink-0 dark:invert"
-          style={{ transform: "scaleY(-1)" }}
-          aria-hidden
-        />
-    );
-}
-
+/**
+ * The footer — plain credits. Sits on the base paper canvas below the
+ * paper-shade CTA band, so the tone step separates it; no divider needed.
+ */
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-bg-alt dark:bg-navy border-t border-border-light dark:border-white/8" role="contentinfo">
-      <Container size="wide" className="py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
-          {/* Brand */}
-          <div className="md:col-span-5">
-            <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <FooterLogo />
-              <span className="font-heading font-bold text-[1.05rem] text-text-primary dark:text-white tracking-tight">
-                {SITE_NAME}
-              </span>
+    <footer role="contentinfo">
+      <Container size="wide" className="py-14 md:py-16">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-6">
+            <Link href="/" className="flex items-center gap-3 font-sans text-lg font-bold text-ink">
+              {/* The mark, inverted — see public/logo.svg. */}
+              <Image src="/logo.svg" alt="" width={28} height={28} className="-scale-y-100" />
+              {SITE_NAME}
             </Link>
-            <p
-              className="leading-relaxed max-w-sm text-sm mb-6 text-text-secondary dark:text-white/50"
-            >
-              Transforming complex AI capabilities into simple, practical tools that help
-              businesses operate smarter.
+            <p className="mt-4 max-w-sm font-serif text-[15px] leading-relaxed text-ink-soft">
+              We build AI tools on the systems your team already runs — and
+              tell you where AI won&apos;t help.
             </p>
-            <p
-              className="text-xs font-bold uppercase tracking-widest text-text-muted dark:text-white/20"
-            >
-              AI built for real work.
+            <p className="mt-5 max-w-sm font-sans text-[13px] leading-snug text-ink-faint">
+              Practical AI for real business problems.
             </p>
           </div>
 
-          {/* Navigation */}
           <div className="md:col-span-3">
-            <h3
-              className="text-[11px] font-bold uppercase tracking-wider mb-5 text-text-muted dark:text-white/30"
-            >
-              Navigation
-            </h3>
-            <ul className="space-y-3">
+            <Folio className="mb-4">Pages</Folio>
+            <ul className="space-y-2.5">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group relative inline-block text-sm font-medium text-text-secondary dark:text-white/50 hover:text-text-primary dark:hover:text-white/90 transition-colors duration-200"
+                    className="font-serif text-[15px] text-ink-soft transition-colors hover:text-accent"
                   >
                     {link.label}
-                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-border dark:bg-white/30 transition-all duration-200 group-hover:w-full" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="md:col-span-4">
-            <h3
-              className="text-[11px] font-bold uppercase tracking-wider mb-5 text-text-muted dark:text-white/30"
-            >
-              Get in Touch
-            </h3>
-            <p
-              className="text-sm leading-relaxed mb-5 text-text-secondary dark:text-white/50"
-            >
-              Ready to explore how AI can work for your business? We&apos;d love to hear
-              from you.
-            </p>
-            <Link
-              href="/contact"
-              className="group inline-flex items-center text-sm font-bold text-accent hover:text-accent-hover transition-colors"
-            >
-              Start a conversation
-              <svg
-                className="ml-1.5 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </Link>
+          <div className="md:col-span-3">
+            <Folio className="mb-4">Tools</Folio>
+            <ul className="space-y-2.5">
+              {SOLUTIONS.map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    href={`/solutions/${s.slug}`}
+                    className="font-serif text-[15px] text-ink-soft transition-colors hover:text-accent"
+                  >
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="mt-16 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border-light dark:border-white/8"
-        >
-          <p className="text-xs text-text-muted dark:text-white/30">
-            &copy; {currentYear} {SITE_NAME}. All rights reserved.
+        <div className="mt-12 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
+          <p className="font-sans text-[13px] text-ink-faint">
+            © {currentYear} {SITE_NAME}. All rights reserved.
           </p>
-          <p className="text-xs text-text-muted dark:text-white/20">
-            Practical AI for real business work.
+          <p className="font-sans text-[13px] text-ink-faint">
+            Questions? We usually reply within one business day.
           </p>
         </div>
       </Container>

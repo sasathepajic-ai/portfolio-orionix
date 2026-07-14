@@ -5,7 +5,7 @@ import { ContactContent } from "./ContactContent";
 export const metadata: Metadata = constructMetadata({
   title: "Contact",
   description:
-    "Get in touch with Pragmatic Labs AI. Let's discuss how practical AI solutions can help your business.",
+    "Start a 30-minute conversation with Pragmatic Labs AI about what's slowing your team down — and an honest read on where AI will and won't help.",
   path: "/contact",
 });
 

@@ -1,114 +1,25 @@
-/* Pragmatic Labs AI — Design Tokens v2 */
+/* Pragmatic Labs AI — Design Tokens v5 · "The Workshop"
+   A toolmaker's palette: warm cream, deep warm ink, machine green.
+   One canvas (no dark mode). Color = role, not decoration. */
 
 :root {
-  /* Primary — Deep Dark */
-  --color-navy: #0a0c10;
-  --color-navy-mid: #14181f;
-  --color-navy-light: #1e242e;
+  /* Canvas */
+  --color-paper: #f7f3ea; /* warm workshop cream */
+  --color-paper-shade: #eee7d8; /* card fills, table headers */
 
-  /* Supporting */
-  --color-slate: #2c3e55;
-  --color-slate-muted: #496070;
+  /* Ink */
+  --color-ink: #221f19; /* text, headlines, solid buttons */
+  --color-ink-soft: #5b5443; /* secondary text */
+  --color-ink-faint: #948b76; /* captions, labels, metadata */
 
-  /* Blue */
-  --color-blue-muted: #5c8cb8;
-  --color-blue-soft: #80aed0;
+  /* Rules */
+  --color-rule: #ddd4bf; /* 1px borders and dividers */
 
-  /* Accent — warm amber/orange */
-  --color-accent: #cc493c;
-  --color-accent-hover: #b53f33;
+  /* Working colors */
+  --color-accent: #2c614c; /* machine green — the "working" color: labels, links, verified */
+  --color-accent-deep: #214a3a; /* hover */
+  --color-refusal-red: #a63a24; /* ONLY refusals, "won't help", errors */
 
-  /* Coral Pink */
-  --color-teal: #ff9080;
-  --color-teal-hover: #ff7a68;
-
-  /* Neutral backgrounds — warm off-white */
-  --color-bg: #f9f8f5;
-  --color-bg-alt: #f1efe9;
-  --color-bg-card: #ffffff;
-  --color-border: #dedad2;
-  --color-border-light: #e8e5de;
-
-  /* Text */
-  --color-text-primary: #0a0c10;
-  --color-text-secondary: #476278;
-  --color-text-muted: #7a9ab5;
-  --color-text-inverse: #f9f8f5;
-
-  /* Radius */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.25rem;
-  --radius-full: 9999px;
-
-  /* Shadows — refined */
-  --shadow-sm:
-    0 1px 3px rgba(10, 12, 16, 0.06), 0 1px 2px rgba(10, 12, 16, 0.04);
-  --shadow-md:
-    0 4px 16px rgba(10, 12, 16, 0.08), 0 2px 6px rgba(10, 12, 16, 0.04);
-  --shadow-lg:
-    0 10px 32px rgba(10, 12, 16, 0.1), 0 4px 12px rgba(10, 12, 16, 0.06);
-  --shadow-xl:
-    0 20px 60px rgba(10, 12, 16, 0.14), 0 8px 24px rgba(10, 12, 16, 0.08);
-
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-premium: cubic-bezier(0.21, 0.47, 0.32, 0.98);
-
-  /* Semantic utility tokens (theme-adaptive) */
-  --color-ui-badge-bg: rgba(14, 28, 42, 0.05);
-  --color-ui-badge-border: rgba(14, 28, 42, 0.1);
-  --color-text-faded: rgba(14, 28, 42, 0.45);
-  --color-dot-grid: var(--color-navy);
-  --color-ui-border-strong: var(--color-navy);
-}
-
-/* ─── Dark theme overrides ──────────────────────────────── */
-.dark {
-  /* Neutral backgrounds — true dark */
-  --color-bg: #0e0e0e;
-  --color-bg-alt: #141414;
-  --color-bg-card: #1c1c1c;
-  --color-border: #2e2e2e;
-  --color-border-light: #232323;
-
-  /* Text — warm light */
-  --color-text-primary: #ede9e1;
-  --color-text-secondary: #9aa3a8;
-  --color-text-muted: #5a6368;
-  --color-text-inverse: #ede9e1;
-
-  /* Navy — true dark for section accent backgrounds */
-  --color-navy: #080808;
-  --color-navy-mid: #111111;
-  --color-navy-light: #1a1a1a;
-
-  /* Accent — slightly lifted for dark-bg readability */
-  --color-accent: #d95f52;
-  --color-accent-hover: #c74a3d;
-
-  /* Teal / coral — unchanged, already pop on dark */
-  --color-teal: #ff9080;
-  --color-teal-hover: #ff7a68;
-
-  /* Blue — unchanged */
-  --color-blue-muted: #5c8cb8;
-  --color-blue-soft: #80aed0;
-
-  /* Shadows — heavier on dark surfaces */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.7), 0 8px 24px rgba(0, 0, 0, 0.5);
-
-  /* Semantic utility tokens — dark overrides */
-  --color-ui-badge-bg: rgba(255, 255, 255, 0.07);
-  --color-ui-badge-border: rgba(255, 255, 255, 0.12);
-  --color-text-faded: rgba(237, 233, 225, 0.38);
-  --color-dot-grid: rgba(255, 255, 255, 1);
-  --color-ui-border-strong: rgba(237, 233, 225, 0.35);
+  /* Motion — tools don't decorate */
+  --transition-fast: 120ms ease;
 }

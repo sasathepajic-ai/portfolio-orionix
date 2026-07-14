@@ -1,17 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/ui/SectionHeading";
-import { CTASection } from "@/components/sections/CTASection";
 import { Button } from "@/components/ui/Button";
-import { SOLUTIONS } from "@/lib/constants";
+import { Folio } from "@/components/ui/print";
+import { BAND_SIZES, PressPhoto } from "@/components/ui/PressPhoto";
+import { WeekByWeek } from "@/components/sections/WeekByWeek";
+import { CTASection } from "@/components/sections/CTASection";
+import { SOLUTIONS, SOLUTION_PHOTOS } from "@/lib/constants";
 import { SOLUTION_DETAILS } from "@/lib/solutionDetails";
-import { motion } from "framer-motion";
-
-const MotionLink = motion(Link);
-const springNav = { type: "spring" as const, stiffness: 440, damping: 30 };
 
 type SolutionProps = {
   title: string;
@@ -24,174 +19,152 @@ interface Props {
   solution: SolutionProps;
 }
 
+const NAV = [
+  { id: "what-it-is", label: "What it is" },
+  { id: "how-it-works", label: "How it works" },
+  { id: "where-it-fits", label: "Where it fits" },
+  { id: "what-changes", label: "What changes" },
+] as const;
+
+/**
+ * A tool page: headline lead, then the long-form body with an
+ * "In this section" sticky contents column. Server component; no animation.
+ */
 export function SolutionDetail({ solution }: Props) {
   const otherSolutions = SOLUTIONS.filter((s) => s.slug !== solution.slug);
   const detail = SOLUTION_DETAILS[solution.slug];
+  const photo = SOLUTION_PHOTOS[solution.slug];
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
-        <Container>
-          <FadeIn>
-            <MotionLink
-              href="/solutions"
-              className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-8 group"
-              whileHover={{ x: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={springNav}
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              Back to Solutions
-            </MotionLink>
-
-            <h1
-              className="font-bold text-text-primary tracking-tight mb-6"
-              style={{
-                fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
-                lineHeight: 1.1,
-                letterSpacing: "-0.03em",
-              }}
-            >
+      <section className="pt-28 md:pt-32">
+        <Container size="wide">
+          <p className="mb-6">
+            <Link href="/solutions" className="press-link font-sans text-sm font-bold">
+              ← All solutions
+            </Link>
+          </p>
+          <div className="max-w-[60ch]">
+            <h1 className="font-serif text-[clamp(2.4rem,5vw,4rem)] font-medium leading-[1.05] text-ink">
               {solution.title}
             </h1>
-
-            <p
-              className="text-text-secondary leading-relaxed max-w-[60ch] text-md md:text-lg"
-            >
+            <p className="mt-5 font-serif text-lg leading-relaxed text-ink-soft md:text-xl">
               {solution.description}
             </p>
-
-            <div className="mt-8">
-              <Button href="/contact" variant="primary" size="lg">
-                Get Started
-                <ArrowRight className="ml-2 w-4 h-4" />
+            <div className="mt-7">
+              <Button href="/contact" size="lg">
+                Book a 30-minute call
               </Button>
             </div>
-          </FadeIn>
+          </div>
         </Container>
       </section>
 
-      {/* Expanded content */}
+      {photo && (
+        <section className="pt-12 md:pt-16">
+          <PressPhoto
+            src={photo.src}
+            alt={photo.alt}
+            caption={photo.caption}
+            aspect="band"
+            bleed
+            sizes={BAND_SIZES}
+            objectPosition={photo.objectPosition}
+          />
+        </section>
+      )}
+
       {detail && (
-        <section className="py-20 md:py-28" style={{ background: "var(--color-bg-alt)" }}>
-          <Container>
-            <div className="max-w-[72ch]">
-
-              {/* Overview */}
-              <FadeIn>
-                <div className="mb-14">
-                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
-                    What it is
-                  </h2>
-                  {detail.overview.map((para, i) => (
-                    <p
-                      key={i}
-                      className={`text-text-secondary leading-relaxed${i > 0 ? " mt-4" : ""}`}
-                    >
-                      {para}
-                    </p>
+        <section className="py-10 md:py-14">
+          <Container size="wide">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[200px_1fr] lg:gap-16">
+              <nav aria-label="In this section" className="lg:sticky lg:top-24 lg:self-start">
+                <Folio className="mb-3">In this section</Folio>
+                <ul className="flex flex-col gap-2 border-l border-rule pl-4">
+                  {NAV.map((item) => (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        className="font-sans text-sm text-ink-soft transition-colors hover:text-accent"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
                   ))}
-                </div>
-              </FadeIn>
+                </ul>
+              </nav>
 
-              {/* How It Works */}
-              <FadeIn delay={0.06}>
-                <div className="mb-14 pt-10 border-t border-border-light">
-                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
-                    How it works
-                  </h2>
-                  {detail.howItWorks.map((para, i) => (
-                    <p
-                      key={i}
-                      className={`text-text-secondary leading-relaxed${i > 0 ? " mt-4" : ""}`}
-                    >
-                      {para}
-                    </p>
-                  ))}
-                </div>
-              </FadeIn>
+              <div className="max-w-[68ch]">
+                <section id="what-it-is" className="scroll-mt-24">
+                  <Folio as="h2" className="mb-4">1. What it is</Folio>
+                  <div className="space-y-4 font-serif text-[17px] leading-relaxed text-ink-soft">
+                    {detail.overview.map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                </section>
 
-              {/* Use Cases */}
-              <FadeIn delay={0.1}>
-                <div className="mb-14 pt-10 border-t border-border-light">
-                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
-                    Where it fits
-                  </h2>
+                <section id="how-it-works" className="mt-14 scroll-mt-24">
+                  <Folio as="h2" className="mb-4">2. How it works</Folio>
+                  <div className="space-y-4 font-serif text-[17px] leading-relaxed text-ink-soft">
+                    {detail.howItWorks.map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                </section>
+
+                <section id="where-it-fits" className="mt-14 scroll-mt-24">
+                  <Folio as="h2" className="mb-4">3. Where it fits</Folio>
                   <ul className="space-y-3">
                     {detail.useCases.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed"
-                      >
-                        <span
-                          className="shrink-0 mt-1.75 w-1.5 h-1.5 rounded-full bg-text-muted"
-                        />
-                        {item}
+                      <li key={item} className="flex items-baseline gap-3">
+                        <span aria-hidden="true" className="text-ink-faint">—</span>
+                        <span className="font-serif text-[16px] leading-relaxed text-ink-soft">
+                          {item}
+                        </span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </FadeIn>
+                </section>
 
-              {/* Benefits */}
-              <FadeIn delay={0.14}>
-                <div className="pt-10 border-t border-border-light">
-                  <h2 className="text-xs font-bold uppercase tracking-widest mb-5">
-                    What changes
-                  </h2>
+                <section id="what-changes" className="mt-14 scroll-mt-24">
+                  <Folio as="h2" className="mb-4">4. What changes</Folio>
                   <ul className="space-y-3">
                     {detail.benefits.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed"
-                      >
-                        <span
-                          className="shrink-0 mt-1.75 w-1.5 h-1.5 rounded-full"
-                          style={{ background: "var(--color-accent)" }}
-                        />
-                        {item}
+                      <li key={item} className="flex items-baseline gap-3">
+                        <span aria-hidden="true" className="font-bold text-accent">—</span>
+                        <span className="font-serif text-[16px] leading-relaxed text-ink-soft">
+                          {item}
+                        </span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </FadeIn>
-
+                </section>
+              </div>
             </div>
           </Container>
         </section>
       )}
 
-      {/* Other solutions */}
-      <section className="py-20 md:py-24">
-        <Container>
-          <FadeIn>
-            <h2 className="text-xs font-bold uppercase tracking-widest mb-6 justify-self-center md:justify-self-start">
-              Explore more solutions
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <div className="flex flex-col items-center md:items-start md:flex-row md:flex-wrap gap-3">
-              {otherSolutions.map((sol) => (
-                <MotionLink
-                  key={sol.slug}
-                  href={`/solutions/${sol.slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border-light text-sm font-medium text-text-secondary hover:text-text-primary hover:border-accent/40 transition-colors group/sol"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={springNav}
-                >
-                  {sol.title}
-                  <ArrowRight className="w-3 h-3 opacity-40 group-hover/sol:translate-x-0.5 group-hover/sol:opacity-70 transition-all duration-150" />
-                </MotionLink>
-              ))}
-            </div>
-          </FadeIn>
+      <section className="py-10 md:py-12">
+        <Container size="wide">
+          <Folio className="mb-3">More tools</Folio>
+          <p className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-8">
+            {otherSolutions.map((sol) => (
+              <Link
+                key={sol.slug}
+                href={`/solutions/${sol.slug}`}
+                className="press-link font-sans text-sm font-bold"
+              >
+                {sol.title} →
+              </Link>
+            ))}
+          </p>
         </Container>
       </section>
 
+      <WeekByWeek />
       <CTASection />
     </>
   );
 }
-

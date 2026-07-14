@@ -1,41 +1,21 @@
 @import "tailwindcss";
 @import "../styles/design-tokens.css";
 
-/* Use .dark class on <html> for Tailwind dark: variants */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme inline {
-  /* Color tokens */
-  --color-navy: var(--color-navy);
-  --color-navy-mid: var(--color-navy-mid);
-  --color-navy-light: var(--color-navy-light);
-  --color-slate: var(--color-slate);
-  --color-slate-muted: var(--color-slate-muted);
-  --color-blue-muted: var(--color-blue-muted);
-  --color-blue-soft: var(--color-blue-soft);
+  /* Color tokens — roles, not decoration */
+  --color-paper: var(--color-paper);
+  --color-paper-shade: var(--color-paper-shade);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-faint: var(--color-ink-faint);
+  --color-rule: var(--color-rule);
   --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-teal: var(--color-teal);
-  --color-teal-hover: var(--color-teal-hover);
-  --color-bg: var(--color-bg);
-  --color-bg-alt: var(--color-bg-alt);
-  --color-bg-card: var(--color-bg-card);
-  --color-border: var(--color-border);
-  --color-border-light: var(--color-border-light);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-muted: var(--color-text-muted);
-  --color-text-inverse: var(--color-text-inverse);
+  --color-accent-deep: var(--color-accent-deep);
+  --color-refusal-red: var(--color-refusal-red);
 
   /* Font families */
-  --font-heading: var(--font-plus-jakarta);
-  --font-body: var(--font-inter);
-
-  /* Shadows */
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
+  --font-serif: var(--font-besley), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-familjen), Arial, Helvetica, sans-serif;
 }
 
 /* Base styles */
@@ -46,65 +26,186 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  font-family: var(--font-body), system-ui, sans-serif;
-  line-height: 1.6;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif), Georgia, serif;
+  line-height: 1.65;
+  font-size: 1.0625rem;
 }
 
+/* Headlines — Newsreader, medium weight, NORMAL tracking (negative tracking
+   was a diagnosed tell of the previous design; never reintroduce it). */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading), system-ui, sans-serif;
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: normal;
   text-wrap: balance;
 }
 
 h1 {
-  line-height: 1.07;
-  letter-spacing: -0.035em;
+  line-height: 1.05;
 }
 h2 {
   line-height: 1.12;
-  letter-spacing: -0.025em;
 }
-h3 {
-  line-height: 1.2;
-  letter-spacing: -0.016em;
-}
+h3,
 h4,
 h5,
 h6 {
-  line-height: 1.28;
-  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 p {
   text-wrap: pretty;
 }
 
-/* Focus styles for accessibility */
+/* Focus — visible, accent */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: none;
-  outline-offset: 0;
-}
-
 /* Selection */
 ::selection {
-  background-color: var(--color-navy);
-  color: var(--color-text-inverse);
+  background-color: var(--color-accent);
+  color: var(--color-paper);
 }
 
-.dark ::selection {
-  background-color: var(--color-accent);
-  color: #fff;
+/* ─── Press links — underline thickens on hover (one of the three
+       permitted motion moments; CSS only) ─────────────────────── */
+.press-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness var(--transition-fast);
+}
+.press-link:hover {
+  color: var(--color-accent-deep);
+  text-decoration-thickness: 2px;
+}
+
+/* ─── Photos — one warm workshop treatment ──────────────────────
+   What makes a photo belong on this page is its VALUES, not its edges. A
+   documentary shot lands here dark and saturated; the page is cream. Three
+   layers fix that, in order:
+
+     1. grade   — desaturate and warm the source, so every photo shares one
+                  palette no matter who shot it;
+     2. tint    — a paper multiply, pulling the whole image onto the canvas hue;
+     3. lift    — paper laid back over the image at low opacity, raising the
+                  blacks into the page's value range. This is the one that
+                  does the work: multiply can only darken, so without the lift
+                  a dark photo will always read as a block pasted onto cream.
+
+   Edges stay crisp. Feathering the perimeter was tried and it reads as a
+   soft-focus vignette — the opposite of a documentary print. The only
+   dissolve on the site is the hero's, below, and that is directional. */
+.press-photo {
+  position: relative;
+  overflow: hidden;
+}
+.press-photo img {
+  filter: saturate(0.55) contrast(0.92) sepia(0.2) brightness(1.1);
+}
+.press-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--color-paper);
+  mix-blend-mode: multiply;
+}
+.press-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* above the fill image, which is itself positioned */
+  pointer-events: none;
+  background: var(--color-paper);
+  opacity: var(--press-photo-lift, 0.14);
+}
+
+/* Near-black sources need a stronger lift to reach the page's value range —
+   0.14 leaves them a black block on cream. Two steps only. Do not add more,
+   and do not feather edges. */
+.press-photo--dense {
+  --press-photo-lift: 0.28;
+}
+
+/* The hero is the one image allowed to dissolve, and only in one direction:
+   its left edge melts out from under the headline column so the picture
+   starts without a seam. It's an abstract field, not a document — it can
+   take it. */
+@media (min-width: 1024px) {
+  .press-photo--hero {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 46%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 46%);
+  }
+}
+
+/* Background texture — a photo used as tone, not as a picture (the closing
+   band). Same warm grade, pushed almost all the way to the paper. */
+.press-texture {
+  filter: saturate(0.45) sepia(0.12);
+  opacity: 0.12;
+}
+
+/* Hero photo warms in once on load — permitted motion moment #2. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes photo-develop {
+    from {
+      opacity: 0.4;
+      filter: saturate(0.4) contrast(0.9) brightness(1.15);
+    }
+    to {
+      opacity: 1;
+      filter: saturate(0.55) contrast(0.92) sepia(0.2) brightness(1.1);
+    }
+  }
+  .press-photo--develop img {
+    animation: photo-develop 600ms ease-out both;
+  }
+}
+
+/* ─── Notices (FAQ) accordion — CSS grid-rows animation, no JS motion
+       library. Permitted motion moment #3. ────────────────────── */
+.notice-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms ease;
+}
+.notice-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.notice-panel > div {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .notice-panel {
+    transition: none;
+  }
+}
+
+/* ─── Scroll reveal — a gentle fade + rise as elements enter view.
+       A tiny IntersectionObserver (Reveal.tsx) adds .is-visible once.
+       Motion only: reduced-motion and no-JS users get content immediately
+       (see the <noscript> fallback in layout.tsx). transform/opacity only,
+       so there is no layout shift. ─────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 650ms ease, transform 650ms ease;
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }
