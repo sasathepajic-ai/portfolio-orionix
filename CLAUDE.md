@@ -68,7 +68,13 @@ All photography is free-license documentary imagery of the audience's world (int
 
 **Treatment (`.press-photo` in globals.css) is three layers and the third is load-bearing:** grade (desaturate + warm) → paper multiply (tint) → **paper "lift" at 14% opacity over the image**. Multiply can only darken, so without the lift a dark photo can never sit in a cream page's value range — that lift is what stops photos reading as pasted-in blocks. `.press-photo--dense` (28%) exists for near-black sources.
 
-**Layout: photos are full-bleed bands** (`aspect="band"` + `bleed`, capped at 1600px, caption returning to the page grid) — page architecture in the same vocabulary as the paper/paper-shade tone bands. **Do not reintroduce the centered container-width 16:10 box**; that was the thing that made photos look pasted in. Edges stay **crisp**: perimeter feathering and bottom-dissolves were both tried and both read as soft-focus mush. The only dissolve is the hero's directional left-edge mask (`.press-photo--hero`).
+**Layout: a photo always ends at the viewport, never at a border.** Two arrangements, both in [PressPhoto.tsx](src/components/ui/PressPhoto.tsx):
+- `aspect="band"` + `bleed` — a full-bleed horizontal band (capped at 1600px, caption returning to the page grid). Used on About. Page architecture, in the same vocabulary as the tone bands.
+- `aspect="column"` + `captionOnPlate` — the tool pages (`/solutions/[slug]`): the photo sits in the hero beside the h1 and bleeds off the **right** edge of the screen (`lg:mr-[calc(50%-50vw)]`), with the caption lifted onto a **paper plate** straddling its bottom-left corner. That plate is the site's "text over image": the words sit on paper, never on the photograph, so contrast is guaranteed by construction — **no scrim, ever** (there are no dark surfaces here). The plate must be `relative`, or it paints *under* the image it overlaps.
+
+**Do not reintroduce the centered container-width 16:10 box** — that was what made photos look pasted in. Edges stay **crisp**: perimeter feathering and bottom-dissolves were both tried and both read as soft-focus mush. The only dissolve is the home hero's directional left-edge mask (`.press-photo--hero`).
+
+The caption is the line that does the messaging work — on the tool pages it is set large in Besley italic, not tucked underneath as grey metadata. It stays a real `figcaption`.
 
 **Source files:** keep ~2000–2560px wide (bands are wide slots — 1600px sources go soft on large monitors), ~≤350KB. **Never downscale a source in place** — `archive.jpg`'s original was destroyed that way and is unrecoverable; write to a new file instead.
 

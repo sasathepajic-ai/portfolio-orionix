@@ -12,7 +12,7 @@ const ASPECT = {
   "16/10": "aspect-[16/10]",
   /* The band runs edge to edge up to 1600px — the width of our largest source.
      Past that it centers on the paper rather than upscaling into softness. */
-  band: "h-[clamp(15rem,32vw,26rem)] mx-auto max-w-[1600px]",
+  band: "h-[clamp(17rem,34vw,28rem)] mx-auto max-w-[1600px]",
 } as const;
 
 /** Bands never need more pixels than their cap. */
@@ -36,6 +36,30 @@ interface PressPhotoProps {
   bleed?: boolean;
   /** CSS object-position for the cover crop, e.g. "center 25%". */
   objectPosition?: string;
+  /**
+   * Set the caption INSIDE the frame — centred, low, like a subtitle on a
+   * screen — instead of leaving it as grey metadata underneath. Large Besley
+   * italic on a paper plate.
+   */
+  subtitle?: boolean;
+}
+
+/**
+ * The subtitle: the caption sits low and centred INSIDE the frame, the way a
+ * subtitle sits on a screen. It rides a flat paper plate — square, 1px rule —
+ * so the words never touch the photograph and legibility is guaranteed by
+ * construction. (A dark scrim is the usual trick and is unavailable here: the
+ * site has no dark surfaces.) Centring is what keeps the frame balanced; the
+ * same line parked in a corner reads lopsided.
+ */
+function Subtitle({ children }: { children: ReactNode }) {
+  return (
+    <figcaption className="absolute inset-x-0 bottom-4 z-10 flex justify-center px-4 md:bottom-8">
+      <span className="max-w-184 border border-rule bg-paper px-5 py-3 text-center font-serif text-lg italic leading-snug text-ink md:px-8 md:py-5 md:text-2xl">
+        {children}
+      </span>
+    </figcaption>
+  );
 }
 
 /**
@@ -56,11 +80,13 @@ export function PressPhoto({
   dense = false,
   bleed = false,
   objectPosition,
+  subtitle = false,
 }: PressPhotoProps) {
   const hasFile = src ? existsSync(path.join(process.cwd(), "public", src)) : false;
 
   return (
-    <figure className={className}>
+    /* `relative` when the caption is a subtitle: it is positioned inside the frame. */
+    <figure className={cn(subtitle && "relative", className)}>
       {hasFile ? (
         <div
           className={cn(
@@ -83,11 +109,21 @@ export function PressPhoto({
       ) : (
         <div role="img" aria-label={alt} className={cn("bg-paper-shade", ASPECT[aspect])} />
       )}
-      {/* On a full-bleed band the caption returns to the page grid — it is what
-          ties the band back to the column of type. */}
+      {/* Three ways a caption can sit.
+
+          Subtitle: centred low INSIDE the frame, the way a subtitle sits on a
+          screen. The line stops being metadata and becomes the thing the
+          picture is saying.
+
+          Bleed: it returns to the page grid — what ties a full-bleed band back
+          to the column of type.
+
+          Plain: grey metadata under the picture. */}
       {hasFile &&
         caption &&
-        (bleed ? (
+        (subtitle ? (
+          <Subtitle>{caption}</Subtitle>
+        ) : bleed ? (
           <Container size="wide">
             <Caption className="mt-3">{caption}</Caption>
           </Container>

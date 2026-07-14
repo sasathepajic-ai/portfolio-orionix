@@ -60,6 +60,9 @@ export function SolutionDetail({ solution }: Props) {
         </Container>
       </section>
 
+      {/* The customer's world, full width — and the line the picture is making,
+          set inside the frame like a subtitle: centred, low, on paper so it
+          never fights the photograph for legibility. */}
       {photo && (
         <section className="pt-12 md:pt-16">
           <PressPhoto
@@ -67,9 +70,9 @@ export function SolutionDetail({ solution }: Props) {
             alt={photo.alt}
             caption={photo.caption}
             aspect="band"
-            bleed
             sizes={BAND_SIZES}
             objectPosition={photo.objectPosition}
+            subtitle
           />
         </section>
       )}

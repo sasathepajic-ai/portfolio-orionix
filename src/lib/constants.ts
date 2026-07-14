@@ -20,8 +20,14 @@ export const TRUSTED_BY = [
 ] as const;
 
 /* A documentary photo per solution — the customer's real, pre-AI world.
-   Keyed by slug; rendered on each /solutions/[slug] detail page via PressPhoto. */
-export const SOLUTION_PHOTOS: Record<string, { src: string; alt: string; caption: string; objectPosition?: string }> = {
+   Keyed by slug; rendered on each /solutions/[slug] detail page via PressPhoto.
+   The caption is the line that does the messaging work: on detail pages it is
+   lifted onto a paper plate over the band (`captionOnPlate`), not tucked
+   underneath as grey metadata. */
+export const SOLUTION_PHOTOS: Record<
+  string,
+  { src: string; alt: string; caption: string; objectPosition?: string }
+> = {
   "ai-assistants": {
     src: "/photos/files.jpg",
     alt: "Stacks of paper files and folders tied with ribbon",
