@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Folio } from "@/components/ui/print";
-import { BAND_SIZES, PressPhoto } from "@/components/ui/PressPhoto";
+import { BAND_SOLUTION_SIZES, PressPhoto } from "@/components/ui/PressPhoto";
 import { WeekByWeek } from "@/components/sections/WeekByWeek";
 import { CTASection } from "@/components/sections/CTASection";
 import { SOLUTIONS, SOLUTION_PHOTOS } from "@/lib/constants";
@@ -60,20 +60,23 @@ export function SolutionDetail({ solution }: Props) {
         </Container>
       </section>
 
-      {/* The customer's world, full width — and the line the picture is making,
-          set inside the frame like a subtitle: centred, low, on paper so it
-          never fights the photograph for legibility. */}
+      {/* The customer's world — a contained documentary band that sits in the
+          same content column as the headline above and the body below, so every
+          edge lines up. Its caption falls directly beneath it in that column.
+          The tool's own argument is no longer set over the picture; it lands as
+          a pull-line after the body instead. */}
       {photo && (
         <section className="pt-12 md:pt-16">
-          <PressPhoto
-            src={photo.src}
-            alt={photo.alt}
-            caption={photo.caption}
-            aspect="band"
-            sizes={BAND_SIZES}
-            objectPosition={photo.objectPosition}
-            subtitle
-          />
+          <Container size="wide">
+            <PressPhoto
+              src={photo.src}
+              alt={photo.alt}
+              caption={photo.caption}
+              aspect="band-solution"
+              sizes={BAND_SOLUTION_SIZES}
+              objectPosition={photo.objectPosition}
+            />
+          </Container>
         </section>
       )}
 
@@ -143,6 +146,15 @@ export function SolutionDetail({ solution }: Props) {
                     ))}
                   </ul>
                 </section>
+
+                {/* The tool's argument in one line — our own voice, not a
+                    client quote. A quiet italic coda closing the body, set
+                    apart by whitespace and weight, not a band. */}
+                {detail.pullQuote && (
+                  <p className="mt-12 max-w-[46ch] font-serif text-xl italic leading-snug text-ink">
+                    {detail.pullQuote}
+                  </p>
+                )}
               </div>
             </div>
           </Container>

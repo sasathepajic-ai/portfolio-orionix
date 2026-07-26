@@ -13,10 +13,19 @@ const ASPECT = {
   /* The band runs edge to edge up to 1600px — the width of our largest source.
      Past that it centers on the paper rather than upscaling into softness. */
   band: "h-[clamp(17rem,34vw,28rem)] mx-auto max-w-[1600px]",
+  /* The solution-page band — smaller and less panoramic than the About band,
+     at the owner's request: a contained figure that doesn't dominate the page.
+     It carries no width of its own; it fills the page's content column (a wide
+     Container), so its edges line up with the headline and caption instead of
+     floating inset and centred. */
+  "band-solution": "h-[clamp(14rem,24vw,22rem)]",
 } as const;
 
 /** Bands never need more pixels than their cap. */
 export const BAND_SIZES = "(min-width: 1600px) 1600px, 100vw";
+/* The solution band fills the wide Container's content box (max-w-7xl minus
+   gutters ≈ 1216px), never wider. */
+export const BAND_SOLUTION_SIZES = "(min-width: 1280px) 1216px, 100vw";
 
 interface PressPhotoProps {
   /** Path under /public, e.g. "/photos/hero.jpg". */
@@ -48,9 +57,11 @@ interface PressPhotoProps {
  * The subtitle: the caption sits low and centred INSIDE the frame, the way a
  * subtitle sits on a screen. It rides a flat paper plate — square, 1px rule —
  * so the words never touch the photograph and legibility is guaranteed by
- * construction. (A dark scrim is the usual trick and is unavailable here: the
- * site has no dark surfaces.) Centring is what keeps the frame balanced; the
- * same line parked in a corner reads lopsided.
+ * construction rather than by tuning. (A dark scrim is the usual trick; a
+ * plate beats it here because it is paper-on-ink and so survives the theme
+ * flip untouched, where a scrim would need a second version for the dark
+ * canvas.) Centring is what keeps the frame balanced; the same line parked in
+ * a corner reads lopsided.
  */
 function Subtitle({ children }: { children: ReactNode }) {
   return (

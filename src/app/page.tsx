@@ -25,6 +25,10 @@ export default function Home() {
       <SectionsTeasers />
       <TheRecord />
       <WeekByWeek />
+      {/* The representative-project section is out until there is a real,
+          cleared engagement to put in it — an illustrative example is not
+          something we can honestly show as proof yet. Restore with
+          <CaseStudy study={...} /> from components/sections/CaseStudy.tsx. */}
       <ProofNote />
       <FAQSection />
       <CorrectionsBox />

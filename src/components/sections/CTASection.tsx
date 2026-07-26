@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Folio, Headline, Kicker } from "@/components/ui/print";
@@ -15,18 +14,8 @@ const NEXT_STEPS = [
  */
 export function CTASection() {
   return (
-    <section className="relative overflow-hidden bg-paper-shade py-16 md:py-24">
-      {/* Ben Wicks' curved façade as a faint background texture. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <Image
-          src="/photos/curve.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="press-texture object-cover"
-        />
-      </div>
-      <Container size="wide" className="relative">
+    <section className="bg-paper-shade py-16 md:py-24">
+      <Container size="wide">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[7fr_5fr] lg:gap-16">
           <div>
             <Kicker className="mb-3">Get started</Kicker>

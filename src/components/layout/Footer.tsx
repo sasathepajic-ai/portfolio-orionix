@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Folio } from "@/components/ui/print";
@@ -17,8 +16,9 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-6">
             <Link href="/" className="flex items-center gap-3 font-sans text-lg font-bold text-ink">
-              {/* The mark, inverted — see public/logo.svg. */}
-              <Image src="/logo.svg" alt="" width={28} height={28} className="-scale-y-100" />
+              {/* The mark, inverted — painted in currentColor so it holds in
+                  both themes. See .site-mark in globals.css. */}
+              <span aria-hidden="true" className="site-mark size-7 -scale-y-100" />
               {SITE_NAME}
             </Link>
             <p className="mt-4 max-w-sm font-serif text-[15px] leading-relaxed text-ink-soft">

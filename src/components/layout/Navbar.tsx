@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/Container";
@@ -10,9 +9,60 @@ import { NAV_LINKS, SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 /**
+ * Flips the canvas and remembers the choice. The DOM attribute IS the state —
+ * CSS reads [data-theme] off <html> (design-tokens.css) and so does the label
+ * (globals.css), so there is nothing for React to hold and nothing to get out
+ * of sync. With no attribute set the page is following the OS, so that is what
+ * we read to work out what "the other one" means.
+ */
+function toggleTheme() {
+  const root = document.documentElement;
+  const current =
+    root.dataset.theme ??
+    (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const next = current === "dark" ? "light" : "dark";
+
+  root.dataset.theme = next;
+  try {
+    localStorage.setItem("theme", next);
+  } catch {
+    /* Private mode or storage blocked — the flip still holds for this page,
+       it just won't survive a reload. Not worth surfacing. */
+  }
+}
+
+/**
+ * A word, not a sun/moon icon — the same convention as the "Menu"/"Close"
+ * control beside it, and it keeps the icon set at the four tool marks. It
+ * names the theme it switches TO; which word shows is decided in CSS, so it
+ * is correct in the first painted frame.
+ */
+function ThemeToggle({ className }: { className?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className={cn(
+        "cursor-pointer font-sans text-sm font-bold text-ink-soft transition-colors hover:text-ink",
+        className
+      )}
+    >
+      <span className="theme-word--to-dark">
+        <span className="sr-only">Switch to </span>Dark
+        <span className="sr-only"> theme</span>
+      </span>
+      <span className="theme-word--to-light">
+        <span className="sr-only">Switch to </span>Light
+        <span className="sr-only"> theme</span>
+      </span>
+    </button>
+  );
+}
+
+/**
  * A thin paper band: compact nameplate left, section links right. Always
- * solid (one canvas, no transparent-at-top tricks). Mobile menu is a plain
- * word — "Menu"/"Close" — not an icon.
+ * solid (one canvas per theme, no transparent-at-top tricks). Mobile menu is
+ * a plain word — "Menu"/"Close" — not an icon.
  */
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,15 +79,10 @@ export function Navbar() {
             href="/"
             className="flex items-center gap-2.5 font-sans text-base font-bold leading-none text-ink"
           >
-            {/* The mark, inverted — see public/logo.svg. */}
-            <Image
-              src="/logo.svg"
-              alt=""
-              width={24}
-              height={24}
-              priority
-              className="-scale-y-100"
-            />
+            {/* The mark, inverted. Painted as a mask in currentColor rather
+                than loaded as an image, so it inherits this link's ink and is
+                right in both themes — see .site-mark in globals.css. */}
+            <span aria-hidden="true" className="site-mark size-6 -scale-y-100" />
             {SITE_NAME}
           </Link>
 
@@ -56,6 +101,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <ThemeToggle />
             <Button href="/contact" size="sm">
               Book a 30-minute call
             </Button>
@@ -89,6 +135,7 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <ThemeToggle className="py-2 text-left" />
               <div className="pt-2 pb-1">
                 <Button href="/contact" size="md" className="w-full" onClick={() => setIsOpen(false)}>
                   Book a 30-minute call

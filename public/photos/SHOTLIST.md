@@ -12,7 +12,6 @@ has no honest home, it gets deleted rather than parked here.
 | File | Where | Subject |
 |---|---|---|
 | `particles.jpg` | Home hero (left edge dissolves into paper) | Particle field in a wireframe cube (Google DeepMind) |
-| `curve.jpg` | CTA band background (faint texture) | Curved façade (Ben Wicks) |
 | `towers.jpg` | About — full-bleed band under the hero | Office towers from below (Sean Pollock) |
 | `files.jpg` | Solutions → AI Assistants | Tied stacks of paper files (Sear Greyson) |
 | `forms.jpg` | Solutions → Workflow Automation | Printed intake forms (Rayia Soderberg) |

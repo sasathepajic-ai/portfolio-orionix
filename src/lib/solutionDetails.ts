@@ -3,6 +3,9 @@ export interface SolutionDetailContent {
   howItWorks: string[];
   useCases: string[];
   benefits: string[];
+  /** A single editorial pull-line — the tool's argument in one sentence, in
+      our own voice (not a client quote). Set between the body and the close. */
+  pullQuote: string;
 }
 
 export const SOLUTION_DETAILS: Record<string, SolutionDetailContent> = {
@@ -31,6 +34,8 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetailContent> = {
       "When the assistant can't answer something, you learn what's missing from your documentation — knowledge gaps become visible instead of invisible",
       "Institutional knowledge that lives in people's heads gets captured in a system that survives turnover",
     ],
+    pullQuote:
+      "It answers from what your business actually knows — and says so plainly when the answer isn't there yet.",
   },
 
   "workflow-automation": {
@@ -58,6 +63,8 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetailContent> = {
       "You can see where every item is, how long it's been sitting there, and whether something is stuck — which isn't possible in a manual process",
       "Compliance becomes easier because the system records what happened, in what order, and according to which rule",
     ],
+    pullQuote:
+      "We automate the step that repeats and route the judgment calls to a person — knowing where automation shouldn't apply is half the work.",
   },
 
   "business-intelligence": {
@@ -85,6 +92,8 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetailContent> = {
       "Everyone works from the same version of the numbers — not a spreadsheet someone exported last Tuesday",
       "Teams that previously depended on specialists for every insight develop the ability to answer their own questions",
     ],
+    pullQuote:
+      "The goal was never a better dashboard. It's the shortest honest path from a question to an answer you can trust.",
   },
 
   "ai-strategy": {
@@ -112,5 +121,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetailContent> = {
       "The strategy accounts for your team's actual capacity — not an idealized version of it",
       "Leadership and technical teams develop shared language around AI, which makes every subsequent conversation more productive",
     ],
+    pullQuote:
+      "The right project isn't the most sophisticated one — it's the one worth doing, and sometimes the honest answer is not yet.",
   },
 };

@@ -12,6 +12,11 @@
   --color-accent: var(--color-accent);
   --color-accent-deep: var(--color-accent-deep);
   --color-refusal-red: var(--color-refusal-red);
+  /* The emphasis band (TheRecord) — inverted ink in light, a raised warm
+     surface in dark. Its own pair of roles precisely so the section never
+     hard-codes which way round it is. */
+  --color-band: var(--color-band);
+  --color-band-ink: var(--color-band-ink);
 
   /* Font families */
   --font-serif: var(--font-besley), Georgia, "Times New Roman", serif;
@@ -76,6 +81,48 @@ p {
   color: var(--color-paper);
 }
 
+/* ─── The nameplate mark ───────────────────────────────────────────
+   public/logo.svg has no fill of its own, so it paints solid black — fine on
+   cream, invisible on the dark canvas. Rather than ship a second file or
+   filter-invert an image (which lands on pure white, not our warm ink), the
+   mark is painted AS a mask: the box is `currentColor` and the SVG only
+   decides which pixels of it survive. It therefore takes `text-ink` — or any
+   surrounding color — and is correct in both themes by construction. */
+.site-mark {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: url("/logo.svg") center / contain no-repeat;
+  mask: url("/logo.svg") center / contain no-repeat;
+}
+
+/* ─── Theme toggle ─────────────────────────────────────────────────
+   The control names the theme it switches TO, and which word shows is decided
+   in CSS rather than in React state — so it is already correct in the HTML the
+   browser first paints, with no mount-gated flash of the wrong label and no
+   hydration mismatch. `display: none` also drops the inactive word out of the
+   accessibility tree, so the button has exactly one accessible name.
+
+   Three cases, matching design-tokens.css: reader forced dark, reader forced
+   light (default rules apply), and no stored preference on a dark OS. */
+.theme-word--to-light {
+  display: none;
+}
+:root[data-theme="dark"] .theme-word--to-dark {
+  display: none;
+}
+:root[data-theme="dark"] .theme-word--to-light {
+  display: inline;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-word--to-dark {
+    display: none;
+  }
+  :root:not([data-theme]) .theme-word--to-light {
+    display: inline;
+  }
+}
+
 /* ─── Press links — underline thickens on hover (one of the three
        permitted motion moments; CSS only) ─────────────────────── */
 .press-link {
@@ -90,18 +137,22 @@ p {
   text-decoration-thickness: 2px;
 }
 
-/* ─── Photos — one warm workshop treatment ──────────────────────
-   What makes a photo belong on this page is its VALUES, not its edges. A
-   documentary shot lands here dark and saturated; the page is cream. Three
-   layers fix that, in order:
+/* ─── Photos — a clean, true-colour treatment ──────────────────────
+   The photo reads as a real photograph: near-true colour, no warm cast. Only
+   one quiet layer remains — a paper veil laid over the image at low opacity,
+   pulling the image into the page's value range so it doesn't read as a hard
+   block pasted onto the canvas.
 
-     1. grade   — desaturate and warm the source, so every photo shares one
-                  palette no matter who shot it;
-     2. tint    — a paper multiply, pulling the whole image onto the canvas hue;
-     3. lift    — paper laid back over the image at low opacity, raising the
-                  blacks into the page's value range. This is the one that
-                  does the work: multiply can only darken, so without the lift
-                  a dark photo will always read as a block pasted onto cream.
+   The veil is `--color-paper`, so it reverses with the theme for free: on
+   cream it LIFTS the deepest blacks; on the dark canvas it does the opposite
+   job, damping a bright photograph that would otherwise glare. The strength
+   and the grade both come from theme tokens (design-tokens.css) — in dark the
+   image is additionally dimmed, because there is no "lifting" to be done when
+   the page itself is the dark thing.
+
+   (An earlier version also multiplied the whole image by the paper colour and
+   heavily desaturated it. That cream multiply was the "beige" — it tinted every
+   photo onto the canvas hue — and it's gone, along with most of the grade.)
 
    Edges stay crisp. Feathering the perimeter was tried and it reads as a
    soft-focus vignette — the opposite of a documentary print. The only
@@ -111,15 +162,7 @@ p {
   overflow: hidden;
 }
 .press-photo img {
-  filter: saturate(0.55) contrast(0.92) sepia(0.2) brightness(1.1);
-}
-.press-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: var(--color-paper);
-  mix-blend-mode: multiply;
+  filter: var(--photo-filter);
 }
 .press-photo::before {
   content: "";
@@ -128,20 +171,34 @@ p {
   z-index: 2; /* above the fill image, which is itself positioned */
   pointer-events: none;
   background: var(--color-paper);
-  opacity: var(--press-photo-lift, 0.14);
+  opacity: var(--press-photo-lift);
 }
 
-/* Near-black sources need a stronger lift to reach the page's value range —
-   0.14 leaves them a black block on cream. Two steps only. Do not add more,
-   and do not feather edges. */
+/* Near-black sources. On cream they detach, so the veil goes stronger to pull
+   their blacks up; on the dark canvas they already belong, so it goes weaker.
+   Both numbers are theme tokens. Unused today, kept as one honest knob. */
 .press-photo--dense {
-  --press-photo-lift: 0.28;
+  --press-photo-lift: var(--press-photo-lift-dense);
 }
 
-/* The hero is the one image allowed to dissolve, and only in one direction:
-   its left edge melts out from under the headline column so the picture
-   starts without a seam. It's an abstract field, not a document — it can
-   take it. */
+/* The hero is the one image with its own grade, because it is the one image
+   whose backdrop IS the canvas — see the long note beside --*-photo-hero-* in
+   design-tokens.css for why dark has to invert it rather than dim it. Scoping
+   the override to the element (rather than to `.press-photo--hero img`) means
+   the develop keyframe below, which reads the same two variables, picks the
+   hero's values up for free. */
+.press-photo--hero {
+  --photo-filter: var(--photo-hero-filter);
+  --photo-filter-start: var(--photo-hero-filter-start);
+  --press-photo-lift: var(--photo-hero-lift);
+}
+
+/* The hero is also the one image allowed to dissolve, and only in one
+   direction: its left edge melts out from under the headline column so the
+   picture starts without a seam. It's an abstract field, not a document — it
+   can take it. (That dissolve is load-bearing for the dark grade above: it
+   only works while the backdrop sits at the page's value, which is what the
+   inversion restores.) */
 @media (min-width: 1024px) {
   .press-photo--hero {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 46%);
@@ -149,23 +206,18 @@ p {
   }
 }
 
-/* Background texture — a photo used as tone, not as a picture (the closing
-   band). Same warm grade, pushed almost all the way to the paper. */
-.press-texture {
-  filter: saturate(0.45) sepia(0.12);
-  opacity: 0.12;
-}
-
-/* Hero photo warms in once on load — permitted motion moment #2. */
+/* Hero photo warms in once on load — permitted motion moment #2. Both ends of
+   the grade are theme tokens: on cream it develops down from a washed-out
+   print, on the dark canvas it develops UP out of the dark. */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes photo-develop {
     from {
       opacity: 0.4;
-      filter: saturate(0.4) contrast(0.9) brightness(1.15);
+      filter: var(--photo-filter-start);
     }
     to {
       opacity: 1;
-      filter: saturate(0.55) contrast(0.92) sepia(0.2) brightness(1.1);
+      filter: var(--photo-filter);
     }
   }
   .press-photo--develop img {
@@ -193,19 +245,79 @@ p {
 }
 
 /* ─── Scroll reveal — a gentle fade + rise as elements enter view.
-       A tiny IntersectionObserver (Reveal.tsx) adds .is-visible once.
-       Motion only: reduced-motion and no-JS users get content immediately
-       (see the <noscript> fallback in layout.tsx). transform/opacity only,
-       so there is no layout shift. ─────────────────────────────────── */
+       A tiny IntersectionObserver (Reveal.tsx) adds .is-visible once, and adds
+       `.js` to <html> on mount. The hidden baseline below is therefore doubly
+       gated: it applies ONLY when JS is running (html.js) AND motion is allowed
+       (prefers-reduced-motion: no-preference). So no-JS, reduced-motion, and
+       print all render every section fully visible — content can never be
+       stranded at opacity 0 the way an unconditional hidden state would leave
+       a below-the-fold section blank in a full-page render. transform/opacity
+       only, so there is no layout shift. ─────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
-  .reveal {
+  html.js .reveal {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 650ms ease, transform 650ms ease;
     will-change: opacity, transform;
   }
-  .reveal.is-visible {
+  html.js .reveal.is-visible {
     opacity: 1;
     transform: none;
   }
 }
+
+/* Printing runs JS, so `.js` is set, but the observer never scrolls into
+   action — force every reveal visible so PDFs and printouts are never blank. */
+@media print {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ─── "What we build" schematics — a quiet sign of life ──────────────
+   Each drawing keeps a slow, low-key loop tied to what its tool does, so the
+   section reads as alive rather than dead-still (owner-requested). All CSS,
+   gated on html.js + prefers-reduced-motion, and it only begins once the row
+   has scrolled in (.reveal.is-visible) — so nothing animates behind the fold,
+   and no-JS / reduced-motion / print show the drawings at rest. */
+@media (prefers-reduced-motion: no-preference) {
+  /* BI — the bars breathe like live data, each on its own phase. */
+  html.js .reveal.is-visible .schem-bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: schem-breathe 3.4s ease-in-out calc(var(--d, 0) * 260ms) infinite;
+  }
+  @keyframes schem-breathe {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.9); }
+  }
+
+  /* Automation — the current item pulses: this is the one being worked. */
+  html.js .reveal.is-visible .schem-work {
+    animation: schem-work 1.9s ease-in-out infinite;
+  }
+  @keyframes schem-work {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* Strategy — the chosen option quietly affirms itself. */
+  html.js .reveal.is-visible .schem-chosen {
+    animation: schem-affirm 3s ease-in-out infinite;
+  }
+  @keyframes schem-affirm {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
+  /* Assistant — a cursor blink: the answer is still being written. */
+  html.js .reveal.is-visible .schem-caret {
+    animation: schem-caret 1.1s linear infinite;
+  }
+  @keyframes schem-caret {
+    0%, 45% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+}
+

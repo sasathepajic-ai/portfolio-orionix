@@ -1,25 +1,182 @@
 /* Pragmatic Labs AI — Design Tokens v5 · "The Workshop"
    A toolmaker's palette: warm cream, deep warm ink, machine green.
-   One canvas (no dark mode). Color = role, not decoration. */
+   Color = role, not decoration.
+
+   TWO CANVASES, ONE IDENTITY. Light is the workshop by day; dark is the same
+   room after hours — warm brown-blacks, never neutral grey, never pure black,
+   and the green stays the working color in both. Every role token exists in
+   both themes, so components keep using `bg-paper` / `text-ink` / `border-rule`
+   and flip for free. Do not write theme-specific colors into components.
+
+   WHICH THEME APPLIES
+     1. nothing stored  → the OS setting (prefers-color-scheme)
+     2. reader toggled  → [data-theme] on <html> wins, and it is stamped before
+                          first paint by the inline script in layout.tsx
+                          (persisted in localStorage under "theme")
+
+   HOW THIS FILE IS ORGANISED. Raw values are written down ONCE below, under
+   --l-* (light) and --d-* (dark). The two switch blocks that follow only
+   re-point the role tokens at one set or the other — so no color is ever
+   maintained in two places, and adding a token means adding it to the pair
+   plus both one-line mappings (and to `@theme inline` in globals.css, or
+   utilities won't see it). */
 
 :root {
-  /* Canvas */
-  --color-paper: #f7f3ea; /* warm workshop cream */
-  --color-paper-shade: #eee7d8; /* card fills, table headers */
+  /* ─── Light — warm workshop cream ─────────────────────────────────── */
+  --l-paper: #f7f3ea; /* the one canvas */
+  --l-paper-shade: #eee7d8; /* card fills, tone bands, table headers */
+  --l-ink: #221f19; /* text, headlines, solid buttons */
+  --l-ink-soft: #5b5443; /* secondary text — ~6.8:1 on paper */
+  --l-ink-faint: #6a6150; /* captions, labels, metadata — ~5.5:1 on paper,
+     ~5:1 on paper-shade, so it clears WCAG AA (4.5:1); the old #948b76 was
+     ~3.05:1 and failed for body-size text */
+  --l-rule: #ddd4bf; /* 1px borders and dividers — ~1.33:1, a hairline */
+  --l-accent: #2c614c; /* machine green — ~6.5:1 on paper */
+  --l-accent-deep: #214a3a; /* hover — deeper */
+  --l-refusal-red: #a63a24; /* ~5.8:1 on paper */
+  --l-band: #221f19; /* the page's one inverted band: solid ink... */
+  --l-band-ink: #f7f3ea; /* ...carrying cream type */
 
-  /* Ink */
-  --color-ink: #221f19; /* text, headlines, solid buttons */
-  --color-ink-soft: #5b5443; /* secondary text */
-  --color-ink-faint: #948b76; /* captions, labels, metadata */
+  /* ─── Dark — the same room after hours ────────────────────────────── */
+  --d-paper: #16150f; /* warm brown-black, not grey and not #000 */
+  --d-paper-shade: #1f1d15; /* raised: in dark, "shade" is LIGHTER than paper */
+  --d-ink: #f0eade; /* warm off-white — ~15.3:1 on paper */
+  --d-ink-soft: #b3aa94; /* ~7.9:1 on paper / ~7.3:1 on paper-shade */
+  --d-ink-faint: #9c9280; /* ~6:1 on paper / ~5.5:1 on paper-shade — mirrors
+     the light theme's margin over AA rather than sitting on the line */
+  --d-rule: #332f24; /* ~1.37:1 — the same hairline weight as light's rule */
+  --d-accent: #5fae8c; /* the green, lifted and slightly desaturated so it
+     doesn't vibrate on a dark ground — ~6.9:1 on paper */
+  --d-accent-deep: #7cc4a4; /* hover — in dark, "deep" means brighter */
+  --d-refusal-red: #dd7359; /* ~5.8:1 on paper, matching light's ratio */
+  --d-band: #2a2719; /* the emphasis band stops inverting in dark — a bright
+     cream slab at night is a glare, so it becomes a raised warm surface... */
+  --d-band-ink: #f0eade; /* ...still carrying cream type, ~12.5:1 on it */
 
-  /* Rules */
-  --color-rule: #ddd4bf; /* 1px borders and dividers */
+  /* ─── Photo treatment (see .press-photo in globals.css) ───────────────
+     Light lays cream over the image to raise its blacks INTO the page's value
+     range. Dark has the opposite problem — a bright photograph glares against
+     a dark canvas — so the same veil turns dark and the image is dimmed. */
+  --l-photo-lift: 0.06;
+  --l-photo-lift-dense: 0.14; /* near-black sources need more lifting on cream */
+  --l-photo-filter: saturate(0.95) contrast(1);
+  --l-photo-filter-start: saturate(0.7) contrast(0.97) brightness(1.06);
 
-  /* Working colors */
-  --color-accent: #2c614c; /* machine green — the "working" color: labels, links, verified */
-  --color-accent-deep: #214a3a; /* hover */
-  --color-refusal-red: #a63a24; /* ONLY refusals, "won't help", errors */
+  --d-photo-lift: 0.15;
+  --d-photo-lift-dense: 0.06; /* ...and less veiling on dark: a near-black
+     source already belongs to this canvas */
+  --d-photo-filter: saturate(0.95) contrast(1) brightness(0.82); /* enough to
+     settle a uniformly bright subject (the filing-room stack) into the page
+     without muddying a moody one (the About band) — checked against both */
+  --d-photo-filter-start: saturate(0.7) contrast(0.97) brightness(0.58);
 
-  /* Motion — tools don't decorate */
+  /* ─── The hero render, which is its own problem ───────────────────────
+     particles.jpg is a studio shot of an object on a seamless backdrop, and
+     that backdrop happens to BE the light theme's cream. That is exactly why
+     the hero has no visible edges in light — the picture's background *is* the
+     page, and the left-edge dissolve finishes the job.
+
+     In dark the same property is the defect: a cream slab with a dissolve that
+     melts into nothing. Dimming cannot fix it (it just makes the slab grey),
+     and neither can multiply/screen — the subject is mid-tone on a light
+     ground, so every blend either crushes it or keeps the backdrop. The only
+     treatment that addresses the actual problem is inverting the VALUES while
+     hue-rotating the HUES back, which turns the cream backdrop into a warm
+     dark field and leaves the orange orange.
+
+     Two knock-on effects, both checked in context and both fine: the white
+     wireframe becomes a dark cage (it still reads, and arguably better), and
+     the dense black particle cluster becomes a light one — it reads as a
+     light source inside the cube, not as an artifact. brightness(0.78) is
+     where the inverted backdrop meets the page and the box edges disappear;
+     lighter and it reads as a lit panel sitting on the page. Saturation is
+     nudged up because inversion costs the oranges some punch, and sepia was
+     tried to tame the bright cluster but muted them too far.
+
+     Light keeps the ordinary grade — the whole point is that light never
+     needed help here. */
+  --l-photo-hero-filter: var(--l-photo-filter);
+  --l-photo-hero-filter-start: var(--l-photo-filter-start);
+  --l-photo-hero-lift: var(--l-photo-lift);
+
+  --d-photo-hero-filter: invert(1) hue-rotate(180deg) saturate(1.15) brightness(0.78);
+  --d-photo-hero-filter-start: invert(1) hue-rotate(180deg) saturate(0.9) brightness(0.5);
+  --d-photo-hero-lift: 0.06; /* already dark after inversion — the general
+     dark veil (0.15) would only mud it */
+
+  /* ─── Motion — tools don't decorate ───────────────────────────────── */
   --transition-fast: 120ms ease;
+
+  /* ─── Active roles — light by default ─────────────────────────────── */
+  color-scheme: light;
+  --color-paper: var(--l-paper);
+  --color-paper-shade: var(--l-paper-shade);
+  --color-ink: var(--l-ink);
+  --color-ink-soft: var(--l-ink-soft);
+  --color-ink-faint: var(--l-ink-faint);
+  --color-rule: var(--l-rule);
+  --color-accent: var(--l-accent);
+  --color-accent-deep: var(--l-accent-deep);
+  --color-refusal-red: var(--l-refusal-red);
+  --color-band: var(--l-band);
+  --color-band-ink: var(--l-band-ink);
+  --press-photo-lift: var(--l-photo-lift);
+  --press-photo-lift-dense: var(--l-photo-lift-dense);
+  --photo-filter: var(--l-photo-filter);
+  --photo-filter-start: var(--l-photo-filter-start);
+  --photo-hero-filter: var(--l-photo-hero-filter);
+  --photo-hero-filter-start: var(--l-photo-hero-filter-start);
+  --photo-hero-lift: var(--l-photo-hero-lift);
+}
+
+/* Dark by OS preference — but only while the reader hasn't forced light.
+   This is what makes the theme work with JS disabled, since nothing stamps
+   [data-theme] in that case. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-paper: var(--d-paper);
+    --color-paper-shade: var(--d-paper-shade);
+    --color-ink: var(--d-ink);
+    --color-ink-soft: var(--d-ink-soft);
+    --color-ink-faint: var(--d-ink-faint);
+    --color-rule: var(--d-rule);
+    --color-accent: var(--d-accent);
+    --color-accent-deep: var(--d-accent-deep);
+    --color-refusal-red: var(--d-refusal-red);
+    --color-band: var(--d-band);
+    --color-band-ink: var(--d-band-ink);
+    --press-photo-lift: var(--d-photo-lift);
+    --press-photo-lift-dense: var(--d-photo-lift-dense);
+    --photo-filter: var(--d-photo-filter);
+    --photo-filter-start: var(--d-photo-filter-start);
+    --photo-hero-filter: var(--d-photo-hero-filter);
+    --photo-hero-filter-start: var(--d-photo-hero-filter-start);
+    --photo-hero-lift: var(--d-photo-hero-lift);
+  }
+}
+
+/* Dark because the reader asked for it — wins over the OS in either direction
+   (a light OS with [data-theme="dark"] lands here; a dark OS with
+   [data-theme="light"] is excluded above and keeps :root's light values). */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: var(--d-paper);
+  --color-paper-shade: var(--d-paper-shade);
+  --color-ink: var(--d-ink);
+  --color-ink-soft: var(--d-ink-soft);
+  --color-ink-faint: var(--d-ink-faint);
+  --color-rule: var(--d-rule);
+  --color-accent: var(--d-accent);
+  --color-accent-deep: var(--d-accent-deep);
+  --color-refusal-red: var(--d-refusal-red);
+  --color-band: var(--d-band);
+  --color-band-ink: var(--d-band-ink);
+  --press-photo-lift: var(--d-photo-lift);
+  --press-photo-lift-dense: var(--d-photo-lift-dense);
+  --photo-filter: var(--d-photo-filter);
+  --photo-filter-start: var(--d-photo-filter-start);
+  --photo-hero-filter: var(--d-photo-hero-filter);
+  --photo-hero-filter-start: var(--d-photo-hero-filter-start);
+  --photo-hero-lift: var(--d-photo-hero-lift);
 }

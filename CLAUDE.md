@@ -31,18 +31,29 @@ No test framework, no standalone typecheck — type errors surface via `npm run 
 
 ### Color — roles, not palette
 
-Tokens live in design-tokens.css and are mapped in globals.css `@theme inline` (add new colors in BOTH places or utilities won't see them). **There is no dark mode** — one warm canvas; do not add `.dark`, `dark:` variants, or a theme toggle.
+Tokens live in design-tokens.css and are mapped in globals.css `@theme inline` (add new colors in BOTH places or utilities won't see them).
 
-| Token / utility | Role |
-|---|---|
-| `paper` `#f7f3ea` | the one canvas — warm workshop cream |
-| `paper-shade` `#eee7d8` | card fills, table headers |
-| `ink` / `ink-soft` / `ink-faint` | text / secondary / captions+labels |
-| `rule` `#ddd4bf` | 1px borders and dividers |
-| `accent` (+`-deep`) `#2c614c` | machine green — the "working" color: kickers, links, verified, CTA hover |
-| `refusal-red` `#a63a24` | ONLY refusals, "won't help" semantics, error states |
+| Token / utility | Role | Light | Dark |
+|---|---|---|---|
+| `paper` | the canvas | `#f7f3ea` warm cream | `#16150f` warm brown-black |
+| `paper-shade` | card fills, tone bands, table headers | `#eee7d8` (darker than paper) | `#1f1d15` (**lighter** than paper — "shade" means raised) |
+| `ink` / `ink-soft` / `ink-faint` | text / secondary / captions+labels | `#221f19` `#5b5443` `#6a6150` | `#f0eade` `#b3aa94` `#9c9280` |
+| `rule` | 1px borders and dividers | `#ddd4bf` | `#332f24` |
+| `accent` (+`-deep`) | machine green — kickers, links, verified, CTA hover | `#2c614c` (`-deep` = darker) | `#5fae8c` (`-deep` = **brighter**) |
+| `refusal-red` | ONLY refusals, "won't help" semantics, error states | `#a63a24` | `#dd7359` |
+| `band` / `band-ink` | the page's one emphasis band (`TheRecord`) and the type on it | ink on cream — a true inversion | a raised warm surface, `#2a2719`, type stays cream |
 
-Never hardcode hex in components (sole exception: `opengraph-image.tsx`, satori can't read CSS vars). Refusal-red is semantic — if it isn't a refusal or an error, it isn't red.
+Never hardcode hex in components (sole exception: `opengraph-image.tsx`, satori can't read CSS vars — it stays light-only, as does the print stylesheet). Refusal-red is semantic — if it isn't a refusal or an error, it isn't red.
+
+### Dark theme — two canvases, one identity
+
+Dark is the same workshop after hours: warm brown-blacks, never neutral grey, never `#000`, and the green stays the working color. **Every ratio in the light theme is matched in dark within ~0.5:1** (ink-faint ~6:1 / ~5.5:1, accent ~6.9:1, refusal-red ~5.8:1) — that margin over AA is deliberate, don't spend it.
+
+- **Components never name a theme.** They use the role tokens and flip for free. There are no `dark:` variants anywhere and there should not be — if something needs to differ per theme, it needs a *role pair* (that is what `band`/`band-ink` is: the two themes genuinely want opposite things there, so the section asks for "the emphasis band", not for "ink").
+- **Raw values are written once**, as `--l-*` / `--d-*` in design-tokens.css; the two switch blocks below them only re-point roles. Adding a token means the `--l-`/`--d-` pair, **both** switch blocks, and `@theme inline`.
+- **How it resolves:** no stored preference → `prefers-color-scheme` (so it follows the OS live, and works with JS off); reader toggled → `[data-theme]` on `<html>` wins, stamped before first paint by the inline script in layout.tsx and persisted in `localStorage.theme`. `color-scheme` is set in CSS, not via the viewport export, so native controls follow the toggle too.
+- **The toggle is a word** ("Dark"/"Light"), matching the "Menu"/"Close" convention — not a sun/moon icon, and not a fifth icon. Which word shows is decided in CSS off `[data-theme]`, never in React state, so it is right in the first painted frame with no hydration mismatch and no flash.
+- **The nameplate mark** is painted as a CSS mask in `currentColor` (`.site-mark`), not loaded through `next/image` — `public/logo.svg` has no fill of its own and would paint solid black on the dark canvas. Don't revert it to an `<Image>`; don't add a second logo file.
 
 ### Type rules (hard bans — these were the diagnosed "AI-site tells")
 
@@ -66,11 +77,15 @@ Headline + supporting text + figure + caption, composed asymmetrically. **Separa
 
 All photography is free-license documentary imagery of the audience's world (intake trays, filing rooms, loading docks, counters) — never laptops-with-code, never abstract AI, never posed stock, **never 3D renders**. Every photo goes through [PressPhoto.tsx](src/components/ui/PressPhoto.tsx), with **required `caption`** (deadpan, does messaging work) and **required `alt`** (literal description — captions never substitute for alt; check the actual image, alt text has been wrong before). `public/photos/SHOTLIST.md` is the curation list, and every file in `public/photos/` is in use — if a photo has no honest home, delete it rather than parking it.
 
-**Treatment (`.press-photo` in globals.css) is three layers and the third is load-bearing:** grade (desaturate + warm) → paper multiply (tint) → **paper "lift" at 14% opacity over the image**. Multiply can only darken, so without the lift a dark photo can never sit in a cream page's value range — that lift is what stops photos reading as pasted-in blocks. `.press-photo--dense` (28%) exists for near-black sources.
+**Treatment (`.press-photo` in globals.css) is two layers:** a light grade, then a **`--color-paper` veil laid over the image**. The veil is what stops photos reading as pasted-in blocks, and because it is the paper token it reverses with the theme for free — on cream it *lifts* the deepest blacks into the page's value range; on the dark canvas it *damps* a bright photograph that would otherwise glare. Strength and grade are both theme tokens (`--l-photo-*` / `--d-photo-*`): dark additionally dims the image, since there is no lifting to do when the page itself is the dark thing. Numbers were set by eye against both a uniformly bright subject and a moody one — re-check both before changing them. `.press-photo--dense` is the one knob for near-black sources (stronger on cream, weaker on dark).
+
+(An earlier version also multiplied the whole image by the paper colour. That cream multiply was the "beige" — it tinted every photo onto the canvas hue — and it is gone. Don't reintroduce it.)
+
+**The hero render is the one exception, and it inverts in dark.** `particles.jpg` is a studio shot on a seamless backdrop that *is* the light theme's cream — which is precisely why the hero has no visible edges in light: the picture's background is the page, and the left-edge dissolve finishes it. In dark that becomes a cream slab dissolving into nothing. Dimming cannot fix it (the slab just goes grey) and neither can multiply/screen (the subject is mid-tone on a light ground, so blends either crush it or keep the backdrop). The only treatment that addresses the real problem is `invert(1) hue-rotate(180deg)` — flip the values, rotate the hues back — which turns the backdrop into a warm dark field and leaves the orange orange. It lives in the `--*-photo-hero-*` token set, scoped onto `.press-photo--hero` so the develop keyframe inherits it. Accepted knock-ons, both checked in context: the white wireframe becomes a dark cage, and the dense black particle cluster becomes a light one (it reads as a light source inside the cube). `brightness(0.78)` is where the inverted backdrop meets the page — lighter and it reads as a lit panel sitting *on* the page. **This applies to this image because of what it is; don't generalise inversion to the documentary photos** — inverting a filing room would be nonsense.
 
 **Layout: a photo always ends at the viewport, never at a border.** Two arrangements, both in [PressPhoto.tsx](src/components/ui/PressPhoto.tsx):
 - `aspect="band"` + `bleed` — a full-bleed horizontal band (capped at 1600px, caption returning to the page grid). Used on About. Page architecture, in the same vocabulary as the tone bands.
-- `aspect="column"` + `captionOnPlate` — the tool pages (`/solutions/[slug]`): the photo sits in the hero beside the h1 and bleeds off the **right** edge of the screen (`lg:mr-[calc(50%-50vw)]`), with the caption lifted onto a **paper plate** straddling its bottom-left corner. That plate is the site's "text over image": the words sit on paper, never on the photograph, so contrast is guaranteed by construction — **no scrim, ever** (there are no dark surfaces here). The plate must be `relative`, or it paints *under* the image it overlaps.
+- `aspect="column"` + `captionOnPlate` — the tool pages (`/solutions/[slug]`): the photo sits in the hero beside the h1 and bleeds off the **right** edge of the screen (`lg:mr-[calc(50%-50vw)]`), with the caption lifted onto a **paper plate** straddling its bottom-left corner. That plate is the site's "text over image": the words sit on paper, never on the photograph, so contrast is guaranteed by construction — **no scrim, ever**. That construction is also what makes the plate survive the dark theme unchanged: it is `bg-paper`/`text-ink`, so it inverts with the page, where a scrim tuned for cream would have needed a second version. The plate must be `relative`, or it paints *under* the image it overlaps.
 
 **Do not reintroduce the centered container-width 16:10 box** — that was what made photos look pasted in. Edges stay **crisp**: perimeter feathering and bottom-dissolves were both tried and both read as soft-focus mush. The only dissolve is the home hero's directional left-edge mask (`.press-photo--hero`).
 
@@ -82,7 +97,9 @@ The caption is the line that does the messaging work — on the tool pages it is
 
 ### Motion policy — tools don't decorate
 
-Exactly three permitted moments, all reduced-motion-gated, all CSS: (1) hero photo warms in once on load (`.press-photo--develop`), (2) the FAQ accordion (`.notice-panel` grid-rows), (3) link underline thickens on hover (`.press-link`). **No scroll-triggered reveals, no stagger choreography, no ripples, no springs. Do not reinstall framer-motion.**
+Exactly three permitted moments, all reduced-motion-gated, all CSS: (1) hero photo warms in once on load (`.press-photo--develop` — on cream it develops down from a washed-out print, on the dark canvas it develops *up* out of the dark), (2) the FAQ accordion (`.notice-panel` grid-rows), (3) link underline thickens on hover (`.press-link`). **No scroll-triggered reveals, no stagger choreography, no ripples, no springs. Do not reinstall framer-motion.**
+
+The theme flip is **not** a fourth moment: it is an instant swap, deliberately un-animated. Don't add a cross-fade to it.
 
 ## Architecture
 
@@ -110,7 +127,7 @@ Pages: `/` (front page), `/about`, `/solutions`, `/solutions/[slug]` (SSG via `g
 
 [src/components/ui/icons.tsx](src/components/ui/icons.tsx) holds one small line mark per offering (`TOOL_ICONS`, keyed by slug), shown beside the tool name in the home "What we build" rows. Geometry follows Lucide (ISC-licensed) but **redrawn square** — the source ships rounded corners and round caps, this brand has none. Stroked in `currentColor`; never filled.
 
-The `lucide-react` package stays uninstalled — four vendored marks don't warrant a dependency. This is **not** licence to start decorating: the "icon + heading + two sentences × 3 identical cards" pattern is still banned, and no other section gets icons without the owner asking.
+The `lucide-react` package stays uninstalled — four vendored marks don't warrant a dependency. This is **not** licence to start decorating: the "icon + heading + two sentences × 3 identical cards" pattern is still banned, and no other section gets icons without the owner asking. The theme toggle is a word for exactly this reason — a sun/moon pair would have made it five.
 
 ### Figures — removed, deliberately
 
