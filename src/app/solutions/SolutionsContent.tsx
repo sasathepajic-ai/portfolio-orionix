@@ -16,7 +16,7 @@ export function SolutionsContent() {
       <section className="pt-28 md:pt-32">
         <Container size="wide">
           <Kicker className="mb-4">What we build</Kicker>
-          <h1 className="max-w-[18ch] font-serif text-[clamp(2.4rem,5vw,4rem)] font-medium leading-[1.05] text-ink">
+          <h1 className="max-w-[18ch] font-sans text-[clamp(2.4rem,5vw,4rem)] font-bold leading-[1.04] tracking-[-0.02em] text-ink">
             Four tools. Nothing you don&apos;t need.
           </h1>
           <p className="mt-5 max-w-[56ch] font-serif text-lg leading-relaxed text-ink-soft md:text-xl">

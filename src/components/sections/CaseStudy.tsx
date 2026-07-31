@@ -24,6 +24,11 @@ export interface CaseStudyData {
   };
   /** One-line client quote. Leave out until there is a real, cleared quote. */
   quote?: { text: string; attribution: string };
+  /** Optional long-form telling. When present the narrative replaces the four
+      labelled fields in the left column — `process`, `advisedAgainst` and
+      `built` stay filled and accurate, they are simply not rendered. Use this
+      when an engagement has an arc worth following rather than four answers. */
+  chapters?: { title: string; body: string[] }[];
   /** When true, the section frames itself as an example rather than a
       specific, cleared engagement. */
   isTemplate?: boolean;
@@ -70,8 +75,10 @@ export const KNOWLEDGE_ASSISTANT_EXAMPLE: CaseStudyData = {
     "Team-scoped assistants, each reading only its own approved sources, every answer linked back to the document it came from, and every question and action logged so the trail holds up to review.",
   metric: {
     label: "What changes for a support rep, day to day",
-    before: "The same question gets three different answers across support and sales.",
-    after: "One source-backed answer, with the document it came from attached to check.",
+    before:
+      "The same question gets three different answers across support and sales.",
+    after:
+      "One source-backed answer, with the document it came from attached to check.",
     qualitative: true,
   },
   // no quote — this is an illustrative example, not a cleared client story.
@@ -87,15 +94,32 @@ export const KNOWLEDGE_ASSISTANT_EXAMPLE: CaseStudyData = {
  * `study` to publish it; with none it renders the placeholder above, clearly
  * framed as an example so no visitor mistakes it for a real claim.
  */
-export function CaseStudy({ study = PLACEHOLDER_CASE_STUDY }: { study?: CaseStudyData }) {
-  const { client, advisedAgainst, built, metric, quote, isTemplate, templateNote } = study;
+export function CaseStudy({
+  study = PLACEHOLDER_CASE_STUDY,
+}: {
+  study?: CaseStudyData;
+}) {
+  const {
+    client,
+    advisedAgainst,
+    built,
+    metric,
+    quote,
+    isTemplate,
+    templateNote,
+    chapters,
+  } = study;
 
-  const fields: { label: string; value: ReactNode }[] = [
-    { label: "Who it was for", value: client },
-    { label: "The process we were asked to fix", value: study.process },
-    { label: "What we advised against — and why", value: advisedAgainst },
-    { label: "What we built", value: built },
-  ];
+  // In narrative mode only the client line stays labelled; the chapters carry
+  // the rest, so the same three facts aren't told twice.
+  const fields: { label: string; value: ReactNode }[] = chapters
+    ? [{ label: "Who it was for", value: client }]
+    : [
+        { label: "Who it was for", value: client },
+        { label: "The process we were asked to fix", value: study.process },
+        { label: "What we advised against — and why", value: advisedAgainst },
+        { label: "What we built", value: built },
+      ];
 
   return (
     <section className="py-16 md:py-24">
@@ -103,7 +127,9 @@ export function CaseStudy({ study = PLACEHOLDER_CASE_STUDY }: { study?: CaseStud
         <Reveal>
           <div className="mb-10 max-w-2xl md:mb-14">
             <Kicker className="mb-3">
-              {isTemplate ? "A representative project" : "One engagement, in full"}
+              {isTemplate
+                ? "A representative project"
+                : "One engagement, in full"}
             </Kicker>
             <Headline as="h2">What a project actually looks like</Headline>
             {isTemplate && (
@@ -118,27 +144,54 @@ export function CaseStudy({ study = PLACEHOLDER_CASE_STUDY }: { study?: CaseStud
         <Reveal>
           <div className="grid gap-x-14 gap-y-12 md:grid-cols-[7fr_5fr]">
             {/* The narrative — "what we advised against" is the point of it. */}
-            <dl className="flex flex-col gap-8">
-              {fields.map((f) => (
-                <div key={f.label}>
-                  <dt className="font-sans text-[13px] font-bold text-ink-soft">
-                    {f.label}
-                  </dt>
-                  <dd className="mt-2 font-serif text-[16px] leading-relaxed text-ink">
-                    {f.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <div>
+              <dl className="flex flex-col gap-8">
+                {fields.map((f) => (
+                  <div key={f.label}>
+                    <dt className="font-sans text-[13px] font-bold text-ink-soft">
+                      {f.label}
+                    </dt>
+                    <dd className="mt-2 font-serif text-[16px] leading-relaxed text-ink">
+                      {f.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
 
-            {/* The numbers, then the quote slot. */}
-            <div className="flex flex-col gap-8">
-              <div className="bg-paper-shade p-6 md:p-8">
+              {/* Narrative mode: the arc of the engagement, in order. */}
+              {chapters && (
+                <div className="mt-10 flex flex-col gap-9">
+                  {chapters.map((ch) => (
+                    <article key={ch.title}>
+                      <h3 className="font-sans text-[13px] font-bold text-accent">
+                        {ch.title}
+                      </h3>
+                      {ch.body.map((para, i) => (
+                        <p
+                          key={i}
+                          className="mt-3 font-serif text-[16px] leading-relaxed text-ink"
+                        >
+                          {para}
+                        </p>
+                      ))}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* The numbers, then the quote slot. Sticky so the before/after stays
+                beside the narrative that earns it, instead of leaving a tall
+                empty column once the chapters run past it. */}
+            <div className="flex flex-col gap-8 md:sticky md:top-28 md:self-start">
+              <div className="register-marks bg-paper-shade p-6 md:p-8">
                 <Folio className="text-ink-soft">{metric.label}</Folio>
                 {metric.qualitative ? (
                   <div className="mt-5 flex flex-col gap-4">
                     <div>
-                      <p className="font-sans text-[12px] text-ink-faint">Before</p>
+                      <p className="font-sans text-[12px] text-ink-faint">
+                        Before
+                      </p>
                       <p className="mt-1 font-serif text-lg leading-snug text-ink-soft">
                         {metric.before}
                       </p>
@@ -150,7 +203,9 @@ export function CaseStudy({ study = PLACEHOLDER_CASE_STUDY }: { study?: CaseStud
                       &darr;
                     </span>
                     <div>
-                      <p className="font-sans text-[12px] text-ink-faint">After</p>
+                      <p className="font-sans text-[12px] text-ink-faint">
+                        After
+                      </p>
                       <p className="mt-1 font-serif text-lg leading-snug text-accent">
                         {metric.after}
                       </p>
@@ -159,16 +214,23 @@ export function CaseStudy({ study = PLACEHOLDER_CASE_STUDY }: { study?: CaseStud
                 ) : (
                   <div className="mt-5 flex items-center gap-5">
                     <div>
-                      <p className="font-sans text-[12px] text-ink-faint">Before</p>
+                      <p className="font-sans text-[12px] text-ink-faint">
+                        Before
+                      </p>
                       <p className="mt-1 font-serif text-2xl leading-tight text-ink-soft md:text-3xl">
                         {metric.before}
                       </p>
                     </div>
-                    <span aria-hidden="true" className="font-serif text-2xl text-ink-faint">
+                    <span
+                      aria-hidden="true"
+                      className="font-serif text-2xl text-ink-faint"
+                    >
                       &rarr;
                     </span>
                     <div>
-                      <p className="font-sans text-[12px] text-ink-faint">After</p>
+                      <p className="font-sans text-[12px] text-ink-faint">
+                        After
+                      </p>
                       <p className="mt-1 font-serif text-2xl leading-tight text-accent md:text-3xl">
                         {metric.after}
                       </p>
@@ -188,8 +250,8 @@ export function CaseStudy({ study = PLACEHOLDER_CASE_STUDY }: { study?: CaseStud
                 </blockquote>
               ) : metric.qualitative ? null : (
                 <p className="font-serif text-lg italic leading-normal text-ink-faint">
-                  [ A one-line client quote sits here, once we have permission to
-                  publish it. ]
+                  [ A one-line client quote sits here, once we have permission
+                  to publish it. ]
                 </p>
               )}
             </div>

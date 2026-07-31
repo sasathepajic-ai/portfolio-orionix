@@ -29,28 +29,31 @@ export const SOLUTION_PHOTOS: Record<
   { src: string; alt: string; caption: string; objectPosition?: string }
 > = {
   "ai-assistants": {
-    src: "/photos/files.jpg",
-    alt: "Stacks of paper files and folders tied with ribbon",
+    src: "/photos/binders.jpg",
+    alt: "Wooden shelves filled with rows of worn cream ring binders, one brown folder leaning out of the middle shelf",
     caption:
       "The knowledge your team already has — just not where anyone can find it.",
   },
   "workflow-automation": {
-    src: "/photos/forms.jpg",
-    alt: "Printed intake and timesheet forms scattered across a desk",
+    src: "/photos/intake.jpg",
+    alt: "A tall stack of wire letter trays heaped with printed forms on an office desk, a wooden pigeonhole sorting rack on the wall behind",
     caption: "Every one of these is read, keyed, and routed by hand today.",
+    /* Low enough to keep the whole tray tower — the top sheet and the banded
+       bundles both — inside the band. */
+    objectPosition: "center 58%",
   },
   "business-intelligence": {
-    src: "/photos/archive.jpg",
-    alt: "A wall of wooden archive drawers, rows of them, none of them labelled",
+    src: "/photos/drawers.jpg",
+    alt: "A long bank of wooden index-card drawers with brass handles, one drawer pulled open and packed with cards",
     caption:
       "The answers are already in your systems. This is about opening the right drawer.",
-    objectPosition: "center 40%",
+    objectPosition: "center 55%",
   },
   "ai-strategy": {
-    src: "/photos/office.jpg",
-    alt: "An open-plan office of empty desks and cubicles by a city window",
+    src: "/photos/table.jpg",
+    alt: "A long empty meeting table with a folded plan, loose papers and two mugs spread across the near end",
     caption: "Where AI earns its place as you scale — and where it doesn't.",
-    objectPosition: "center 62%",
+    objectPosition: "center 85%",
   },
 };
 

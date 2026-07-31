@@ -70,39 +70,42 @@
      without muddying a moody one (the About band) — checked against both */
   --d-photo-filter-start: saturate(0.7) contrast(0.97) brightness(0.58);
 
-  /* ─── The hero render, which is its own problem ───────────────────────
-     particles.jpg is a studio shot of an object on a seamless backdrop, and
-     that backdrop happens to BE the light theme's cream. That is exactly why
-     the hero has no visible edges in light — the picture's background *is* the
-     page, and the left-edge dissolve finishes the job.
+  /* Warm grade — opt-in, appended to the filter above for cool-cast sources
+     only (`.press-photo--warm`). The About loop is grey concrete under an
+     overcast sky; beside the warm records room it reads blue.
 
-     In dark the same property is the defect: a cream slab with a dissolve that
-     melts into nothing. Dimming cannot fix it (it just makes the slab grey),
-     and neither can multiply/screen — the subject is mid-tone on a light
-     ground, so every blend either crushes it or keeps the backdrop. The only
-     treatment that addresses the actual problem is inverting the VALUES while
-     hue-rotating the HUES back, which turns the cream backdrop into a warm
-     dark field and leaves the orange orange.
+     `sepia` collapses hue toward warm and `saturate` puts the colour back, so
+     the sky becomes warm haze and the orange awning stays orange. Two other
+     routes were rendered and rejected: a warm colour in `soft-light` turned
+     the blue glass olive and dulled the sky, and `overlay` just darkened it.
+     Note this is NOT the old cream multiply returning — that tinted every
+     photo onto the canvas hue; this one class is asked for by one picture.
 
-     Two knock-on effects, both checked in context and both fine: the white
-     wireframe becomes a dark cage (it still reads, and arguably better), and
-     the dense black particle cluster becomes a light one — it reads as a
-     light source inside the cube, not as an artifact. brightness(0.78) is
-     where the inverted backdrop meets the page and the box edges disappear;
-     lighter and it reads as a lit panel sitting on the page. Saturation is
-     nudged up because inversion costs the oranges some punch, and sepia was
-     tried to tame the bright cluster but muted them too far.
+     Both themes want the same amount (checked against the film on cream and on
+     the dark canvas), but they stay a pair so either can move alone. */
+  --l-photo-warm: sepia(0.3) saturate(1.15);
+  --d-photo-warm: sepia(0.3) saturate(1.15);
 
-     Light keeps the ordinary grade — the whole point is that light never
-     needed help here. */
-  --l-photo-hero-filter: var(--l-photo-filter);
-  --l-photo-hero-filter-start: var(--l-photo-filter-start);
-  --l-photo-hero-lift: var(--l-photo-lift);
+  /* Backdrop — the one image the site sets type ON (the home hero). It is not
+     a photograph here, it is a surface: the picture is pushed most of the way
+     to the canvas colour so the headline has a page to sit on, and what
+     survives is the tooth of the plaster and the shelving at the edge.
 
-  --d-photo-hero-filter: invert(1) hue-rotate(180deg) saturate(1.15) brightness(0.78);
-  --d-photo-hero-filter-start: invert(1) hue-rotate(180deg) saturate(0.9) brightness(0.5);
-  --d-photo-hero-lift: 0.06; /* already dark after inversion — the general
-     dark veil (0.15) would only mud it */
+     The two themes pull in opposite directions and neither is subtle about it.
+     Light lifts a mid-value wall until ink reads on it; dark has to take the
+     same pale wall a long way down before cream will. The veil is the paper
+     token in both cases, so the whole thing still flips on one switch. */
+  --l-photo-backdrop: saturate(0.85) contrast(0.95) brightness(1.04);
+  --l-photo-backdrop-veil: 0.62;
+
+  --d-photo-backdrop: saturate(0.8) contrast(0.92) brightness(0.42);
+  --d-photo-backdrop-veil: 0.55;
+
+  /* Paper grain. Cream can carry more of it than the dark canvas, where the
+     same amount reads as noise rather than as tooth. */
+  --l-grain: 0.55;
+  --d-grain: 0.40;
+
 
   /* ─── Motion — tools don't decorate ───────────────────────────────── */
   --transition-fast: 120ms ease;
@@ -121,12 +124,13 @@
   --color-band: var(--l-band);
   --color-band-ink: var(--l-band-ink);
   --press-photo-lift: var(--l-photo-lift);
+  --grain: var(--l-grain);
   --press-photo-lift-dense: var(--l-photo-lift-dense);
   --photo-filter: var(--l-photo-filter);
   --photo-filter-start: var(--l-photo-filter-start);
-  --photo-hero-filter: var(--l-photo-hero-filter);
-  --photo-hero-filter-start: var(--l-photo-hero-filter-start);
-  --photo-hero-lift: var(--l-photo-hero-lift);
+  --photo-warm: var(--l-photo-warm);
+  --photo-backdrop: var(--l-photo-backdrop);
+  --photo-backdrop-veil: var(--l-photo-backdrop-veil);
 }
 
 /* Dark by OS preference — but only while the reader hasn't forced light.
@@ -147,12 +151,13 @@
     --color-band: var(--d-band);
     --color-band-ink: var(--d-band-ink);
     --press-photo-lift: var(--d-photo-lift);
+    --grain: var(--d-grain);
     --press-photo-lift-dense: var(--d-photo-lift-dense);
     --photo-filter: var(--d-photo-filter);
     --photo-filter-start: var(--d-photo-filter-start);
-    --photo-hero-filter: var(--d-photo-hero-filter);
-    --photo-hero-filter-start: var(--d-photo-hero-filter-start);
-    --photo-hero-lift: var(--d-photo-hero-lift);
+    --photo-warm: var(--d-photo-warm);
+    --photo-backdrop: var(--d-photo-backdrop);
+    --photo-backdrop-veil: var(--d-photo-backdrop-veil);
   }
 }
 
@@ -173,10 +178,11 @@
   --color-band: var(--d-band);
   --color-band-ink: var(--d-band-ink);
   --press-photo-lift: var(--d-photo-lift);
+  --grain: var(--d-grain);
   --press-photo-lift-dense: var(--d-photo-lift-dense);
   --photo-filter: var(--d-photo-filter);
   --photo-filter-start: var(--d-photo-filter-start);
-  --photo-hero-filter: var(--d-photo-hero-filter);
-  --photo-hero-filter-start: var(--d-photo-hero-filter-start);
-  --photo-hero-lift: var(--d-photo-hero-lift);
+  --photo-warm: var(--d-photo-warm);
+  --photo-backdrop: var(--d-photo-backdrop);
+  --photo-backdrop-veil: var(--d-photo-backdrop-veil);
 }

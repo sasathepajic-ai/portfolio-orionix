@@ -20,12 +20,19 @@
 
   /* Font families */
   --font-serif: var(--font-besley), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-familjen), Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
-/* Base styles */
+/* Base styles.
+
+   NO `scroll-behavior: smooth` here, deliberately. The App Router scrolls to
+   the top itself on every route change, and a global smooth turns that into an
+   animation that the incoming page's layout can interrupt — which is why
+   "See what we build" sometimes left you halfway down the new page instead of
+   at its top. Route changes are now instant and deterministic; the one scroll
+   that is genuinely a gesture (the masthead's return to the top) asks for
+   smooth in JS, where it can also honour prefers-reduced-motion. */
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -38,35 +45,48 @@ body {
   font-size: 1.0625rem;
 }
 
-/* Headlines — Newsreader, medium weight, NORMAL tracking (negative tracking
-   was a diagnosed tell of the previous design; never reintroduce it). */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 500;
-  letter-spacing: normal;
-  text-wrap: balance;
-}
+/* Heading and paragraph defaults.
 
-h1 {
-  line-height: 1.05;
-}
-h2 {
-  line-height: 1.12;
-}
-h3,
-h4,
-h5,
-h6 {
-  line-height: 1.25;
-}
+   These MUST stay inside @layer base. Tailwind v4 puts utilities in
+   @layer utilities, and unlayered CSS beats every layer regardless of
+   specificity — so as plain rules these silently overrode `font-sans`,
+   `font-bold` and `tracking-*` on every heading on the site. Anything written
+   here that a utility should be able to override belongs in this layer.
 
-p {
-  text-wrap: pretty;
+   The default is still the slab at medium: sub-heads and any heading without
+   an explicit utility read as the traditional face. Big titles opt into the
+   grotesk (see the Headline primitive), and those carry a little negative
+   tracking — the old blanket ban on it was written for Besley, where it was a
+   genuine tell; a grotesk set at 60px needs it to stop looking gappy. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif), Georgia, serif;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-wrap: balance;
+  }
+
+  h1 {
+    line-height: 1.05;
+  }
+  h2 {
+    line-height: 1.12;
+  }
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.25;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
 }
 
 /* Focus — visible, accent */
@@ -155,13 +175,15 @@ p {
    photo onto the canvas hue — and it's gone, along with most of the grade.)
 
    Edges stay crisp. Feathering the perimeter was tried and it reads as a
-   soft-focus vignette — the opposite of a documentary print. The only
-   dissolve on the site is the hero's, below, and that is directional. */
+   soft-focus vignette — the opposite of a documentary print, and there is no
+   dissolve anywhere on the site now. */
 .press-photo {
   position: relative;
   overflow: hidden;
 }
-.press-photo img {
+/* `video` as well as `img`: the About band is a silent loop, and it has to take
+   exactly the same grade as a still or it detaches from the page. */
+.press-photo :is(img, video) {
   filter: var(--photo-filter);
 }
 .press-photo::before {
@@ -181,29 +203,29 @@ p {
   --press-photo-lift: var(--press-photo-lift-dense);
 }
 
-/* The hero is the one image with its own grade, because it is the one image
-   whose backdrop IS the canvas — see the long note beside --*-photo-hero-* in
-   design-tokens.css for why dark has to invert it rather than dim it. Scoping
-   the override to the element (rather than to `.press-photo--hero img`) means
-   the develop keyframe below, which reads the same two variables, picks the
-   hero's values up for free. */
-.press-photo--hero {
-  --photo-filter: var(--photo-hero-filter);
-  --photo-filter-start: var(--photo-hero-filter-start);
-  --press-photo-lift: var(--photo-hero-lift);
+/* Cool-cast sources. A warm grade appended to the same filter, so the picture
+   belongs to a warm page instead of sitting blue on it. It has to come after
+   the rule above: equal specificity, and source order is what decides.
+   Opt-in per photo — see the token note in design-tokens.css. */
+.press-photo--warm :is(img, video) {
+  filter: var(--photo-filter) var(--photo-warm);
 }
 
-/* The hero is also the one image allowed to dissolve, and only in one
-   direction: its left edge melts out from under the headline column so the
-   picture starts without a seam. It's an abstract field, not a document — it
-   can take it. (That dissolve is load-bearing for the dark grade above: it
-   only works while the backdrop sits at the page's value, which is what the
-   inversion restores.) */
-@media (min-width: 1024px) {
-  .press-photo--hero {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 46%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 46%);
-  }
+/* The backdrop — the home hero, and the only image on the site that carries
+   type. It is deliberately not treated as a photograph: its own grade and a
+   much heavier veil push it most of the way to the canvas colour, so the
+   headline sits on something that behaves like paper and legibility is a
+   property of the surface rather than of where the words happen to land.
+
+   This is not the scrim the photo rules ban. A scrim is a gradient laid under
+   text to rescue contrast locally; this is uniform, it is the paper token, and
+   it flips with the theme — the same mechanism every other photo on the site
+   already uses, turned up. */
+.press-photo--backdrop :is(img, video) {
+  filter: var(--photo-backdrop);
+}
+.press-photo--backdrop::before {
+  opacity: var(--photo-backdrop-veil);
 }
 
 /* Hero photo warms in once on load — permitted motion moment #2. Both ends of
@@ -274,50 +296,234 @@ p {
     transform: none !important;
   }
 }
-
 /* ─── "What we build" schematics — a quiet sign of life ──────────────
-   Each drawing keeps a slow, low-key loop tied to what its tool does, so the
-   section reads as alive rather than dead-still (owner-requested). All CSS,
-   gated on html.js + prefers-reduced-motion, and it only begins once the row
-   has scrolled in (.reveal.is-visible) — so nothing animates behind the fold,
-   and no-JS / reduced-motion / print show the drawings at rest. */
+   Each drawing performs the one thing its tool does, then rests. The gestures
+   are DRAWN (stroke-dashoffset on a pathLength="1" path) rather than pulsed,
+   because a mark being made is what this brand is about — a drafting hand, not
+   a status light.
+
+   Every loop spends most of its length at rest: a long hold, one short
+   purposeful move, a clear. Constant motion would be decoration; a gesture
+   every several seconds is a sign of life.
+
+   All CSS, gated on html.js + prefers-reduced-motion, and only once the row has
+   scrolled in (.reveal.is-visible) — so nothing animates behind the fold. The
+   base styles leave every mark fully drawn, so no-JS, reduced-motion and print
+   all show the finished drawing at rest. */
 @media (prefers-reduced-motion: no-preference) {
-  /* BI — the bars breathe like live data, each on its own phase. */
+  /* Assistant — the answer writes itself, line after line, then clears for the
+     next question. One path of three subpaths, so the dash runs through them in
+     sequence for free. */
+  html.js .reveal.is-visible .schem-write {
+    stroke-dasharray: 1;
+    animation: schem-write 7.5s ease-in-out infinite;
+  }
+  @keyframes schem-write {
+    0%        { stroke-dashoffset: 1; }
+    30%, 82%  { stroke-dashoffset: 0; }
+    96%, 100% { stroke-dashoffset: 1; }
+  }
+
+  /* Assistant — the caret marks the end of the answer while it is being
+     written, and goes out once the answer is complete. */
+  html.js .reveal.is-visible .schem-caret {
+    animation: schem-caret 7.5s steps(1, end) infinite;
+  }
+  @keyframes schem-caret {
+    0%, 4%    { opacity: 1; }
+    8%        { opacity: 0; }
+    12%       { opacity: 1; }
+    16%       { opacity: 0; }
+    20%       { opacity: 1; }
+    24%       { opacity: 0; }
+    28%       { opacity: 1; }
+    32%, 100% { opacity: 0; }
+  }
+
+  /* Automation — the item in hand fills, its tick draws, and the queue resets.
+     Both share one clock so the fill always leads the mark. */
+  html.js .reveal.is-visible .schem-fill {
+    animation: schem-fill 6.5s ease-in-out infinite;
+  }
+  @keyframes schem-fill {
+    0%, 18%   { fill-opacity: 0; }
+    34%, 84%  { fill-opacity: 1; }
+    96%, 100% { fill-opacity: 0; }
+  }
+  html.js .reveal.is-visible .schem-check {
+    stroke-dasharray: 1;
+    animation: schem-check 6.5s ease-out infinite;
+  }
+  @keyframes schem-check {
+    0%, 30%   { stroke-dashoffset: 1; }
+    44%, 86%  { stroke-dashoffset: 0; }
+    94%, 100% { stroke-dashoffset: 1; }
+  }
+
+  /* BI — the bars re-plot. Each carries its own amplitude (--amp) and phase
+     (--d), so it reads as a live reading rather than one shared heartbeat. */
   html.js .reveal.is-visible .schem-bar {
     transform-box: fill-box;
     transform-origin: bottom;
-    animation: schem-breathe 3.4s ease-in-out calc(var(--d, 0) * 260ms) infinite;
+    animation: schem-replot 5.2s ease-in-out calc(var(--d, 0) * 420ms) infinite;
   }
-  @keyframes schem-breathe {
+  @keyframes schem-replot {
     0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(0.9); }
+    50%      { transform: scaleY(var(--amp, 0.9)); }
   }
 
-  /* Automation — the current item pulses: this is the one being worked. */
-  html.js .reveal.is-visible .schem-work {
-    animation: schem-work 1.9s ease-in-out infinite;
+  /* Strategy — the verdict, in order: the one worth doing is ticked, then the
+     one we advise against is struck out. The pause between them is the point. */
+  html.js .reveal.is-visible .schem-draw {
+    stroke-dasharray: 1;
+    animation: schem-verdict 9s ease-out infinite;
   }
-  @keyframes schem-work {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+  html.js .reveal.is-visible .schem-refuse {
+    stroke-dasharray: 1;
+    animation: schem-verdict 9s ease-out 1.1s infinite;
   }
-
-  /* Strategy — the chosen option quietly affirms itself. */
-  html.js .reveal.is-visible .schem-chosen {
-    animation: schem-affirm 3s ease-in-out infinite;
-  }
-  @keyframes schem-affirm {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.45; }
-  }
-
-  /* Assistant — a cursor blink: the answer is still being written. */
-  html.js .reveal.is-visible .schem-caret {
-    animation: schem-caret 1.1s linear infinite;
-  }
-  @keyframes schem-caret {
-    0%, 45% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+  @keyframes schem-verdict {
+    0%, 10%   { stroke-dashoffset: 1; }
+    24%, 88%  { stroke-dashoffset: 0; }
+    97%, 100% { stroke-dashoffset: 1; }
   }
 }
 
+
+/* ─── The instrument layer ────────────────────────────────────────────
+   Three recurring marks that make the whole site read as a measuring device
+   rather than a brochure. None of them is decoration for its own sake: each
+   one reports something true about where you are or what a block is.
+
+   Warm and traditional stays; what's added is precision. */
+
+/* 1. Scroll instrument — a hairline under the masthead that reports how far
+      through the document you are.
+
+      Driven by a CSS scroll-driven animation, so there is no scroll listener,
+      no JS, and the whole thing runs on the compositor. Wrapped in @supports
+      because without a timeline the animation would resolve at its end state
+      and paint a permanently full bar, which would be a lie. */
+.scroll-instrument {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--color-accent);
+  opacity: 0;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-instrument {
+    opacity: 1;
+    animation: scroll-instrument linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes scroll-instrument {
+    to { transform: scaleX(1); }
+  }
+}
+
+/* 2. Registration marks — the corner ticks a printer uses to line up a plate.
+      Applied to blocks that carry a measurement or a verdict, so the page
+      looks like it was registered rather than laid out. Hairlines only, and
+      they inherit the rule colour so they flip with the theme for free. */
+.register-marks {
+  position: relative;
+}
+.register-marks::before,
+.register-marks::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  pointer-events: none;
+  border-color: var(--color-ink-faint);
+  opacity: 0.55;
+}
+.register-marks::before {
+  top: -4px;
+  left: -4px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.register-marks::after {
+  right: -4px;
+  bottom: -4px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+
+/* ─── Paper grain ──────────────────────────────────────────────────────
+   Tooth on the raised surfaces only. The plain-paper sections stay clean —
+   grain everywhere stops being texture and becomes noise, and the contrast
+   between a smooth section and a grained one is what gives the page depth.
+
+   One fractal-noise tile, laid over the band and blended rather than painted.
+   The turbulence is contrast-stretched first (feComponentTransfer, slope 3
+   about the midpoint) — raw fractalNoise clusters near mid-grey, and without
+   the stretch the blend had almost nothing to work with: measured, under one
+   level in 255. Overlay is then the right blend precisely because it leaves a
+   mid-grey alone: the band keeps its designed tone and only the deviations
+   show. Multiply was tried and rejected — it darkened the band by a dozen
+   levels, buying texture by changing a colour that was chosen deliberately.
+
+   `isolation: isolate` keeps the blend inside the section (so it works against
+   the band's own colour, not whatever is behind it) and lets the layer sit at
+   z-index -1: above the background, below the content, no stacking games. */
+
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='3' intercept='-1'/%3E%3CfeFuncG type='linear' slope='3' intercept='-1'/%3E%3CfeFuncB type='linear' slope='3' intercept='-1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: var(--grain, 0.35);
+  mix-blend-mode: overlay;
+}
+
+/* The tile is a fixed pixel size, so on a high-density screen it would halve
+   in apparent scale and turn to fizz. Scale it with the display. */
+@media (min-resolution: 1.5dppx) {
+  .grain::after {
+    background-size: 240px 240px;
+  }
+}
+
+@media print {
+  .grain::after { display: none; }
+}
+
+
+/* ─── The hero's copy ──────────────────────────────────────────────────
+   `--hero-inset` is the wide Container's inset written out longhand, so the
+   headline lands on the site's own left margin — the same line the masthead
+   and every section below it sit on — while the picture behind it runs the
+   full width of the screen.
+
+   The panel used to be a paper half of a split, and carried a margin rule and
+   corner ticks to keep that emptiness reading as margin. The backdrop replaced
+   both: there is no empty panel left to structure. */
+.hero-panel {
+  --hero-inset: 1rem;
+}
+@media (min-width: 640px) {
+  .hero-panel {
+    --hero-inset: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-panel {
+    --hero-inset: max(2rem, calc((100vw - 80rem) / 2 + 2rem));
+  }
+}

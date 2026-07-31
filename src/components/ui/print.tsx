@@ -1,7 +1,7 @@
 import type { ElementType, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/* The workshop kit. Kickers/labels are Familjen Grotesk bold, sentence case,
+/* The workshop kit. Kickers/labels are Inter bold, sentence case,
    NORMAL tracking — never letterspaced, never uppercase, never mono.
    Minimal by default: separate with tone and whitespace, not lines. */
 
@@ -33,13 +33,27 @@ export function Folio({
 }
 
 const HEADLINE_SIZE = {
-  xl: "text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.05]",
-  lg: "text-[clamp(1.9rem,3.2vw,2.75rem)] leading-[1.12]",
+  xl: "text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.03] tracking-[-0.02em]",
+  lg: "text-[clamp(1.9rem,3.2vw,2.75rem)] leading-[1.1] tracking-[-0.015em]",
   md: "text-[clamp(1.4rem,2.2vw,1.75rem)] leading-[1.2]",
   sm: "text-[clamp(1.15rem,1.6vw,1.35rem)] leading-[1.25]",
 } as const;
 
-/** Headline — Besley medium, ink, normal tracking. Pick the heading level with `as`. */
+/* Big titles are the grotesk; sub-heads stay the slab.
+   The split is the point of the pairing — a modern sans announcing, a
+   traditional serif doing the reading — so it is drawn by size rather than
+   applied everywhere. `md`/`sm` are closer to text than to display, and read
+   better staying with the body face.
+   Only 400 and 700 of the sans are self-hosted, so display weight is 700;
+   asking for 500 would fall back to 400 or be synthesised. */
+const HEADLINE_FAMILY = {
+  xl: "font-sans font-bold",
+  lg: "font-sans font-bold",
+  md: "font-serif font-medium",
+  sm: "font-serif font-medium",
+} as const;
+
+/** Headline — grotesk bold at display sizes, slab medium below. Pick the level with `as`. */
 export function Headline({
   as: Component = "h2",
   size = "lg",
@@ -52,7 +66,14 @@ export function Headline({
   className?: string;
 }) {
   return (
-    <Component className={cn("font-serif font-medium text-ink", HEADLINE_SIZE[size], className)}>
+    <Component
+      className={cn(
+        "text-ink",
+        HEADLINE_FAMILY[size],
+        HEADLINE_SIZE[size],
+        className
+      )}
+    >
       {children}
     </Component>
   );
@@ -77,7 +98,11 @@ export function NewsBox({
   className?: string;
   as?: ElementType;
 }) {
-  return <Component className={cn("bg-paper-shade p-6 md:p-8", className)}>{children}</Component>;
+  return (
+    <Component className={cn("register-marks bg-paper-shade p-6 md:p-8", className)}>
+      {children}
+    </Component>
+  );
 }
 
 /** Caption — figure/photo caption text. */

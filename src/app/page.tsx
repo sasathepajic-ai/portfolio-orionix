@@ -1,3 +1,4 @@
+import { CaseStudy } from "@/components/sections/CaseStudy";
 import { Hero } from "@/components/sections/Hero";
 import { RefusalColumn } from "@/components/sections/RefusalColumn";
 import { SectionsTeasers } from "@/components/sections/SectionsTeasers";
@@ -10,6 +11,7 @@ import { Testimonial } from "@/components/sections/Testimonial";
 import { CTASection } from "@/components/sections/CTASection";
 import { generateFaqJsonLd } from "@/lib/seo";
 import { FAQS } from "@/lib/faqs";
+import { UPREACH_WORKBENCH } from "@/lib/caseStudies";
 
 export default function Home() {
   const faqJsonLd = generateFaqJsonLd(FAQS);
@@ -25,10 +27,7 @@ export default function Home() {
       <SectionsTeasers />
       <TheRecord />
       <WeekByWeek />
-      {/* The representative-project section is out until there is a real,
-          cleared engagement to put in it — an illustrative example is not
-          something we can honestly show as proof yet. Restore with
-          <CaseStudy study={...} /> from components/sections/CaseStudy.tsx. */}
+      <CaseStudy study={UPREACH_WORKBENCH} />
       <ProofNote />
       <FAQSection />
       <CorrectionsBox />

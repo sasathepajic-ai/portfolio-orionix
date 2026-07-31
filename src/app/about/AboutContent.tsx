@@ -40,7 +40,7 @@ export function AboutContent() {
         <Container size="wide">
           <div className="max-w-[60ch]">
             <Kicker className="mb-4">About</Kicker>
-            <h1 className="font-serif text-[clamp(2.4rem,5vw,4rem)] font-medium leading-[1.05] text-ink">
+            <h1 className="font-sans text-[clamp(2.4rem,5vw,4rem)] font-bold leading-[1.04] tracking-[-0.02em] text-ink">
               We build the tool. Then we get out of the way.
             </h1>
             <p className="mt-6 font-serif text-lg leading-relaxed text-ink-soft md:text-xl">
@@ -54,11 +54,16 @@ export function AboutContent() {
         {/* Full-bleed band — the photo is page architecture, not an inset. */}
         <div className="mt-12 md:mt-16">
           <PressPhoto
-            src="/photos/towers.jpg"
-            alt="Corporate office towers photographed from below against the sky"
+            video={{
+              mp4: "/photos/towers-loop.mp4",
+              webm: "/photos/towers-loop.webm",
+              poster: "/photos/towers-loop-poster.jpg",
+            }}
+            alt="Corporate office towers photographed from below against the sky, high cloud drifting slowly between them"
             caption="We work with organizations in education, consulting, operations, and HR — different industries, the same pattern."
             aspect="band"
             bleed
+            warm
             sizes={BAND_SIZES}
             objectPosition="center 25%"
           />
@@ -90,7 +95,7 @@ export function AboutContent() {
       </section>
 
       {/* How we work — toned band */}
-      <section className="bg-paper-shade py-14 md:py-20">
+      <section className="grain bg-paper-shade py-14 md:py-20">
         <Container size="wide">
           <div className="mb-10 max-w-2xl md:mb-12">
             <Kicker className="mb-3">How we work</Kicker>

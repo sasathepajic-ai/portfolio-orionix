@@ -35,16 +35,32 @@ export interface ButtonProps
 export function Button({ className, variant, size, href, children, ...props }: ButtonProps) {
   const cls = cn(buttonVariants({ variant, size, className }));
 
+  /* The rest of the props have to reach the link branches too. They used to be
+     dropped here, which silently swallowed every handler passed to a Button
+     with an `href` — the mobile menu's "Book a call" never closed the menu,
+     because its onClick went nowhere.
+
+     The cast is the honest cost of one polymorphic component: the props are
+     typed against HTMLButtonElement, so the handlers carry the wrong element
+     type for an anchor even though they are structurally identical. */
+  const linkProps = props as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
   if (href) {
     if (href.startsWith("http")) {
       return (
-        <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
+        <a
+          href={href}
+          className={cls}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...linkProps}
+        >
           {children}
         </a>
       );
     }
     return (
-      <Link href={href} className={cls}>
+      <Link href={href} className={cls} {...linkProps}>
         {children}
       </Link>
     );

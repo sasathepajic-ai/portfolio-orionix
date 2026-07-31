@@ -20,15 +20,15 @@ const ACCENT = "#2C614C";
 // — no network fetch, so this route builds despite the Google Fonts TLS issue.
 async function loadFonts() {
   const dir = path.join(process.cwd(), "src", "app", "fonts");
-  const [besley, familjenBold] = await Promise.all([
+  const [besley, interBold] = await Promise.all([
     readFile(path.join(dir, "besley-500.ttf")),
-    readFile(path.join(dir, "familjen-700.ttf")),
+    readFile(path.join(dir, "inter-700.ttf")),
   ]);
-  return { besley, familjenBold };
+  return { besley, interBold };
 }
 
 export default async function OpengraphImage() {
-  const { besley, familjenBold } = await loadFonts();
+  const { besley, interBold } = await loadFonts();
 
   return new ImageResponse(
     (
@@ -45,13 +45,13 @@ export default async function OpengraphImage() {
       >
         {/* Name + working label */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", fontFamily: "Familjen Grotesk", fontSize: 30, color: INK }}>
+          <div style={{ display: "flex", fontFamily: "Inter", fontSize: 30, color: INK }}>
             Pragmatic Labs AI
           </div>
           <div
             style={{
               display: "flex",
-              fontFamily: "Familjen Grotesk",
+              fontFamily: "Inter",
               fontSize: 21,
               color: ACCENT,
               border: `2px solid ${ACCENT}`,
@@ -88,10 +88,10 @@ export default async function OpengraphImage() {
             paddingTop: 18,
           }}
         >
-          <div style={{ display: "flex", fontFamily: "Familjen Grotesk", fontSize: 21, color: ACCENT }}>
+          <div style={{ display: "flex", fontFamily: "Inter", fontSize: 21, color: ACCENT }}>
             Built on the systems your team already runs
           </div>
-          <div style={{ display: "flex", fontFamily: "Familjen Grotesk", fontSize: 21, color: INK_FAINT }}>
+          <div style={{ display: "flex", fontFamily: "Inter", fontSize: 21, color: INK_FAINT }}>
             pragmaticlabs.ai
           </div>
         </div>
@@ -101,7 +101,7 @@ export default async function OpengraphImage() {
       ...size,
       fonts: [
         { name: "Besley", data: besley, weight: 500, style: "normal" },
-        { name: "Familjen Grotesk", data: familjenBold, weight: 700, style: "normal" },
+        { name: "Inter", data: interBold, weight: 700, style: "normal" },
       ],
     }
   );

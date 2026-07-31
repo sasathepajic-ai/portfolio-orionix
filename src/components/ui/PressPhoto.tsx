@@ -4,6 +4,7 @@ import path from "node:path";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Caption } from "./print";
+import { PressVideo, type PressVideoSources } from "./PressVideo";
 import { Container } from "./Container";
 
 const ASPECT = {
@@ -41,10 +42,22 @@ interface PressPhotoProps {
   className?: string;
   /** Near-black sources only: stronger paper lift. */
   dense?: boolean;
+  /**
+   * Cool-cast sources only: a warm wash over the frame, so grey concrete and
+   * overcast sky belong to a cream page. Off by default — a source that is
+   * already warm needs nothing.
+   */
+  warm?: boolean;
   /** Full-bleed usage: returns the caption to the page grid. */
   bleed?: boolean;
   /** CSS object-position for the cover crop, e.g. "center 25%". */
   objectPosition?: string;
+  /**
+   * A silent looping film in place of a still. Takes the same frame, the same
+   * grade and the same caption treatment; `src` is ignored when this is set.
+   * The poster is the loop's first frame, so nothing shifts when it starts.
+   */
+  video?: PressVideoSources;
   /**
    * Set the caption INSIDE the frame — centred, low, like a subtitle on a
    * screen — instead of leaving it as grey metadata underneath. Large Besley
@@ -89,11 +102,18 @@ export function PressPhoto({
   sizes = "(min-width: 1024px) 45vw, 100vw",
   className,
   dense = false,
+  warm = false,
   bleed = false,
   objectPosition,
   subtitle = false,
+  video,
 }: PressPhotoProps) {
-  const hasFile = src ? existsSync(path.join(process.cwd(), "public", src)) : false;
+  /* Same build-time existence check either way, so a missing file still falls
+     back to the intentional paper panel rather than a broken element. */
+  const probe = video ? video.mp4 : src;
+  const hasFile = probe
+    ? existsSync(path.join(process.cwd(), "public", probe))
+    : false;
 
   return (
     /* `relative` when the caption is a subtitle: it is positioned inside the frame. */
@@ -102,23 +122,36 @@ export function PressPhoto({
         <div
           className={cn(
             "press-photo relative",
-            priority && "press-photo--develop",
+            priority && !video && "press-photo--develop",
             dense && "press-photo--dense",
-            ASPECT[aspect]
+            warm && "press-photo--warm",
+            ASPECT[aspect],
           )}
         >
-          <Image
-            src={src!}
-            alt={alt}
-            fill
-            sizes={sizes}
-            priority={priority}
-            className="object-cover"
-            style={objectPosition ? { objectPosition } : undefined}
-          />
+          {video ? (
+            <PressVideo
+              sources={video}
+              alt={alt}
+              objectPosition={objectPosition}
+            />
+          ) : (
+            <Image
+              src={src!}
+              alt={alt}
+              fill
+              sizes={sizes}
+              priority={priority}
+              className="object-cover"
+              style={objectPosition ? { objectPosition } : undefined}
+            />
+          )}
         </div>
       ) : (
-        <div role="img" aria-label={alt} className={cn("bg-paper-shade", ASPECT[aspect])} />
+        <div
+          role="img"
+          aria-label={alt}
+          className={cn("bg-paper-shade", ASPECT[aspect])}
+        />
       )}
       {/* Three ways a caption can sit.
 

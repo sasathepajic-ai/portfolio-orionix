@@ -45,7 +45,7 @@ export function SolutionDetail({ solution }: Props) {
             </Link>
           </p>
           <div className="max-w-[60ch]">
-            <h1 className="font-serif text-[clamp(2.4rem,5vw,4rem)] font-medium leading-[1.05] text-ink">
+            <h1 className="font-sans text-[clamp(2.4rem,5vw,4rem)] font-bold leading-[1.04] tracking-[-0.02em] text-ink">
               {solution.title}
             </h1>
             <p className="mt-5 font-serif text-lg leading-relaxed text-ink-soft md:text-xl">

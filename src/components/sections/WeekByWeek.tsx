@@ -10,7 +10,7 @@ import { ENGAGEMENT_WEEKS } from "@/lib/engagement";
  */
 export function WeekByWeek() {
   return (
-    <section className="bg-paper-shade py-16 md:py-24">
+    <section className="grain bg-paper-shade py-16 md:py-24">
       <Container size="wide">
         <Reveal>
           <div className="mb-10 max-w-2xl md:mb-12">

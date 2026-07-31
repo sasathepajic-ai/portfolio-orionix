@@ -71,12 +71,32 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === "/solutions" ? pathname.startsWith("/solutions") : pathname === href;
 
+  /**
+   * Clicking the route you are already on is a no-op for the router, so the
+   * page just sits there and the link reads as broken — which is exactly what
+   * "Home" does when you are halfway down the front page. Take it to the top
+   * instead — and glide, because this is the one scroll on the site that is a
+   * gesture rather than a navigation. It asks for that here rather than in CSS
+   * so it cannot leak into the router's own scrolling, and so the motion
+   * preference is actually honoured.
+   */
+  const handleNav = (href: string) => (event: React.MouseEvent) => {
+    setIsOpen(false);
+    if (pathname !== href) return;
+    event.preventDefault();
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-rule bg-paper">
+      {/* How far through the document you are — see .scroll-instrument. */}
+      <span aria-hidden="true" className="scroll-instrument" />
       <Container size="wide">
         <nav aria-label="Main navigation" className="flex h-14 items-center justify-between">
           <Link
             href="/"
+            onClick={handleNav("/")}
             className="flex items-center gap-2.5 font-sans text-base font-bold leading-none text-ink"
           >
             {/* The mark, inverted. Painted as a mask in currentColor rather
@@ -86,11 +106,14 @@ export function Navbar() {
             {SITE_NAME}
           </Link>
 
-          <div className="hidden items-center gap-6 md:flex">
+          {/* lg, not md: at 768 the four links, the toggle and the button ran
+              straight into the nameplate with no gap left between them. */}
+          <div className="hidden items-center gap-6 lg:flex">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={handleNav(link.href)}
                 className={cn(
                   "font-sans text-sm font-bold transition-colors",
                   isActive(link.href)
@@ -109,7 +132,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="cursor-pointer font-sans text-sm font-bold text-ink md:hidden"
+            className="cursor-pointer font-sans text-sm font-bold text-ink lg:hidden"
             aria-expanded={isOpen}
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -119,14 +142,14 @@ export function Navbar() {
       </Container>
 
       {isOpen && (
-        <div className="border-t border-rule bg-paper md:hidden">
+        <div className="border-t border-rule bg-paper lg:hidden">
           <Container size="wide">
             <div className="flex flex-col gap-1 py-3">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleNav(link.href)}
                   className={cn(
                     "py-2 font-sans text-sm font-bold",
                     isActive(link.href) ? "text-accent" : "text-ink-soft"

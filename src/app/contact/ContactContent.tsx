@@ -79,7 +79,7 @@ export function ContactContent() {
     <section className="pb-16 pt-28 md:pt-32">
       <Container size="wide">
         <Kicker className="mb-4">Contact</Kicker>
-        <h1 className="max-w-[18ch] font-serif text-[clamp(2.4rem,5vw,4rem)] font-medium leading-[1.05] text-ink">
+        <h1 className="max-w-[18ch] font-sans text-[clamp(2.4rem,5vw,4rem)] font-bold leading-[1.04] tracking-[-0.02em] text-ink">
           Tell us what&apos;s slow.
         </h1>
         <p className="mt-5 max-w-[52ch] font-serif text-lg leading-relaxed text-ink-soft md:text-xl">

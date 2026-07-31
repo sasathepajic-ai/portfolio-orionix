@@ -14,7 +14,7 @@ const NEXT_STEPS = [
  */
 export function CTASection() {
   return (
-    <section className="bg-paper-shade py-16 md:py-24">
+    <section className="grain bg-paper-shade py-16 md:py-24">
       <Container size="wide">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[7fr_5fr] lg:gap-16">
           <div>
